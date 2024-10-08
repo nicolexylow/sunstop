@@ -4,6 +4,7 @@ import SignUp from './components/SignUp';
 import Dispense from './components/Dispense';
 import Verify from './components/Verify';
 import ConfirmVerify from './components/ConfirmVerify';
+import ThankYou from './components/ThankYou';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/verify" element={<Verify />} /> 
         <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
         <Route path="/dispense" element={<Dispense />} /> 
+        <Route path="/thank_you" element={<ThankYou />} /> 
       </Routes>
     </Router>
   );
