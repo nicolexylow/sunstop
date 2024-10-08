@@ -1,4 +1,4 @@
-import styles from '../css/ScreenSaver.module.scss';
+import styles from '../scss/modules/ScreenSaver.module.scss';
 
 function ScreenSaver() {
     return (
