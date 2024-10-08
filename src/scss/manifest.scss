@@ -1,0 +1,19 @@
+// Base 
+@import "base/reset.scss";
+
+    // Aesthetic
+    @import "base/buttons.scss";
+    @import "base/colour.scss";
+    @import "base/typography.scss";
+    @import "base/animations.scss";
+
+// Layout 
+@import "layouts/body.scss";
+
+// Modules
+@import "modules/header.scss";
+@import "modules/nav.scss";
+@import "modules/main.scss"; 
+
+// Media queries
+@import "base/queries.scss";
