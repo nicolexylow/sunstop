@@ -1,0 +1,30 @@
+.center-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.complete-icon {
+    font-size: 3em;
+    margin-right: 10px;
+}
+
+.heading-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.button-container {
+    display: block;
+    text-align: right;
+}
+
+.form {
+    text-align: center;
+}
+
+
+
