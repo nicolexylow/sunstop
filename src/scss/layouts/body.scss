@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+#root {
+    height: 100%
+}
+
+// Header/main grid wrapping the body
+#wrapper {
+    display: flex; 
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+}
+
+header {
+    //grid-area: head;
+}
+
+main {
+    //grid-area: main;
+    padding: 0 5%;
+}
