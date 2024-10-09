@@ -2,14 +2,18 @@
 main {
     display: flex;
     flex-direction: row;
-    gap: 100px;
+    justify-content: space-between;
+    margin-right: 50px;
 
+    // Persistent header that dispalys 'welcome', points'
     #main-head {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
+
+    // Hold cards in carousel
     #main-cards {
         flex-grow: 1;
 
@@ -19,17 +23,68 @@ main {
     }
 }
 
-// Clothing-on-body cards carousel, cards
-#main-figure {
-    padding: 20px 10px;
+// Column w/ body figure
+#main-left-figure {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    width: 480px;
+    height: 600px;
+
+    background-color: rgb(243, 243, 243);
+
+    #figure-img {
+        width: 300px;
+        height: 560px;
+        background-color: lightgray;
+    }
+
+    #figure-labels-list {
+        padding-top: 40px;
+
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
+        //justify-content: space-evenly;
+        gap: 80px;
+        height: 100%;
 
-        width: 400px;
-        height: 600px;
-        padding: 20px;
+        .label {
+            width: 100px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
 
-        background-color: lightgray;
+            * {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+// Column w/ text, hand figure, button
+#main-right {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+
+    }
+    h2 {
+
+    }
+
+    #dispense-area {
+        font-size: 100px;
+    }
+
+    #btn-skip {
+        width: 100%;
+    }
 }

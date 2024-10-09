@@ -18,7 +18,7 @@ function Dispense() {
                     <p>0 points</p>
                 </div>
                 {/* H1, sub */}
-                <div>
+                <div id={styles['main-title']}>
                 <h1>How much sunscreen is needed?</h1>
                 <h2>Select what you are wearing</h2>
                 </div>
