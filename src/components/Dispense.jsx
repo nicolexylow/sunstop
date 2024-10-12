@@ -1,6 +1,7 @@
 import styles from '../scss/modules/Dispense.module.scss';
 
 function Dispense() {
+    
     return (
         <>
         {/* Wrap content */}
@@ -11,7 +12,7 @@ function Dispense() {
                 <button className="btn-logout">Log out</button>
             </header>
 
-            <main>
+            <div id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
                     <h3>Welcome Chris</h3>
@@ -38,7 +39,7 @@ function Dispense() {
                     </div>
                 </div>
                 {/* Ben put your code here */}
-            </main>
+            </div>
         </div>
         </>
     );

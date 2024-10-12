@@ -11,7 +11,7 @@ function DispenseActive() {
                 <button class="btn-logout">Log out</button>
             </header>
 
-            <main>
+            <div id={styles['main']}>
                 {/* Left col: Body diagram, labels  */}
                 <div id={styles['main-left-figure']}>
                     <div id={styles['figure-img']}></div>
@@ -30,7 +30,7 @@ function DispenseActive() {
                     <button class="btn-scnd" id={styles['btn-skip']}>Skip</button>
                 </div>
                 {/* Ben put your code here */}
-            </main>
+            </div>
         </div>
         </>
     );
