@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<ScreenSaver />} /> {/* Home page */}
         <Route path="/sign-up" element={<SignUp />} /> {/* Home page */}
         <Route path="/dispense" element={<Dispense />} /> {/* Home page */}
-        <Route path="/dispenseactive" element={<DispenseActive />} /> {/* Home page */}
+        <Route path="/dispense-active" element={<DispenseActive />} /> {/* Home page */}
       </Routes>
     </Router>
   );

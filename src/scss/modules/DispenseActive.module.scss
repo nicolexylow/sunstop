@@ -43,12 +43,10 @@
     }
 
     #figure-labels-list {
-        padding-top: 40px;
 
         display: flex;
         flex-direction: column;
-        //justify-content: space-evenly;
-        gap: 80px;
+        justify-content: space-evenly;
         height: 100%;
 
         .label {
