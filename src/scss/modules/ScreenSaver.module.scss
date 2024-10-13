@@ -19,7 +19,12 @@
     flex-direction: row;
     align-items: center;
     gap: 21%;
-    margin-top: 8%;
+    margin-top: 150px;
+}
+
+.visuals {
+    display: flex;
+    flex-direction: row;
 }
 
 .h1 {
@@ -34,10 +39,15 @@
 }
 
 .tap-icon {
-    display: block;
     text-align: right;
     font-size: 8em;
     transform: rotate(-30deg);
     position: relative;
-    top: 100px;
+    align-self: flex-end;
+}
+
+.heading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
