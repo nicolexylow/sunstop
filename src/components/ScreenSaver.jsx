@@ -1,6 +1,8 @@
 import styles from '../scss/modules/ScreenSaver.module.scss';
 
 function ScreenSaver() {
+    
+
     return (
         <>
         <div className={styles['top-section']}>

@@ -4,13 +4,16 @@ import { useNavigate } from 'react-router-dom';
 function Dispense() {
     // Navigation here
     const navigate = useNavigate();
+        // Next page
         const handleTap = (outfitPush) => {
             navigate('/dispense-active', { state: { outfitPush } });
         }
+        // Back btn
         // We need another page to go back to. Maybe dashboard page?
         const handleBkTap = () => {
             navigate('/dispense');
         }
+        // Log out btn
         const handleLogOutTap = () => {
             navigate('/')
         };
@@ -18,25 +21,20 @@ function Dispense() {
     // Outfit templates
     const outfitBeach = {
         img: 'beach',
-        body: ['Face', 'Chest', 'Arms', 'Hands', 'Legs', 'Feet']
+        body: ['Head', 'Chest', 'Arms', 'Hands', 'Legs', 'Feet']
     };
     const outfitOffice = {
         img: 'office',
-        body: ['Face', 'Arms', 'Hands']
+        body: ['Head', 'Arms', 'Hands']
     };
     const outfitCasual = {
         img: 'casual',
-        body: ['Face', 'Arms', 'Hands', 'Legs']
+        body: ['Head', 'Arms', 'Hands', 'Legs']
     };
     const outfitCasuall = {
         img: 'casuall',
-        body: ['Face', 'Arms', 'Hands' ]
+        body: ['Head', 'Arms', 'Hands' ]
     };
-        // Push to dispensing page
-        //const outfitPush = {
-        //    img: 'beach',
-        //    body: ['Face', 'Chest', 'Arms', 'Hands', 'Legs', 'Feet']
-        //};
     
     return (
         <>
@@ -50,7 +48,7 @@ function Dispense() {
                 <button className="btn-logout" onClick={handleLogOutTap}>Log out</button>
             </header>
             
-            <div id={styles['main']}>
+            <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
                     <h3>Welcome Chris</h3>
@@ -61,7 +59,8 @@ function Dispense() {
                 <h1>How much sunscreen is needed?</h1>
                 <h2>Select what you are wearing</h2>
                 </div>
-                {/* Cards carousel:  */}
+                {/* Cards carousel: each card contains a handle for sending user to dispenseActive
+                along with template objects which specify how to render the body figure */}
                 <div id={styles['main-cards']}>
                     <div className={styles["card-body"]} onClick={() => handleTap(outfitBeach)}>
                         <h2>Beach</h2>
@@ -77,7 +76,7 @@ function Dispense() {
                     </div>
                 </div>
                 {/* Ben put your code here */}
-            </div>
+            </main>
         </div>
         </>
     );
