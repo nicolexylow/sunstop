@@ -1,9 +1,11 @@
-import './App.css'
+import './scss/manifest.scss'
 import ScreenSaver from './components/ScreenSaver'
 import SignUp from './components/SignUp';
 import Dispense from './components/Dispense';
   import DispenseActive from './components/DispenseActive';
+  import DispensePoints from './components/DispensePoints';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./ReactotronConfig"
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} /> {/* Home page */}
         <Route path="/dispense" element={<Dispense />} /> {/* Home page */}
         <Route path="/dispense-active" element={<DispenseActive />} /> {/* Home page */}
+        <Route path="/dispense-points" element={<DispensePoints />} /> {/* Home page */}
       </Routes>
     </Router>
   );
