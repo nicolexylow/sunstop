@@ -40,15 +40,6 @@ function ScreenSaver() {
             }
         };
         fetchData();
-
-        // Changes the hour to get the correct uv index
-        const interval = setInterval(() => {
-            const newHour = new Date().getHours();
-            setCurrentHour(newHour);
-        }, 60 * 1000); 
-
-        // Clear interval on component unmount
-        return () => clearInterval(interval);
     }, []);
 
    const getWarningTime = () => {

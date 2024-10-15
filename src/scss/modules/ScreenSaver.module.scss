@@ -1,5 +1,5 @@
 .main-wrapper {
-    background-color: #FFD692;
+    background-color: var(--colour-background);
 }
 
 .about {
@@ -61,7 +61,7 @@
 
 .colour {
     font-weight: bold;
-    color: #F47722;
+    color: var(--colour-sunstop);
 }
 
 .small {
