@@ -7,6 +7,7 @@ import ConfirmVerify from './components/ConfirmVerify';
   import DispenseActive from './components/DispenseActive';
   import DispensePoints from './components/DispensePoints';
 import ThankYou from './components/ThankYou';
+import About from './components/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./ReactotronConfig"
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
         <Route path="/dispense" element={<Dispense />} /> 
         <Route path="/thank_you" element={<ThankYou />} /> 
+        <Route path="/about" element={<About />} /> 
       </Routes>
     </Router>
   );

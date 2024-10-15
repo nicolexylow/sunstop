@@ -1,7 +1,21 @@
+.main-wrapper {
+    background-color: #FFD692;
+}
+
+.about {
+    font-size: 25px;
+}
+
+.about:hover {
+    cursor: pointer;
+}
+
 .top-section {
     font-size: 3em;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
 
     .p {
         margin-top: 0;
@@ -10,10 +24,13 @@
 
 .content-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 21%;
-    margin-top: 150px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 20px;
 
     .weather-icon {
         font-size: 400px;
@@ -21,27 +38,73 @@
     }
 }
 
+.words-container {
+    text-align: center;
+}
+
 .visuals {
     display: flex;
     flex-direction: row;
+    margin-top: 30px;
+    justify-content: space-between;
+    width: 100%;
+    gap: 50px;
 }
 
 .h1 {
-    font-size: 5em;
+    font-size: 70px;
     margin-top: 0;
+    font-weight: 300;
+    width: 400px;
+
+}
+
+.colour {
+    font-weight: bold;
+    color: #F47722;
 }
 
 .small {
-    display: block;
-    font-weight: 300;
-    font-size: 0.7em;
+    font-size: 40px;
+    color: var(--colour-secondary);
 }
 
 .tap-icon {
     display: block;
     text-align: right;
-    font-size: 8em;
+    font-size: 50px;
     transform: rotate(-30deg);
     position: relative;
-    top: 100px;
+    align-self: flex-end;
+    color: var(--colour-secondary);
+}
+
+.heading-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.current-date {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.uv-warning {
+    background-color: #FFD1D1;
+    color: #7D1B1B;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.sign-up-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.logo {
+    width: 200px;
 }
