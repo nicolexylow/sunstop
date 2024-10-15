@@ -10,6 +10,7 @@ import logo from '../assets/SunStop_logo.png';
 
 function ScreenSaver() {
 
+    const [currentHour, setCurrentHour] = useState(new Date().getHours()); // Get initial hour
     const [uvIndexData, setUvIndexData] = useState([]);
     const [uvTimes, setUvTimes] = useState([]);
     const date = format(new Date(), "EEEE, do MMMM");
@@ -39,6 +40,15 @@ function ScreenSaver() {
             }
         };
         fetchData();
+
+        // Changes the hour to get the correct uv index
+        const interval = setInterval(() => {
+            const newHour = new Date().getHours();
+            setCurrentHour(newHour);
+        }, 60 * 1000); 
+
+        // Clear interval on component unmount
+        return () => clearInterval(interval);
     }, []);
 
    const getWarningTime = () => {
@@ -48,7 +58,7 @@ function ScreenSaver() {
                 //format time
                 const hour = i % 12 || 12;
                 const suffix = i >= 12 ? 'PM' : 'AM';
-                times.push(`${hour} ${suffix}`);
+                times.push(`${hour}${suffix}`);
             }
         }
         setUvTimes(times);
