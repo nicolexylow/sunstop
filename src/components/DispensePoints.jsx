@@ -14,7 +14,7 @@ import { RollingNumber } from '@layflags/rolling-number';
 const userPoints = 320;
 const userPointsMax = 1000;
 // How many points has user gained?
-const userPointsGained = 10;
+const userPointsGained = 200;
 // New points total
 let userPointsNew = 0;
 
@@ -23,6 +23,11 @@ const lineWidthHTML = 1000;
 // Tracker line widthS
 let trackLineWidth = userPoints;
 
+/* 
+###########
+## Props ##
+###########
+*/
 
 function renderScoreHead() {   
     userPointsNew = userPoints + userPointsGained;
@@ -124,6 +129,12 @@ function renderUserPointsLine() {
         </>
     )
 }
+
+/* 
+###############
+## Component ##
+###############
+*/
 
 function DispensePoints() {
     //const test = RollingNumber();
