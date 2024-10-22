@@ -1,6 +1,7 @@
-import styles from '../scss/modules/DispensePoints.module.scss';
+import styles from '../scss/modules/Home.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
+import PageTemplate from './PageTemplate';
 
 /* 
 ###############
@@ -46,7 +47,7 @@ function renderScoreHead() {
 }
 
 // Milestone tracker stuff
-function InitTrackerMilestones() {
+function initTrackerMilestones() {
     // How many milestones has user unlocked?
     // This season's milestones
     const milestoneArr = [
@@ -71,16 +72,16 @@ function InitTrackerMilestones() {
         // threshold, and it hasn't already been reached, push the
         // active milestone HTML
         if ( (iPoints / userPointsNew) <= 1 && (iPoints / userPoints) >= 1) {
-            renderedMilestoneArr.push(RenderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active'));
         } 
         // If user reached milestone previously, push previously 
         // redeemed milestone HTML
         else if ( (iPoints / userPoints) <= 1 ) {
-            renderedMilestoneArr.push(RenderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active-past'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active-past'));
         } 
         // Otherwise, push unredeemed milestone HTML
         else {
-            renderedMilestoneArr.push(RenderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'default'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'default'));
         }
     };
 
@@ -90,7 +91,7 @@ function InitTrackerMilestones() {
         </>
     );
 }
-function RenderTrackerMilestone(lineWidthHTML, item, img, state) {
+function renderTrackerMilestone(lineWidthHTML, item, img, state) {
 
     return (
         <>
@@ -158,15 +159,8 @@ function DispensePoints() {
 
     return (
         <>
-        {/* Wrap content */}
-        <div id='wrapper'>
-            {/* Header: Back btn, indexical title, logout */}
-            <header>
-                <button className="btn-back" onClick={handleBkTap}>
-                    <span className={`material-symbols-rounded`}>arrow_back</span>
-                </button>
-            </header>
-            
+        <PageTemplate>
+            {/* Wrap content */}
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
@@ -182,7 +176,7 @@ function DispensePoints() {
                     {/* Our milestones sit here */}
                     <div id={styles['tracker-milestones-container']}>
                         {/* Insert row of milestones */}
-                        {InitTrackerMilestones()}
+                        {initTrackerMilestones()}
                     </div>
                     <div id={styles['tracker-baseline-container']}>
                         {/* Baseline base */}
@@ -214,7 +208,7 @@ function DispensePoints() {
                     <p>Log out</p></button>
                 </div>
             </main>
-        </div>
+        </PageTemplate>
         </>
     );
 }

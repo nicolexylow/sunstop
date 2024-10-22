@@ -7,7 +7,7 @@ import Home from './components/Home';
 // Dispense pages
 import Dispense0 from './components/Dispense0';
 import Dispense1Active from './components/Dispense1Active';
-import Dispense2Done from './components/Dispense2Done';
+//import Dispense2Done from './components/Dispense2Done';
 import Dispense3LilMore from './components/Dispense3LilMore';
 import ThankYou from './components/ThankYou';
 import About from './components/About';
@@ -28,7 +28,8 @@ function App() {
           {/* Dispense flow */}
           <Route path="/dispense0" element={<Dispense0 />} /> 
           <Route path="/dispense1-active" element={<Dispense1Active />} /> 
-          <Route path="/dispense2-done" element={<Dispense2Done />} /> 
+          {/* Replaced by home page
+          <Route path="/dispense2-done" element={<Dispense2Done />} /> */}
           <Route path="/dispense3-lilmore" element={<Dispense3LilMore />} /> 
         <Route path="/thank_you" element={<ThankYou />} /> 
         <Route path="/about" element={<About />} /> 

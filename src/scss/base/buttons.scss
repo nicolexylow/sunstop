@@ -24,14 +24,20 @@ button {
 
     background: none;
     border: none;
+
+    color: var(--colour-secondary);
     // Icon
     span {
         font-size: 35px;
+        font-weight: 600;
+        color: var(--colour-secondary);
     }
-    // Text
+    // Text, margin to centre
     p {
         margin-bottom: 5px;
+        
         font-size: 35px;
+        font-weight: 500;
     }
 }
 
