@@ -1,13 +1,16 @@
-.center-container {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+.heading {
+    margin-bottom: 20px;
+    font-size: var(--font-size-heading);
+    font-weight: var(--font-weight-heading);
+    color: var(--colour-primary);
+}
+
+.text {
+    font-size: var(--font-size-text);
 }
 
 .content-container {
-    width: 35%;
+    width: 550px;
 }
 
 .button-container {
@@ -16,5 +19,5 @@
 }
 
 .button {
-    margin-left: 10px;
+    background-color: var(--colour-background);
 }
