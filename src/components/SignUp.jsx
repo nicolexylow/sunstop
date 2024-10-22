@@ -26,11 +26,14 @@ function SignUp() {
                 
                 <div className={styles['center-container']}>
                     <div className={styles['content-container']}>
-                        <h1 className={styles['heading']}>Sign Up</h1>
-                        <form onSubmit={handleSubmit}>
-                            <label for="details">Free Sunscreen and Rewards</label><br />
+                        <form className={styles['form']} onSubmit={handleSubmit}>
+                            <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
+                            <br />
                             <input type="text" placeholder='Email or Phone' className={styles['input-field']}/><br />
-                            <input type="submit" value="Continue" />
+
+                            <div className={styles['submit-button-container']}>
+                                <input type="submit" value="Continue" />
+                            </div>
                         </form>
                     </div>
                 </div>
