@@ -38,7 +38,6 @@ function renderScoreHead() {
                 <layflags-rolling-number className={styles['points-total-dial']}>
                     {userPointsNew}
                 </layflags-rolling-number>
-                <p> pts</p>
             </div>
             <h1 class={styles['points-gained']}>+{userPointsGained}</h1>
         </>
@@ -165,12 +164,14 @@ function DispensePoints() {
                 <button className="btn-back" onClick={handleBkTap}>
                     <span className={`material-symbols-rounded`}>arrow_back</span>
                 </button>
+                <button className="btn-logout" onClick={handleLogOutTap}>Log out</button>
             </header>
             
             <main id={styles['main']}>
-                {/* Main head: User logon message, points */}
+                {/* Main head: Points counter */}
                 <div id={styles['main-head']}>
-                    <h3>Welcome Chris</h3>
+                    <h3>Your score is now</h3>
+
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}
@@ -193,26 +194,7 @@ function DispensePoints() {
                         {renderUserPointsLine()}
                     </div>
                 </div>
-                {/* Reward/dispense buttons */}
-                <div id={styles['twin-buttons-container']}>
-                    <button className='btn-xl' id={styles['btn-rewards']}>
-                        <div className={styles['btn-lead']}>
-                            <img></img>
-                        </div>
-                        <p>Redeem <br></br>rewards</p>
-                    </button>
-                    <button className='btn-xl' id={styles['btn-dispense']}>
-                        <div className={styles['btn-lead']}>
-                            <img></img>
-                        </div>
-                        <p>Dispense<br></br>sunscreen</p>
-                    </button>
-                </div>
-                <div id={styles['footer']}>
-                    <button id={styles['btn-logout-footer']} className="btn-logout" onClick={handleLogOutTap}>
-                    <span className={`material-symbols-rounded`}>logout</span>
-                    <p>Log out</p></button>
-                </div>
+                {/* Ben put your code here */}
             </main>
         </div>
         </>
