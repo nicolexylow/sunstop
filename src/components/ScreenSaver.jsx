@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AreaChart from './AreaChart';
 import { format } from 'date-fns';
-import logo from '../assets/SunStop_logo.png';
+import PageTemplate from './PageTemplate';
 
 
 function ScreenSaver() {
@@ -23,7 +23,7 @@ function ScreenSaver() {
                 'https://api.open-meteo.com/v1/forecast',
                 {
                     params: {
-                    latitude: 33.8924,
+                    latitude: -33.8924,
                     longitude: 151.1917,
                     hourly: ['uv_index', 'temperature_2m'],
                     timezone: 'Australia/Sydney',
@@ -33,7 +33,6 @@ function ScreenSaver() {
                 );
                 
                 setUvIndexData(response.data.hourly.uv_index); 
-                getWarningTime();
     
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -41,6 +40,12 @@ function ScreenSaver() {
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if (uvIndexData.length > 0) {
+            getWarningTime(); 
+        }
+    }, [uvIndexData]);
 
    const getWarningTime = () => {
         let times = []
@@ -64,14 +69,10 @@ function ScreenSaver() {
         navigate('/about');
     }
 
+
     return (
         <>
-        <div className={`main-container ${styles['main-wrapper']}`}>
-            <div className={styles['top-section']}>
-                <img src={logo} alt="SunStop Logo" className={styles['logo']} />
-                <a className={styles['about']} onClick={handleAnchorTag}>About ⓘ</a>
-            </div>
-
+        <PageTemplate>
             <div onClick={handleTap} className={styles['content-container']}>
                 <div className={styles['words-container']}>
                     <h1>Darlington</h1>
@@ -82,12 +83,11 @@ function ScreenSaver() {
                             ⚠ Sun protection is required from {`${uvTimes[0]} - ${uvTimes[uvTimes.length - 1]}`}
                         </p>)
                     }
-                    
                 </div>
                 <div className={styles['visuals']}>
                     <AreaChart data={uvIndexData}/>
                     <div className={styles['heading-section']}>
-                        <h1 className={styles['h1']}>tap for<span className={styles['colour']}> free sunscreen </span> </h1>
+                        <h1 className={styles['h1']}>tap for<span className={styles['colour']}> free sunscreen </span></h1>
                         <div className={styles['sign-up-container']}>
                             <p className={styles['small']}>free sign up!</p>
                             <span className={`material-symbols-rounded ${styles['tap-icon']}`}>touch_app</span>
@@ -95,7 +95,7 @@ function ScreenSaver() {
                     </div>
                 </div>
             </div>
-        </div>
+        </PageTemplate>
         </>
     );
 }

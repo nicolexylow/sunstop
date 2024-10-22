@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-
 import logo from '../assets/SunStop_logo.png';
 
-function PageTemplate(props) {
+const PageTemplate = ({ children }) => {
 
     const navigate = useNavigate();
     const handleClickAbout = () => {
@@ -17,7 +16,7 @@ function PageTemplate(props) {
                 <a className='about' onClick={handleClickAbout}>About ⓘ</a>
             </div>
             <div className="main-content">
-                {/* put prop code in here */}
+                {children}
             </div>
         </div>
         </>

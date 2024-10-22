@@ -3,11 +3,11 @@
 }
 
 .center-container {
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
+    height: 100%;
 }
 
 .input-field {

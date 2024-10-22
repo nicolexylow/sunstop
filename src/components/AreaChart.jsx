@@ -162,7 +162,7 @@ function AreaChart({ data: uvData }) {
 
     return (
         <div className={styles['area-chart-container']}>
-            <Line data={data} options={options} width={800} height={700} />
+            <Line data={data} options={options} width={600} height={480} />
         </div>
     );
 }
