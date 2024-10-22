@@ -10,9 +10,9 @@ import ThankYou from './components/ThankYou';
 import About from './components/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./ReactotronConfig"
+import PageTemplate from './components/PageTemplate';
 
 function App() {
-
 
   return (
     <Router>
@@ -24,6 +24,7 @@ function App() {
         <Route path="/dispense" element={<Dispense />} /> 
         <Route path="/thank_you" element={<ThankYou />} /> 
         <Route path="/about" element={<About />} /> 
+        <Route path="/page-template" element={<PageTemplate />} />  
       </Routes>
     </Router>
   );

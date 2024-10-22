@@ -112,10 +112,10 @@ function AreaChart({ data: uvData }) {
                         content: `${currentUVIndex}`, // Display the number above the circle
                         color: sunstopColour,
                         font: {
-                            size: 50,
+                            size: 40,
                             weight: 'bold',
                         },
-                        yAdjust: -40, // Position label slightly above the highlighted point
+                        yAdjust: 40, // Position label slightly above the highlighted point
                     },
                 },
             },

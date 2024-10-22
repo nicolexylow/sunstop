@@ -1,0 +1,30 @@
+.page-template-main-container {
+    background-color: var(--colour-background);
+    height: 100vh;
+    width: 100vw;
+    padding: 30px;
+
+    .top-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .main-content {
+        background-color: white;
+        height: 695px;
+        border-radius: 15px;
+        box-sizing: border-box; 
+        overflow: hidden;
+    }
+
+    .logo {
+        width: 200px;
+    }
+
+    .about {
+        font-size: 25px;
+    }
+}
