@@ -1,5 +1,6 @@
 import styles from '../scss/modules/DispenseActive.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
+import PageTemplate from './PageTemplate';
 
 // Wizard of Oz control over sunscreen application stage
 import Reactotron from "reactotron-react-js"
@@ -76,7 +77,7 @@ function DispenseActive() {
         // If we allow the user to go back all the time, they can dispense infinite sunscreen
         // and exploit our free sunscreen functions.
         const handleBkTap = () => {
-            navigate('/dispense')
+            navigate('/dispense0')
         };
         // Log out btn
         const handleLogOutTap = () => {
@@ -85,16 +86,8 @@ function DispenseActive() {
     
     return (
         <>
-        {/* Wrap content */}
-        <div id='wrapper'>
-            {/* Header: Back btn, indexical title, logout */}
-            <header>
-                <button className="btn-back" onClick={handleBkTap}>
-                    <span className={`material-symbols-rounded`}>arrow_back</span>
-                </button>
-                <button className="btn-logout" onClick={handleLogOutTap}>Log out</button>
-            </header>
-
+        <PageTemplate>
+            {/* Wrap content */}
             <main id={styles['main']}>
                 {/* Left col: Body diagram, labels */}
                 <InitFigure outfit={outfitPull}/>
@@ -109,7 +102,7 @@ function DispenseActive() {
                 </div>
                 {/* Ben put your code here */}
             </main>
-        </div>
+        </PageTemplate>
         </>
     );
 };

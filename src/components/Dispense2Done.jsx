@@ -1,12 +1,16 @@
 import styles from '../scss/modules/DispensePoints.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
+import PageTemplate from './PageTemplate';
 
 /* 
 ###############
 ## Variables ##
 ###############
 */
+
+/* USER HANDLING */
+const userNamePrint = 'Chris';
 
 /* USER POINTS */
 // There are four milestones, reached at each multiple of 200 up to
@@ -157,46 +161,38 @@ function DispensePoints() {
 
     return (
         <>
+        <PageTemplate>
         {/* Wrap content */}
-        <div id='wrapper'>
-            {/* Header: Back btn, indexical title, logout */}
-            <header>
-                <button className="btn-back" onClick={handleBkTap}>
-                    <span className={`material-symbols-rounded`}>arrow_back</span>
-                </button>
-                <button className="btn-logout" onClick={handleLogOutTap}>Log out</button>
-            </header>
+        <main id={styles['main']}>
+            {/* Main head: Points counter */}
+            <div id={styles['main-head']}>
+                <h3>Welcome {userNamePrint}</h3>
+
+                {/* Points total and rolling text dial to signify new points */}
+                <div id={styles['points-container']}>
+                    {renderScoreHead()}
+                </div>
+            </div>
             
-            <main id={styles['main']}>
-                {/* Main head: Points counter */}
-                <div id={styles['main-head']}>
-                    <h3>Your score is now</h3>
-
-                    {/* Points total and rolling text dial to signify new points */}
-                    <div id={styles['points-container']}>
-                        {renderScoreHead()}
-                    </div>
+            {/* Points tracking progress counter */}
+            <div id={styles['tracker-container']}>
+                {/* Our milestones sit here */}
+                <div id={styles['tracker-milestones-container']}>
+                    {/* Insert row of milestones */}
+                    {InitTrackerMilestones()}
                 </div>
-                
-                {/* Points tracking progress counter */}
-                <div id={styles['tracker-container']}>
-                    {/* Our milestones sit here */}
-                    <div id={styles['tracker-milestones-container']}>
-                        {/* Insert row of milestones */}
-                        {InitTrackerMilestones()}
-                    </div>
-                    <div id={styles['tracker-baseline-container']}>
-                        {/* Baseline base */}
-                        <div id={styles['tracker-baseline']}>
+                <div id={styles['tracker-baseline-container']}>
+                    {/* Baseline base */}
+                    <div id={styles['tracker-baseline']}>
 
-                        </div>
-                        {/* Baseline active */}
-                        {renderUserPointsLine()}
                     </div>
+                    {/* Baseline active */}
+                    {renderUserPointsLine()}
                 </div>
-                {/* Ben put your code here */}
-            </main>
-        </div>
+            </div>
+            {/* Ben put your code here */}
+        </main>
+        </PageTemplate>
         </>
     );
 }

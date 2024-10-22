@@ -1,12 +1,13 @@
 import styles from '../scss/modules/Dispense.module.scss';
 import { useNavigate } from 'react-router-dom';
+import PageTemplate from './PageTemplate';
 
 function Dispense() {
     // Navigation here
     const navigate = useNavigate();
         // Next page
         const handleTap = (outfitPush) => {
-            navigate('/dispense-active', { state: { outfitPush } });
+            navigate('/dispense1-active', { state: { outfitPush } });
         }
         // Back btn
         // We need another page to go back to. Maybe dashboard page?
@@ -15,7 +16,7 @@ function Dispense() {
         }
         // Log out btn
         const handleLogOutTap = () => {
-            navigate('/')
+            navigate('/');
         };
 
     // Outfit templates
@@ -38,16 +39,8 @@ function Dispense() {
     
     return (
         <>
-        {/* Wrap content */}
-        <div id='wrapper'>
-            {/* Header: Back btn, indexical title, logout */}
-            <header>
-                <button className="btn-back" onClick={handleBkTap}>
-                    <span className={`material-symbols-rounded`}>arrow_back</span>
-                </button>
-                <button className="btn-logout" onClick={handleLogOutTap}>Log out</button>
-            </header>
-            
+        <PageTemplate>
+            {/* Wrap content */}
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
@@ -77,7 +70,7 @@ function Dispense() {
                 </div>
                 {/* Ben put your code here */}
             </main>
-        </div>
+        </PageTemplate>
         </>
     );
 }
