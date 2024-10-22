@@ -1,4 +1,10 @@
 .main-container {
+    height: 100%;
     padding: 20px 40px;
-    height: 100vh;
+}
+
+.button-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
