@@ -4,9 +4,41 @@ button {
     justify-content: center;
     align-items: center;
     gap: 10px;
-
-    border: 1px solid grey;
+    border: none;
+    background-color: none;
+    all: unset;
+    cursor: pointer;
+    font-size: 25px;
 }
+
+.button-nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 100px;
+
+    .back-cancel-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .back-cancel-button-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.next-button {
+    font-size: 25px;
+    background-color: var(--colour-background);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+
+
 
 .btn-back {
     width: 40px;
