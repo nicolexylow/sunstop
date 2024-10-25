@@ -11,10 +11,10 @@ const PageTemplate = ({ children }) => {
     return (
         <>
         <div className='page-template-main-container'>
-            <div className="top-section">
+            <header>
                 <img src={logo} alt="SunStop Logo" className='logo' />
                 <a className='about' onClick={handleClickAbout}>About ⓘ</a>
-            </div>
+            </header>
             <div className="main-content">
                 {children}
             </div>

@@ -2,8 +2,8 @@
 @import "base/reset.scss";
 
     // Aesthetic
-    @import "base/buttons.scss";
     @import "base/colour.scss";
+    @import "base/buttons.scss";
     @import "base/text.scss";
     @import "base/typography.scss";
     @import "base/animations.scss";
@@ -11,7 +11,6 @@
 // Layout 
 @import "layouts/body.scss";
 @import "layouts/page-template.scss";
-@import "layouts/header.scss";
 
 // Media queries
 @import "base/queries.scss";

@@ -30,7 +30,7 @@ function AreaChart({ data: uvData }) {
     // Get root CSS variables for colors
     const rootColours = getComputedStyle(document.documentElement);
     const sunstopColour = rootColours.getPropertyValue('--colour-sunstop').trim();
-    const backgroundColour = rootColours.getPropertyValue('--colour-background').trim();
+    const backgroundColour = rootColours.getPropertyValue('--colour-template').trim();
     const secondaryColour = rootColours.getPropertyValue('--colour-secondary').trim();
 
     // Update current hour every minute

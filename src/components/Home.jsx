@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
 import PageTemplate from './PageTemplate';
 
+// Imgs
+import imgBtnReward from '../assets/btn-reward.png';
+import imgBtnSunscreen from '../assets/sunscreen.png';
+
 /* 
 ###############
 ## Variables ##
@@ -87,7 +91,7 @@ function initTrackerMilestones() {
 
     return ( 
         <>
-            {renderedMilestoneArr}; 
+            {renderedMilestoneArr}
         </>
     );
 }
@@ -191,13 +195,13 @@ function DispensePoints() {
                 <div id={styles['twin-buttons-container']}>
                     <button className='btn-xl' id={styles['btn-rewards']}>
                         <div className={styles['btn-lead']}>
-                            <img></img>
+                            <img src={imgBtnReward}></img>
                         </div>
                         <p>Redeem <br></br>rewards</p>
                     </button>
                     <button className='btn-xl' id={styles['btn-dispense']}>
                         <div className={styles['btn-lead']}>
-                            <img></img>
+                            <img src={imgBtnSunscreen}></img>
                         </div>
                         <p>Dispense<br></br>sunscreen</p>
                     </button>

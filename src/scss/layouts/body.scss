@@ -1,15 +1,10 @@
 body {
     margin: 0;
-}
-
-#root {
-    height: 100%
+    overflow: hidden;
 }
 
 // Header/main grid wrapping the body
 main {
     display: flex;
     flex-direction: column;
-
-    padding: 40px 40px;
 }

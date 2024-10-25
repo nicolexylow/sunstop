@@ -56,12 +56,12 @@
     isolation: isolate;
   }
 
-  /*
-    (BEN) Remove default button styling
-  */
-  button,
-  button:active,
-  button:focus {
-      padding: 0;
-      outline: none;
-  }
+/*
+  (BEN) Remove default button styling
+*/
+button,
+button:active,
+button:focus {
+    padding: 0;
+    outline: none;
+}

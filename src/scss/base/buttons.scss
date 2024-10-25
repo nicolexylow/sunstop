@@ -6,7 +6,6 @@ button {
     gap: 10px;
     border: none;
     background-color: none;
-    all: unset;
     cursor: pointer;
     font-size: 25px;
 }
@@ -32,7 +31,7 @@ button {
 
 .next-button {
     font-size: 25px;
-    background-color: var(--colour-background);
+    background-color: var(--colour-primary-bg);
     border: none;
     padding: 5px 20px;
     border-radius: 5px;
@@ -57,12 +56,12 @@ button {
     background: none;
     border: none;
 
-    color: var(--colour-secondary);
+    color: var(--colour-secondary-bg);
     // Icon
     span {
         font-size: 35px;
         font-weight: 600;
-        color: var(--colour-secondary);
+        color: var(--colour-secondary-bg);
     }
     // Text, margin to centre
     p {
@@ -79,6 +78,8 @@ button {
     gap: 30px;
 
     font-size: 40px;  
+    background-color: var(--colour-surface2-bg);
+    border-radius: 50px;
     p {
         text-align: left;
     }
