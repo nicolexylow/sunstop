@@ -1,8 +1,19 @@
 import PageTemplate from "./PageTemplate";
-import sunIcon from '../assets/sun-icon.png';
+import sunIcon from '../assets/sun_icon.png';
 import styles from '../scss/modules/DispenseLilMore.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 function Dispense3LilMore() {
+    const navigate = useNavigate();
+
+    const handleMore = () => {
+        navigate('/dispense4_active')
+    }
+
+    const handleFinish = () => {
+        navigate('/home');
+    }
+
     return (
         <>
         <PageTemplate>
@@ -13,8 +24,8 @@ function Dispense3LilMore() {
                 </div>
 
                 <div className={styles['button-container']}>
-                    <button className={`${styles['more-button']} ${styles['button']}`}>I need a little more sunscreen</button>
-                    <button className={`${styles['finish-button']} ${styles['button']}`}>Finish</button>
+                    <button className={`${styles['more-button']} ${styles['button']}`} onClick={handleMore}>I need a little more sunscreen</button>
+                    <button className={`${styles['finish-button']} ${styles['button']}`} onClick={handleFinish}>Finish</button>
                 </div>
                 
             </div>

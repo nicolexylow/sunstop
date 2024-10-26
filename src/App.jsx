@@ -14,6 +14,7 @@ import About from './components/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./ReactotronConfig"
 import PageTemplate from './components/PageTemplate';
+import Dispense4Active from './components/Dispense4Active';
 
 function App() {
 
@@ -30,10 +31,11 @@ function App() {
           <Route path="/dispense1-active" element={<Dispense1Active />} /> 
           {/* Replaced by home page
           <Route path="/dispense2-done" element={<Dispense2Done />} /> */}
-          <Route path="/dispense3-lilmore" element={<Dispense3LilMore />} /> 
+          <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
+          <Route path="/dispense4_active" element={<Dispense4Active />} /> 
         <Route path="/thank_you" element={<ThankYou />} /> 
         <Route path="/about" element={<About />} /> 
-        <Route path="/page-template" element={<PageTemplate />} />  
+        <Route path="/page_template" element={<PageTemplate />} />  
       </Routes>
     </Router>
   );

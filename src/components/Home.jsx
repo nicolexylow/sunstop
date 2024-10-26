@@ -173,6 +173,9 @@ function DispensePoints() {
         const handleLogOutTap = () => {
             navigate('/')
         };
+
+    const signUpList = JSON.parse(localStorage.getItem('signUpList'));
+    const name = signUpList[signUpList.length - 1].name;
         
 
     return (
@@ -182,7 +185,7 @@ function DispensePoints() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
-                    <h3>Welcome Chris</h3>
+                    <h3>Welcome {name}</h3>
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}
