@@ -78,7 +78,9 @@ button {
     gap: 30px;
 
     font-size: 40px;  
-    background-color: var(--colour-surface2-bg);
+    background-color: var(--colour-surfaceB2-bg);
+    color: var(--colour-surfaceB2-txt);
+    font-weight: 500;
     border-radius: 50px;
     p {
         text-align: left;

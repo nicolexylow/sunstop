@@ -1,7 +1,5 @@
 // Define main layout and display options
 #main {
-    //display: flex;
-    //flex-direction: column;
 
     #main-head {
         display:flex;
@@ -13,6 +11,7 @@
 
         h3 {
             font-size: 35px;
+            font-weight: 500;
         }
     }
 }
@@ -38,25 +37,36 @@
             margin-top: 5px;
 
             line-height: 20px;
-            font-weight: 600;
-            font-size: 20px;
+            font-weight: 700;
+            font-size: 26px;
+            color: var(--colour-secondary-txt);
+
+            animation: fadeOut 4s forwards;
         }
+}
+
+@keyframes fadeOut {
+    0% {opacity: 0;}
+    10% {opacity: 1;}
+    55% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
 // Points tracker
 #tracker-container {
     width: 1000px;
-    margin-bottom: 100px;
+    margin-left: 20px;
+    margin-bottom: 80px;
 
     // Points milestone container
     #tracker-milestones-container {
-        width: 80%;
+        height: 175px;
+        width: 90%;
         // Shift baseline down to meet milestone line
-        margin-bottom: -14px;
+        margin-bottom: -10px;
 
         display: flex;
         flex-direction: row;
-
         // Our milestones! With a line, dot to mark progression, icon 
         // above 
         .milestone {
@@ -64,112 +74,143 @@
             flex-direction: column;
             align-items: flex-end;
             gap: 25px;
-                
-            .milestone-icon-container {
-                width: 100px;
-                height: 100px;
-                margin-left: -20px;
 
-                // Move icon outside box, so it sits centrred above the
+            transition: all 1s ease-out;
+            .milestone-icon-container {
+                margin-left: -20px;
+                padding: 20px;
+
+                // Move icon outside box, so it sits centred above the
                 // milestone progression dot
                 position: relative;
-                left: 50px;
+                left: 70px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
         
                 border-radius: 100px;
-                border: 2px solid grey;
+                outline: 2px solid var(--colour-surface1-outline);
 
-                // Temp icon
-                span {
-                    font-size: 65px;
+                // Image
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+                // Check mark
+                span.check {
+                    height: 0;
+
+                    display: none;
+                    position: relative;
+                    bottom: 80px;
+
+                    font-size: 70px;
+                    font-weight: 700;
+                    color: var(--colour-sunstop);
+                    z-index: 2;
                 }
             }
             .milestone-line-container {
                 width: 100%;
-                height: 14px;
+                height: 10px;
 
                 .milestone-line {
                     width: 100%;
-                    height: 14px;
+                    height: 10px;
             
                     opacity: 0;
                 }
                 .milestone-endpoint {
-                    width: 40px;
-                    height: 40px;
+                    width: 26px;
+                    height: 26px;
 
                     position: relative;
                     float: right;
-                    bottom: 14px;
-                    left: 20px;
+                    bottom: 8px;
+                    left: 13px;
 
+                    background-color: var(--colour-surfaceB3-bg);
                     border-radius: 20px;
                 }
+            }
+
+            p.milestone-pointsreq {
+                text-align: center;
+                width: 35px;
+
+                position: relative;
+                bottom: 10px;
+                left: 15px;
+
+                font-size: 19px;
+                font-weight: 600;
+                color: var(--colour-secondary-txt);
+                letter-spacing: 0.325px;
             }
         }
         // DEFAULT STATE - lighter inactive colour, smaller,
         // half-transparent icon 
-        .milestone.default {                
+        .milestone.default { 
+            flex-grow: 25;
+            transition: all 1s ease-out;              
             .milestone-icon-container {
-                opacity: 0.5;
-
-                // Temp icon
-                span {
-                    font-size: 50px;
+                // Image
+                img {
+                    opacity: 0.85;
                 }
             }
             .milestone-line-container {
-                .milestone-line {            
-                    opacity: 0;
-                }
                 .milestone-endpoint {
-                    width: 30px;
-                    height: 30px;
-
-                    bottom: 8px;
-                    left: 15px;
-
-                    background-color: lightgrey;
                 }
             }
         }
-        // ACTIVE STATE - darker colour, full opacity icon
-        .milestone.active {               
+        // ACTIVE STATE - darker colour, larger, full opacity icon
+        .milestone.active { 
+            flex-grow: 25;
+            transition: all 1s ease-out;              
             .milestone-icon-container {
                 bottom: 15px;
+
                 opacity: 1;
+                background-color: var(--colour-sunstop);
+                img {
+                    opacity: 1;
+                }
             }
             .milestone-line-container {
-                .milestone-line {
-                }
                 .milestone-endpoint {
-                    background-color: grey;
+                    width: 36px;
+                    height: 36px;
+
+                    bottom: 17px;
+                    left: 18px;
+
+                    background-color: var(--colour-sunstop);
                 }
             }
         }
         // MILESTONES ALREADY REDEEMED
         .milestone.active-past {                
+            flex-shrink: 5;
             .milestone-icon-container {
-
-                // Temp icon
-                span {
-                    font-size: 50px;
+                background-color: var(--colour-tint-sunstop);
+                outline: none;
+                // Image
+                img {
+                    z-index: 1;
+                    opacity: 0.75;
+                }
+                // Check mark
+                span.check {
+                    display: block;
                 }
             }
+
             .milestone-line-container {
-                .milestone-line {
-                }
                 .milestone-endpoint {
-                    width: 30px;
-                    height: 30px;
-
-                    bottom: 8px;
-                    left: 15px;
-
-                    background-color: grey;
+                    //bottom: 12px;
+                    background-color: var(--colour-sunstop);
                 }
             }
         }
@@ -177,19 +218,19 @@
 }
 
 #tracker-baseline-container {
-    height: 14px;
+    height: 10px;
     #tracker-baseline {
         width: 100%;
-        height: 14px;
+        height: 10px;
         
         border-radius: 20px;
-        background-color: lightgrey;
+        background-color: var(--colour-surfaceB3-bg);
     }
     #tracker-baseline.active {
         position: relative;
-        bottom: 14px;
+        bottom: 10px;
 
-        background-color: grey;
+        background-color: var(--colour-sunstop);
 
         transition: width 2s;    
     }
@@ -206,7 +247,6 @@
 
     button {
         //border-radius: 20px;
-
         p {
             line-height: 50px;
             margin-bottom: 5px;

@@ -7,6 +7,12 @@ import PageTemplate from './PageTemplate';
 import imgBtnReward from '../assets/btn-reward.png';
 import imgBtnSunscreen from '../assets/sunscreen.png';
 
+import imgReward1 from '../assets/rewards/reward1.png';
+import imgReward2 from '../assets/rewards/reward2.png';
+import imgReward3 from '../assets/rewards/reward3.png';
+import imgReward4 from '../assets/rewards/reward4.png';
+
+
 /* 
 ###############
 ## Variables ##
@@ -16,10 +22,10 @@ import imgBtnSunscreen from '../assets/sunscreen.png';
 /* USER POINTS */
 // There are four milestones, reached at each multiple of 200 up to
 // 800 points
-const userPoints = 320;
+const userPoints = 400;
 const userPointsMax = 1000;
 // How many points has user gained?
-const userPointsGained = 200;
+const userPointsGained = 10;
 // New points total
 let userPointsNew = 0;
 
@@ -55,15 +61,15 @@ function initTrackerMilestones() {
     // How many milestones has user unlocked?
     // This season's milestones
     const milestoneArr = [
-        {item: 'test1', img: 'laundry'},
-        {item: 'test2', img: 'laundry'},
-        {item: 'test3', img: 'laundry'},
-        {item: 'test4', img: 'laundry'}
+        {item: 'test1', img: imgReward1},
+        {item: 'test2', img: imgReward2},
+        {item: 'test3', img: imgReward3},
+        {item: 'test4', img: imgReward4}
     ];
 
     const milestoneArrNo = milestoneArr.length;
     console.log(milestoneArrNo);
-    const milestoneWidth = lineWidthHTML / milestoneArrNo;
+    let milestoneWidth = lineWidthHTML / milestoneArrNo;
 
     // HTML array
     const renderedMilestoneArr = [];
@@ -72,20 +78,26 @@ function initTrackerMilestones() {
     for (let i = 0; i < milestoneArrNo; i++) {
         const iPoints = (i + 1) * 200;
 
+        if (i==0) {
+            milestoneWidth = (lineWidthHTML / milestoneArrNo) - 50;
+        } else {
+            milestoneWidth = lineWidthHTML / milestoneArrNo;
+        }
+
         // If we've reached the user has just reached the points 
         // threshold, and it hasn't already been reached, push the
         // active milestone HTML
         if ( (iPoints / userPointsNew) <= 1 && (iPoints / userPoints) >= 1) {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active', iPoints));
         } 
         // If user reached milestone previously, push previously 
         // redeemed milestone HTML
         else if ( (iPoints / userPoints) <= 1 ) {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active-past'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active-past', iPoints));
         } 
         // Otherwise, push unredeemed milestone HTML
         else {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'default'));
+            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'default', iPoints));
         }
     };
 
@@ -95,7 +107,7 @@ function initTrackerMilestones() {
         </>
     );
 }
-function renderTrackerMilestone(lineWidthHTML, item, img, state) {
+function renderTrackerMilestone(lineWidthHTML, item, img, state, pointsRequired) {
 
     return (
         <>
@@ -103,8 +115,9 @@ function renderTrackerMilestone(lineWidthHTML, item, img, state) {
             <div className={`${styles['milestone']} ${styles[state]}`} key={item} style={{ width: lineWidthHTML }}>
                 {/* Icon w/ img */}
                 <div className={styles['milestone-icon-container']}>
-                    <span className={`material-symbols-rounded`}>
-                        laundry
+                    <img src={img}></img>
+                    <span className={`material-symbols-rounded ${styles['check']}`}>
+                        check
                     </span>
                 </div>
                 {/* Line container, has hacky endpoint */}
@@ -112,6 +125,7 @@ function renderTrackerMilestone(lineWidthHTML, item, img, state) {
                     <div className={styles['milestone-endpoint']}> </div>
                     <div className={styles['milestone-line']}> </div>
                 </div>
+                <p className={styles['milestone-pointsreq']}>{pointsRequired}</p>
             </div>
         </>
     )
@@ -197,13 +211,13 @@ function DispensePoints() {
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnReward}></img>
                         </div>
-                        <p>Redeem <br></br>rewards</p>
+                        <p>Redeem <br></br>Rewards</p>
                     </button>
                     <button className='btn-xl' id={styles['btn-dispense']}>
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnSunscreen}></img>
                         </div>
-                        <p>Dispense<br></br>sunscreen</p>
+                        <p>Dispense<br></br>Sunscreen</p>
                     </button>
                 </div>
                 <div id={styles['footer']}>
