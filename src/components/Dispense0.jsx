@@ -36,6 +36,10 @@ function Dispense() {
         img: 'casuall',
         body: ['Head', 'Arms', 'Hands' ]
     };
+
+    // LOCAL STORAGE NAME RETRIEVAL
+    const signUpList = JSON.parse(localStorage.getItem('signUpList'))
+    const name = signUpList[signUpList.length - 1].name
     
     return (
         <>
@@ -44,7 +48,7 @@ function Dispense() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
-                    <h3>Welcome Chris</h3>
+                    <h3>Welcome {name}</h3>
                     <p>0 points</p>
                 </div>
                 {/* H1, sub */}

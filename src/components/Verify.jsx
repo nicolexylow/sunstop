@@ -4,6 +4,7 @@ import '../scss/global.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import PageTemplate from './PageTemplate';
+import { sign } from 'chart.js/helpers';
 
 function Verify() {
     const navigate = useNavigate();
@@ -17,8 +18,19 @@ function Verify() {
     }
 
     const handleCancel = () => {
-        navigate('/')
+        navigate('/');
     }
+    
+    const handleChangeDetails = () => {
+        let signUpList = JSON.parse(localStorage.getItem('signUpList'))
+        signUpList.pop()
+        localStorage.setItem('signUpList', JSON.stringify(signUpList));
+        navigate('/sign_up');
+    }
+
+    // LOCAL STORAGE
+    const data = JSON.parse(localStorage.getItem('signUpList'))
+    const contactInfo = data[data.length - 1].contact;
 
     return (
         <>
@@ -36,8 +48,9 @@ function Verify() {
                 <div className='center-container'>
                     <div className={styles['content-container']}>
                         <h1 className={styles['heading']}>Verify that it's you</h1>
-                        <p className={styles['text']}>Please confirm your phone number following the verification link we sent to 0410 567 789.</p>
+                        <p className={styles['text']}>Please confirm your phone number following the verification link we sent to {contactInfo}.</p>
                         <div className={styles['button-container']}>
+                            <button className={styles['change-button']} onClick={handleChangeDetails}>Change details</button>
                             <button onClick={handleClick} className='next-button'>Resend Link</button>
                         </div>
                     </div>

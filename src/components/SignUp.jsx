@@ -3,13 +3,29 @@ import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import '../scss/global.scss'
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 import PageTemplate from './PageTemplate';
 
 function SignUp() {
     const navigate = useNavigate();
 
+    // LOCAL STORAGE
+    const [inputContact, setInputContact] = useState('');
+    const [signUpList, setSignUpList] = useState(() => {
+        const savedList = localStorage.getItem('signUpList');
+        return savedList ? JSON.parse(savedList) : [];
+    });    
+
+    useEffect(() => {
+        localStorage.setItem('signUpList', JSON.stringify(signUpList));
+    }, [signUpList]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const newSignUpList = [...signUpList, {contact: inputContact, name: ''}];
+        setSignUpList(newSignUpList);
+        localStorage.setItem('signUpList', JSON.stringify(newSignUpList));
+        setInputContact('');
         navigate('/verify');
     }
 
@@ -39,7 +55,14 @@ function SignUp() {
                         <form className={styles['form']} onSubmit={handleSubmit}>
                             <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
                             <br />
-                            <input type="text" placeholder='Email or Phone' className='input-field'/>
+                            <input 
+                                type="text" 
+                                placeholder='Email or Phone' 
+                                className='input-field' 
+                                value={inputContact}
+                                onChange={(e) => setInputContact(e.target.value)} 
+                                required
+                            />
                             <br />
                             <div className={styles['submit-button-container']}>
                                 <input className='next-button' type="submit" value="Continue" />

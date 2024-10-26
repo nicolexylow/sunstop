@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styles from '../scss/modules/ConfirmVerify.module.scss';
 import '../scss/global.scss';
 import PageTemplate from './PageTemplate';
@@ -6,9 +7,17 @@ import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 
 function ConfirmVerify() {
+    const [inputName, setInputName] = useState('');
+
     const navigate = useNavigate();
-    const handleSubmit = () => {
-        navigate('/dispense');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const signUpList = JSON.parse(localStorage.getItem('signUpList'));
+        const existingData = signUpList[signUpList.length - 1];
+        signUpList[signUpList.length - 1] = {...existingData, name: inputName};
+        localStorage.setItem('signUpList', JSON.stringify(signUpList));
+        setInputName('');
+        navigate('/dispense0');
     }
     const handleBack = () => {
         navigate('/verify')
@@ -37,7 +46,13 @@ function ConfirmVerify() {
                        
                         <form onSubmit={handleSubmit} className={styles['form']}>
                             <label className={styles['label']}>Welcome to SunStop! What's is your name?</label><br />
-                            <input type="text" className='input-field' />
+                            <input 
+                                type="text" 
+                                placeholder='Name' 
+                                className='input-field' 
+                                value={inputName}
+                                onChange={(e) => setInputName(e.target.value)} 
+                                required />
                             <br />
                             <div className={styles['submit-button-container']}>
                                 <input type="submit" value="Submit" className='next-button' />

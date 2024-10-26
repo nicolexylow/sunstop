@@ -10,7 +10,7 @@
 }
 
 .content-container {
-    width: 550px;
+    width: 600px;
 }
 
 .button-container {
@@ -20,4 +20,15 @@
 
 .button {
     background-color: var(--colour-background);
+}
+
+.change-button {
+    background-color: transparent;
+    margin-right: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
