@@ -58,7 +58,7 @@ function SignUp() {
                             <input 
                                 type="text" 
                                 placeholder='Email or Phone' 
-                                className='input-field' 
+                                className='input-field'
                                 value={inputContact}
                                 onChange={(e) => setInputContact(e.target.value)} 
                                 required
