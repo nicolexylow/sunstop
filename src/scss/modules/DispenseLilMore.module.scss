@@ -1,88 +1,40 @@
-// Define main layout and display options
-#main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right: 50px;
-
-    // Persistent header that dispalys 'welcome', points'
-    #main-head {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    // Hold cards in carousel
-    #main-cards {
-        flex-grow: 1;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
-// Column w/ body figure
-#main-left-figure {
-    padding: 20px 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    width: 480px;
-    height: 600px;
-
-    background-color: rgb(243, 243, 243);
-
-    #figure-img {
-        width: 300px;
-        height: 560px;
-        background-color: lightgray;
-    }
-
-    #figure-labels-list {
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: 100%;
-
-        .label {
-            width: 100px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 10px;
-
-            * {
-                font-size: 20px;
-            }
-        }
-    }
-}
-
-// Column w/ text, hand figure, button
-#main-right {
-    padding: 20px 10px;
+.content-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    margin-top: 70px;
+    gap: 20px;
+}
 
-    h1 {
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 60px;
 
+    button {
+        padding: 30px 0;
+        border-radius: 15px;
     }
-    h2 {
+}
 
-    }
+.sun-icon {
+    width: 150px;
+}
 
-    #dispense-area {
-        font-size: 100px;
-    }
+.highlight-text {
+    color: var(--colour-sunstop);
+}
 
-    #btn-skip {
-        width: 100%;
-    }
+.heading {
+    font-size: 60px;
+    font-weight: 500;
+}
+
+.more-button {
+    border: 2px solid var(--colour-template-bg);
+}
+
+.finish-button {
+    background-color: var(--colour-surface4-bg);
 }
