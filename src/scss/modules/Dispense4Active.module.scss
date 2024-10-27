@@ -7,9 +7,13 @@
 }
 
 .prompt {
-    font-size: 25px;
+    font-size: 22px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+
+    color: var(--colour-surface2-txt);
+    font-size: 24px;
+    font-weight: 500;
 }
 
 .heading {
@@ -18,12 +22,14 @@
 }
 
 .skip-button {
-    border: 2px solid var(--colour-button-outline);
+    //border: 2px solid var(--colour-button-outline);
     border-radius: 10px;
     padding: 10px 0;
-    width: 300px;
+    width: 500px;
 }
 
 .hand-sensor-img {
     width: 500px;
+    position: relative;
+    right: 10px;
 }

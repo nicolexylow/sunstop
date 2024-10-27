@@ -1,0 +1,55 @@
+// Dialog shadow backgrond and content wrapper
+dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--colour-tint-shadow);
+    border: none;
+}
+
+      
+// Dialog template
+.dialog-container {
+    max-width: 700px;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    border-radius: 40px;
+    background-color: var(--colour-surface1-bg);
+
+    .head-container {
+        h1 {
+            font-size: 42px;
+            font-weight: 500;
+        }
+    }
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .btns-container {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        button {
+            padding: 50px 30px;
+            width: 300px;
+
+            font-size: 35px;
+        }
+    }
+}

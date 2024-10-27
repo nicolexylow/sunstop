@@ -18,7 +18,7 @@
             h1 {
                 font-size: 40px;
                 font-weight: 500;
-                color: var(--colour-primary-txt);
+                color: var(--colour-surface1-txt);
                 line-height: 30px;
                 margin-bottom: 4px;
             }
@@ -28,7 +28,7 @@
 
             font-size: 30px;
             font-weight: 600;
-            color: var(--colour-secondary-txt);
+            color: var(--colour-surface3-txt);
         }
     }
     #main-cards {
@@ -57,12 +57,13 @@
         background-color: var(--colour-surfaceB2-bg);
         border-radius: 20px;
         img {
-            width: 120px;
-            mix-blend-mode: luminosity;
+            width: 150px;
+            //mix-blend-mode: luminosity;
         }
         h2 {
             font-weight: 500;
-            color: var(--colour-primary-txt);
+            letter-spacing: 0.25px;
+            color: var(--colour-surface3-txt);
         }
     }
 }

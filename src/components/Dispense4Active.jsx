@@ -22,7 +22,7 @@ function Dispense4Active() {
                         <img className={styles['hand-sensor-img']} src={handSensor} alt="Hand Sensor Prompt" />
                     </div>
 
-                    <button className={styles['skip-button']} onClick={handleSkip}>Skip</button>
+                    <button className={`btn-scnd ${styles['skip-button']}`} onClick={handleSkip}>Skip</button>
                 </div>
             </div>
 

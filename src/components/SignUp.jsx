@@ -14,7 +14,8 @@ function SignUp() {
     const [signUpList, setSignUpList] = useState(() => {
         const savedList = localStorage.getItem('signUpList');
         return savedList ? JSON.parse(savedList) : [];
-    });    
+    });
+
 
     useEffect(() => {
         localStorage.setItem('signUpList', JSON.stringify(signUpList));
@@ -22,7 +23,8 @@ function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newSignUpList = [...signUpList, {contact: inputContact, name: ''}];
+        // Inject dev login 
+        const newSignUpList = [...signUpList, {contact: inputContact, name: '', points: 0}];
         setSignUpList(newSignUpList);
         localStorage.setItem('signUpList', JSON.stringify(newSignUpList));
         setInputContact('');

@@ -72,7 +72,6 @@ function RenderFigureLabels(props) {
 // HTML for body part label
 function FigureLabel(num, bodyPart, cBP) {
     // If we're on the current body part, return it as active
-    console.log(`poo${cBP}`);
     if (cBP == num) {
         return  (
             <>
@@ -97,12 +96,12 @@ function FigureLabel(num, bodyPart, cBP) {
         );
     }
 };
-// Render the rioght col active head
+// Render the right col active head
 function RenderActiveBodyPart(props) {
-    let test = props.index - 1;
+    let reduceIndex = props.index - 1;
     return (
         <>
-        <p id={styles['dispense-area']}>{props.activeBodyPart[test]}</p>
+        <p id={styles['dispense-area']}>{props.activeBodyPart[reduceIndex]}</p>
         </>
     );
 };

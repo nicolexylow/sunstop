@@ -65,3 +65,7 @@ button:focus {
     padding: 0;
     outline: none;
 }
+
+dialog * {
+  color: var(--colour-surface1-txt);
+}

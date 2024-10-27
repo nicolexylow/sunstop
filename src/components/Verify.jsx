@@ -4,12 +4,26 @@ import '../scss/global.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import PageTemplate from './PageTemplate';
+import { useState, useEffect } from 'react';
+
 import { sign } from 'chart.js/helpers';
 
 function Verify() {
     const navigate = useNavigate();
 
+        // LOCAL STORAGE
+        const [inputContact, setInputContact] = useState('');
+        const [signUpList, setSignUpList] = useState(() => {
+            const savedList = localStorage.getItem('signUpList');
+            return savedList ? JSON.parse(savedList) : [];
+        });
+
     const handleClick = () => {
+        localStorage.setItem('signUpList', JSON.stringify(signUpList));
+        const devSignUp = [...signUpList, {contact: 'developer', name: 'Chris', points: 400}];
+        localStorage.setItem('signUpList', JSON.stringify(devSignUp));
+        console.log('dev added...')
+        console.log(JSON.parse(localStorage.getItem('signUpList')))
         navigate('/confirm_verify');
     }
 
@@ -24,7 +38,6 @@ function Verify() {
     const handleChangeDetails = () => {
         let signUpList = JSON.parse(localStorage.getItem('signUpList'))
         signUpList.pop()
-        localStorage.setItem('signUpList', JSON.stringify(signUpList));
         navigate('/sign_up');
     }
 

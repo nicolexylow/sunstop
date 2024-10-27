@@ -189,7 +189,7 @@
                     width: 36px;
                     height: 36px;
 
-                    bottom: 17px;
+                    bottom: 13px;
                     left: 18px;
 
                     background-color: var(--colour-sunstop);
@@ -278,5 +278,16 @@
 
     #btn-logout-footer {
         float: right;
+    }
+}
+
+// DIALOG
+.dialog-btn-redeem {
+    gap: 20px;
+
+    color: var(--colour-sunstop-txt2);
+    img {
+        width: 50px;
+        margin-bottom: 3px;
     }
 }

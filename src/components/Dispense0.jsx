@@ -42,12 +42,6 @@ function Dispense() {
         body: ['Head', 'Arms', 'Hands' ],
         gaps: 20
     };
-
-    // LOCAL STORAGE NAME RETRIEVAL
-    //const signUpList = JSON.parse(localStorage.getItem('signUpList'))
-    //console.log(signUpList);
-    //const signUpListLength = signUpList.length;
-    //const name = signUpList[signUpList.length - 1].name
     
     return (
         <>

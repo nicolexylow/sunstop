@@ -2,6 +2,8 @@ import styles from '../scss/modules/Home.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
 import PageTemplate from './PageTemplate';
+import HomeRewardDialog from './HomeReward';
+import { useState } from 'react';
 
 // Imgs
 import imgBtnReward from '../assets/btn-reward.png';
@@ -18,11 +20,26 @@ import imgReward4 from '../assets/rewards/reward4.png';
 ## Variables ##
 ###############
 */
+/* USER DETAILS */
+let logInName;
+let logInPoints;
+console.log(JSON.parse(localStorage.getItem('signUpList')))
+if (JSON.parse(localStorage.getItem('signUpList')) === null) {
+    logInName = 'Chris';
+    logInPoints = 5;
+  } else {
+    const signUpList = JSON.parse(localStorage.getItem('signUpList'));
+    const signUpListLen = signUpList.length;
+    logInName = signUpList[signUpListLen - 1].name;
+    logInPoints = signUpList[signUpListLen - 1].points;
+    console.log(signUpList[signUpListLen - 1].points);
+  };
+
 
 /* USER POINTS */
 // There are four milestones, reached at each multiple of 200 up to
 // 800 points
-const userPoints = 400;
+const userPoints = logInPoints;
 const userPointsMax = 1000;
 // How many points has user gained?
 const userPointsGained = 20;
@@ -33,6 +50,9 @@ let userPointsNew = 0;
 const lineWidthHTML = 1000;
 // Tracker line widthS
 let trackLineWidth = userPoints;
+
+/* REWARDS */
+let rewardItems = [];
 
 /* 
 ###########
@@ -51,7 +71,7 @@ function renderScoreHead() {
                 </layflags-rolling-number>
                 <p> pts</p>
             </div>
-            <h1 class={styles['points-gained']}>+{userPointsGained}</h1>
+            <h1 className={styles['points-gained']}>+{userPointsGained}</h1>
         </>
     )
 }
@@ -61,10 +81,10 @@ function initTrackerMilestones() {
     // How many milestones has user unlocked?
     // This season's milestones
     const milestoneArr = [
-        {item: 'test1', img: imgReward1},
-        {item: 'test2', img: imgReward2},
-        {item: 'test3', img: imgReward3},
-        {item: 'test4', img: imgReward4}
+        {item: 'test1', img: imgReward1, title: 'Sunstop T-Shirt'},
+        {item: 'test2', img: imgReward2, title: 'Sunstop Hat'},
+        {item: 'test3', img: imgReward3, title: 'Sunstop Sunglasses'},
+        {item: 'test4', img: imgReward4, title: 'Sunstop Jumper'}
     ];
 
     const milestoneArrNo = milestoneArr.length;
@@ -89,6 +109,9 @@ function initTrackerMilestones() {
         // active milestone HTML
         if ( (iPoints / userPointsNew) <= 1 && (iPoints / userPoints) >= 1) {
             renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active', iPoints));
+            rewardItems = [];
+            rewardItems.push(milestoneArr[i]);
+            console.log(rewardItems);
         } 
         // If user reached milestone previously, push previously 
         // redeemed milestone HTML
@@ -148,6 +171,42 @@ function renderUserPointsLine() {
         </div>
         </>
     )
+};
+function initReward() {
+
+}
+
+function handleRedeemTap() {
+    
+}
+
+// Load our dialog which displays the great, cool reward dialog which totally didn't take
+// me a fucking millenia to get working :)
+function RenderDialog(props) {
+    // Close our dialogue
+    const handleClose = () => {
+        props.activeShare(false);
+    }
+    // Check if active state is true
+    if (props.active) {
+        // Show dialog, and pass buttons to it
+        return ( 
+        <>
+            <HomeRewardDialog 
+                rewards={props.rewards}
+            >
+                <button className={`btn-outlined ${styles['dialog-btn-cancel']}`} onClick={handleClose}>
+                    Cancel
+                </button>
+                <button className={`btn-scnd ${styles['dialog-btn-redeem']}`} onClick={handleClose}>
+                    <img src={imgBtnReward}></img>
+                    Redeem
+                </button>
+            </HomeRewardDialog>
+        </>
+        )
+    }
+    return;
 }
 
 /* 
@@ -157,6 +216,9 @@ function renderUserPointsLine() {
 */
 
 function DispensePoints() {
+    const [isActive, setIsActive] = useState(false);
+    const [haveRewards, setHaveRewards] = useState(false);
+
     //const test = RollingNumber();
     // Navigation here
     const navigate = useNavigate();
@@ -168,11 +230,35 @@ function DispensePoints() {
         const handleLogOutTap = () => {
             navigate('/')
         };
-
-    const signUpList = JSON.parse(localStorage.getItem('signUpList'));
-    const name = signUpList[signUpList.length - 1].name;
+    function renderRewardBtn() {
+        if (userPointsNew > 100) {
+            return (
+                <button 
+                className={'btn-xl active'} 
+                id={styles['btn-rewards']} 
+                onClick={() => setIsActive(true)}
+                >
+                    <div className={styles['btn-lead']}>
+                        <img src={imgBtnReward}></img>
+                    </div>
+                    <p>Redeem <br></br>Rewards</p>
+                </button>
+            )
+        } else {
+            return (
+                <button 
+                className={'btn-xl inactive'} 
+                id={styles['btn-rewards']} 
+                >
+                    <div className={styles['btn-lead']}>
+                        <img src={imgBtnReward}></img>
+                    </div>
+                    <p>Redeem <br></br>Rewards</p>
+                </button>
+            )
+        }
+    }
         
-
     return (
         <>
         <PageTemplate>
@@ -180,7 +266,7 @@ function DispensePoints() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
-                    <h3>Hello {name}!</h3>
+                    <h3>Hello {logInName}!</h3>
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}
@@ -205,13 +291,17 @@ function DispensePoints() {
                 </div>
                 {/* Reward/dispense buttons */}
                 <div id={styles['twin-buttons-container']}>
-                    <button className={'btn-xl active'} id={styles['btn-rewards']}>
-                        <div className={styles['btn-lead']}>
-                            <img src={imgBtnReward}></img>
-                        </div>
-                        <p>Redeem <br></br>Rewards</p>
-                    </button>
-                    <button className={'btn-xl'} id={styles['btn-dispense']} onClick={handleDispenseTap}>
+                    {renderRewardBtn()}
+                    <RenderDialog
+                        rewards={rewardItems}
+                        active={isActive}
+                        activeShare={setIsActive}
+                    />
+                    <button 
+                        className={'btn-xl'} 
+                        id={styles['btn-dispense']} 
+                        onClick={handleDispenseTap}
+                    >
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnSunscreen}></img>
                         </div>
