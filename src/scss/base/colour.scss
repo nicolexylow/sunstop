@@ -59,15 +59,12 @@ Colours
         --colour-surfaceB3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
         --colour-surfaceB4-bg: color-mix(in srgb, white 75%, #{$base-surfaceB} 60%);
         --colour-surfaceB4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
-<<<<<<< Updated upstream
 
     // Button
     --colour-button-outline: #D5CCC6;
-=======
     // Lighter text colours
     --colour-card1-txt: color-mix(in srgb, #{$base-secondary} 100%, silver 25%);
     --colour-card2-txt: color-mix(in srgb, #{$base-primary} 90%, #{$base-surfaceB} 10%);
     --colour-card3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
     --colour-card4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
->>>>>>> Stashed changes
 }
