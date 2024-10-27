@@ -185,7 +185,11 @@ function DispensePoints() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
+<<<<<<< Updated upstream
                     <h3>Welcome {name}</h3>
+=======
+                    <h3>Hello Chris!</h3>
+>>>>>>> Stashed changes
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}
@@ -210,13 +214,13 @@ function DispensePoints() {
                 </div>
                 {/* Reward/dispense buttons */}
                 <div id={styles['twin-buttons-container']}>
-                    <button className='btn-xl' id={styles['btn-rewards']}>
+                    <button className={'btn-xl active'} id={styles['btn-rewards']}>
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnReward}></img>
                         </div>
                         <p>Redeem <br></br>Rewards</p>
                     </button>
-                    <button className='btn-xl' id={styles['btn-dispense']}>
+                    <button className={'btn-xl'} id={styles['btn-dispense']}>
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnSunscreen}></img>
                         </div>
@@ -226,7 +230,7 @@ function DispensePoints() {
                 <div id={styles['footer']}>
                     <button id={styles['btn-logout-footer']} className="btn-logout" onClick={handleLogOutTap}>
                     <span className={`material-symbols-rounded`}>logout</span>
-                    <p>Log out</p></button>
+                    <p>Logout</p></button>
                 </div>
             </main>
         </PageTemplate>

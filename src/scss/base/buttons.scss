@@ -8,6 +8,8 @@ button {
     background-color: transparent;
     cursor: pointer;
     font-size: 25px;
+
+    letter-spacing: 0.25px;
 }
 
 .button-nav-container {
@@ -36,17 +38,19 @@ button {
     padding: 5px 20px;
     border-radius: 5px;
 }
-
-
-
 .btn-back {
-    width: 40px;
-    height: 40px;
-
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    span {
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--colour-primary-txt);
+    }
+    h1 {
+
+    }
 }
 .btn-logout {
     padding: 15px 40px;
@@ -78,11 +82,29 @@ button {
     gap: 30px;
 
     font-size: 40px;  
-    background-color: var(--colour-surfaceB2-bg);
+    background-color: var(--colour-surface3-bg);
     color: var(--colour-surfaceB2-txt);
     font-weight: 500;
     border-radius: 50px;
     p {
         text-align: left;
     }
+}
+    .btn-xl.active {
+        background-color: var(--colour-sunstop-bg);
+        color: var(--colour-sunstop-txt);
+
+        img {
+            filter: brightness(1.2) contrast(1.15);
+        }
+    }
+.btn-scnd {
+    padding: 10px;
+    height: 54px;
+
+    font-size: 20px;
+    font-weight: 500;
+    border: 2px solid var(--colour-surfaceB2-outline);
+    color: var(--colour-surfaceB2-txt);
+    border-radius: 30px;
 }

@@ -1,14 +1,15 @@
 // Define main layout and display options
 #main {
-
     #main-head {
         display:flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
 
-        margin-bottom: 60px;
+        margin-bottom: 50px;
+        padding: 10px;
 
+        //background-color: var(--colour-surfaceB1-bg);
         h3 {
             font-size: 35px;
             font-weight: 500;
@@ -24,7 +25,7 @@
     gap: 10px;
         #points-total-container {
             font-size: 40px;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 40px;
             p {
                 margin-left: 10px;
@@ -37,9 +38,9 @@
             margin-top: 5px;
 
             line-height: 20px;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 26px;
-            color: var(--colour-secondary-txt);
+            color: var(--colour-sunstop);
 
             animation: fadeOut 4s forwards;
         }
@@ -268,7 +269,7 @@
 }
 
 #footer {
-    margin-top: 20px;
+    margin-top: 5px;
 
     #btn-logout-footer {
         float: right;

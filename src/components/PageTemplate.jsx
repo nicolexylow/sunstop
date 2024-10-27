@@ -13,7 +13,10 @@ const PageTemplate = ({ children }) => {
         <div className='page-template-main-container'>
             <header>
                 <img src={logo} alt="SunStop Logo" className='logo' />
-                <a className='about' onClick={handleClickAbout}>About ⓘ</a>
+                <button className='about' onClick={handleClickAbout}>
+                    <span className={`material-symbols-rounded`}>info</span>
+                    <p>About</p>
+                </button>
             </header>
             <div className="main-content">
                 {children}
