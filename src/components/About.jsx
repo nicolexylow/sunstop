@@ -3,28 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
 import PageTemplate from './PageTemplate';
 
+// Imgs
+import imgAbout1 from '../assets/sign-up.png';
+import imgAbout2 from '../assets/sunscreen.png';
+import imgAbout3 from '../assets/star.png';
+import imgAbout4 from '../assets/btn-reward.png';
+
 
 // Hold our info cards, 1-4
 const aboutCardArray = [
     {
         title: 'Sign up',
         desc: 'with your email or phone number',
-        img: ''
+        img: imgAbout1
     },
     {
         title: 'Dispense sunscreen',
         desc: 'and apply to stay SunSafe',
-        img: ''
+        img: imgAbout2
     },
     {
         title: 'Earn points',
         desc: 'instantly while using SunStop',
-        img: ''
+        img: imgAbout3
     },
     {
         title: 'Redeem rewards',
         desc: 'and exclusive merchandise!',
-        img: ''
+        img: imgAbout4
     },
 ];
 console.log(aboutCardArray);
@@ -52,7 +58,7 @@ function renderAboutCard(no, title, desc, img) {
             <h1>{title}</h1>
             <p>{desc}</p>
             <div className={styles['card-img-container']}>
-                <img></img>
+                <img src={img}></img>
             </div>
         </div>
         </>
@@ -83,7 +89,9 @@ function About() {
             <main id={styles['main']}>
                 {/* Main head: back btn mostly */}
                 <div id={styles['main-head']}>
-                    <button className='btn-back'>Back</button>
+                    <button className="btn-back">
+                        <span class="material-symbols-rounded">arrow_back</span>
+                    </button>                
                 </div>
                 
                 {/* Cards carousel: each card contains a handle for sending user to dispenseActive

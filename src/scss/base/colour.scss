@@ -8,7 +8,7 @@ $base-tertiary: hsl(24, 35%, 28%);
 $base-sunstop: hsl(24, 91%, 50%);
 // Surfaces
 $base-surface: hsl(37, 100%, 79%);
-$base-surfaceB: hsl(37, 75%, 75%);
+$base-surfaceB: hsl(37, 65%, 75%);
 
 /*
 Colours
@@ -47,7 +47,7 @@ Colours
     --colour-surface3-bg: color-mix(in srgb, silver 3%, #{$base-surface} 10%);
     --colour-surface3-txt: color-mix(in srgb, #{$base-primary} 80%, #{$base-surface} 50%);
     --colour-surface4-bg: color-mix(in srgb, white 75%, #{$base-surface} 55%);
-    --colour-surface4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 20%);
+    --colour-surface4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 35%);
         // Secondary surfaces
         --colour-surfaceB1-bg: color-mix(in srgb, white 90%, #{$base-surfaceB} 15%);
         --colour-surfaceB1-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 5%);

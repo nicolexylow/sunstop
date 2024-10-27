@@ -132,8 +132,11 @@ function DispenseActive() {
             navigate('/')
         };
         const handleNextTap = () => {
-            if (setIndex)
-            setIndex(index => index + 1);
+            if (index == labelsArr.length) {
+                navigate('/dispense3_lilmore')
+            } else {
+                setIndex(index => index + 1);
+            }
         };
     
     return (

@@ -31,10 +31,17 @@
     font-weight: 500;
 }
 
-.more-button {
-    border: 2px solid var(--colour-button-outline);
+.button {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--colour-surface4-txt);
+    border-radius: 30px;
 }
+    .more-button {
+        border: 2px solid var(--colour-button-outline);
+    }
 
-.finish-button {
-    background-color: var(--colour-surfaceB2-bg);
-}
+    .finish-button {
+        background-color: var(--colour-surfaceB3-bg);
+    }

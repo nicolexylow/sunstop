@@ -21,9 +21,9 @@
 
         width: 250px;
         height: 500px;
-        padding: 60px 20px 20px 20px;
+        padding: 60px 20px 30px 20px;
 
-        background-color: lightgray;
+        background-color: var(--colour-surfaceB2-bg);
         border-radius: 20px;
         h2 {
             width: 50px;
@@ -35,20 +35,24 @@
             font-weight: 700;
 
             border-radius: 1000px;
-            background-color: grey;
+            background-color: var(--colour-surfaceB4-bg);
+            color: var(--colour-surface3-txt);
         }
         h1 {
             margin: 20px 0 8px 0;
 
             font-size: 40px;
             line-height: 48px;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--colour-sunstop);
         }
         p {
             //padding-left: 2px;
 
-            font-size: 21px;
-            line-height: 30px;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 35px;
+            color: var(--colour-surface2-txt);
         }
         .card-img-container {
             display: flex;
@@ -57,10 +61,10 @@
             img {
                 align-self: flex-end;
                 
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
 
-                background-color: darkgrey;
+                //background-color: darkgrey;
             }
         }
     }

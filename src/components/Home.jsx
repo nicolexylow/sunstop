@@ -185,11 +185,7 @@ function DispensePoints() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
-<<<<<<< Updated upstream
                     <h3>Welcome {name}</h3>
-=======
-                    <h3>Hello Chris!</h3>
->>>>>>> Stashed changes
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}

@@ -14,7 +14,7 @@ function Dispense() {
     const navigate = useNavigate();
         // Next page
         const handleTap = (outfitPush) => {
-            navigate('/dispense1-active', { state: { outfitPush } });
+            navigate('/dispense1_active', { state: { outfitPush } });
         }
         // Back btn
         // We need another page to go back to. Maybe dashboard page?
@@ -30,7 +30,7 @@ function Dispense() {
     const outfitBeach = {
         img: imgBody1,
         body: ['Head', 'Chest', 'Arms', 'Hands', 'Legs', 'Feet'],
-        gaps: 20
+        gaps: 10
     };
     const outfitOffice = {
         img: imgBody2,
@@ -40,7 +40,7 @@ function Dispense() {
     const outfitCasual = {
         img: imgBody3,
         body: ['Head', 'Arms', 'Hands', 'Legs'],
-        gaps: 20
+        gaps: 35
     };
     const outfitCasuall = {
         img: imgBody4,

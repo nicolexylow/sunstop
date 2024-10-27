@@ -28,7 +28,7 @@ function App() {
         <Route path="/home" element={<Home />} /> 
           {/* Dispense flow */}
           <Route path="/dispense0" element={<Dispense0 />} /> 
-          <Route path="/dispense1-active" element={<Dispense1Active />} /> 
+          <Route path="/dispense1_active" element={<Dispense1Active />} /> 
           {/* Replaced by home page
           <Route path="/dispense2-done" element={<Dispense2Done />} /> */}
           <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
