@@ -68,15 +68,6 @@ function renderAboutCard(no, title, desc, img) {
 function About() {
     // Navigation here
     const navigate = useNavigate();
-        // Next page
-        const handleTap = (outfitPush) => {
-            navigate('/dispense1-active', { state: { outfitPush } });
-        }
-        // Back btn
-        // We need another page to go back to. Maybe dashboard page?
-        const handleBkTap = () => {
-            navigate('/dispense');
-        }
         // Log out btn
         const handleLogOutTap = () => {
             navigate('/');
@@ -90,7 +81,7 @@ function About() {
                 {/* Main head: back btn mostly */}
                 <div id={styles['main-head']}>
                     <button className="btn-back">
-                        <span class="material-symbols-rounded">arrow_back</span>
+                        <span class="material-symbols-rounded" onClick={() => navigate(-1)}>arrow_back</span>
                     </button>                
                 </div>
                 

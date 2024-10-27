@@ -17,7 +17,9 @@
         align-items: center;
         
         .logo {
-            margin-top: 5px;
+            width: 158px;
+            height: 35px;
+            image-rendering: crisp-edges;
         }
 
         button.about {
@@ -25,12 +27,11 @@
             font-weight: 500;
             color: var(--colour-secondary-txt);
             p {
-                line-height: 24px;
-                margin-bottom: 2px;
             }
             span {
-                font-size: 25px;
+                font-size: 26px;
                 font-weight: 600;
+                margin-bottom: 2px;
             }
         }
     }

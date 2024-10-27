@@ -25,7 +25,7 @@ import imgReward4 from '../assets/rewards/reward4.png';
 const userPoints = 400;
 const userPointsMax = 1000;
 // How many points has user gained?
-const userPointsGained = 10;
+const userPointsGained = 20;
 // New points total
 let userPointsNew = 0;
 
@@ -160,14 +160,9 @@ function DispensePoints() {
     //const test = RollingNumber();
     // Navigation here
     const navigate = useNavigate();
-        // Next page
-        const handleTap = (outfitPush) => {
-            navigate('/dispense-active', { state: { outfitPush } });
-        }
-        // Back btn
-        // We need another page to go back to. Maybe dashboard page?
-        const handleBkTap = () => {
-            navigate('/dispense');
+        // Dispense btn
+        const handleDispenseTap = () => {
+            navigate('/dispense0');
         }
         // Log out btn
         const handleLogOutTap = () => {
@@ -185,7 +180,7 @@ function DispensePoints() {
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
-                    <h3>Welcome {name}</h3>
+                    <h3>Hello {name}!</h3>
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-container']}>
                         {renderScoreHead()}
@@ -216,7 +211,7 @@ function DispensePoints() {
                         </div>
                         <p>Redeem <br></br>Rewards</p>
                     </button>
-                    <button className={'btn-xl'} id={styles['btn-dispense']}>
+                    <button className={'btn-xl'} id={styles['btn-dispense']} onClick={handleDispenseTap}>
                         <div className={styles['btn-lead']}>
                             <img src={imgBtnSunscreen}></img>
                         </div>
@@ -225,8 +220,9 @@ function DispensePoints() {
                 </div>
                 <div id={styles['footer']}>
                     <button id={styles['btn-logout-footer']} className="btn-logout" onClick={handleLogOutTap}>
-                    <span className={`material-symbols-rounded`}>logout</span>
-                    <p>Logout</p></button>
+                        <span className={`material-symbols-rounded`}>logout</span>
+                        <p>Logout</p>
+                    </button>
                 </div>
             </main>
         </PageTemplate>

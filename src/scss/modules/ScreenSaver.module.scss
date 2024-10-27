@@ -25,10 +25,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 21%;
+    gap: 30px;
     border-radius: 15px;
     padding: 30px;
-    margin-top: 20px;
 
     .weather-icon {
         font-size: 400px;
@@ -38,14 +37,15 @@
 
 .words-container {
     text-align: center;
+    height: 135px;
 }
 
 .visuals {
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
     justify-content: space-between;
     width: 100%;
+    height: 480px;
     gap: 50px;
 }
 

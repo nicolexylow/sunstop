@@ -17,14 +17,9 @@ function Dispense() {
             navigate('/dispense1_active', { state: { outfitPush } });
         }
         // Back btn
-        // We need another page to go back to. Maybe dashboard page?
         const handleBkTap = () => {
-            navigate('/dispense');
+            navigate('/home');
         }
-        // Log out btn
-        const handleLogOutTap = () => {
-            navigate('/');
-        };
 
     // Outfit templates
     const outfitBeach = {
@@ -62,7 +57,7 @@ function Dispense() {
                 {/* H1, sub */}
                 <div id={styles['main-head']}>
                     <div id={styles['main-title']}> 
-                        <button className="btn-back">
+                        <button className="btn-back" onClick={handleBkTap}>
                             <span class="material-symbols-rounded">arrow_back</span>
                         </button>
                         <h1>How much sunscreen do you need?</h1>
