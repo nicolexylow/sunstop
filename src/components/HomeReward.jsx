@@ -39,7 +39,7 @@ function RenderDialogSingle ({ rewards, children }) {
                     </div>
                     <div>
                         <p className={styles['desc-text']}>
-                            You’ll receive [a text to 0400 000 000/an email to email@email.com] with instructions on how to receive the T-Shirt. 
+                            You’ll receive a text to your phone number or email with instructions on how to receive the T-Shirt. 
                         </p>
                     </div>
                 </div>
