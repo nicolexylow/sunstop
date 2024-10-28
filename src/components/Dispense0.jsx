@@ -30,7 +30,7 @@ function Dispense() {
     const outfitOffice = {
         img: imgBody2,
         body: ['Head', 'Arms', 'Hands'],
-        gaps: 20
+        gaps: 40
     };
     const outfitCasual = {
         img: imgBody3,

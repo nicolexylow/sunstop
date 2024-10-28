@@ -15,9 +15,27 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./ReactotronConfig"
 import PageTemplate from './components/PageTemplate';
 import Dispense4Active from './components/Dispense4Active';
+//import EmailForm from './components/obsolete/TestEmail';
+import store from "store2";
+
+/* INIT LOCAL STORAGE */
+// Get existing list
+const existingSignUpList = store.get('signUpList');
+// Check if list is null, if so, plug in dev login and print deets, if not, 
+// just print deets
+if(existingSignUpList == null) {
+  // Dev login
+  const devSignUp = [{contact: 'dev@dev', name: 'Developer', points: 400}];
+  // Sets local storage
+  store.set('signUpList', devSignUp);
+  console.log(localStorage);
+  console.log(store.get('signUpList'))
+} else {
+  console.log(localStorage);
+  console.log(store.get('signUpList'))
+}
 
 function App() {
-
   return (
     <Router>
       <Routes>
@@ -29,8 +47,6 @@ function App() {
           {/* Dispense flow */}
           <Route path="/dispense0" element={<Dispense0 />} /> 
           <Route path="/dispense1_active" element={<Dispense1Active />} /> 
-          {/* Replaced by home page
-          <Route path="/dispense2-done" element={<Dispense2Done />} /> */}
           <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
           <Route path="/dispense4_active" element={<Dispense4Active />} /> 
         <Route path="/thank_you" element={<ThankYou />} /> 

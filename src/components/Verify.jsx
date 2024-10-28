@@ -1,22 +1,66 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from '../scss/modules/Verify.module.scss';
 import '../scss/global.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import PageTemplate from './PageTemplate';
 import { useState, useEffect } from 'react';
+import store from 'store2'
 
 import { sign } from 'chart.js/helpers';
 
+function initVerifyEmail() {
+    // Hoo boy submit email time
+    const handleClick = async (e) => {
+        e.preventDefault();
+        console.log(`${to} ${subject} ${message}`)
+        try {
+            await axios.post("/api/send", {
+                from: "Sunstop Verify sunstopverify@gmail.com",  
+                to,
+                subject,
+                message
+            });
+            alert("Email sent!");
+        } catch(err) {
+            alert(err);
+        }
+    };
+
+    return (
+        <>
+            <button onClick={handleClick} className='next-button'>Resend Link</button>
+        </>
+    )
+}
+function initVerifyPhone() {
+
+}
+
 function Verify() {
     const navigate = useNavigate();
+    // Grab verification method from last page
+    const location = useLocation();
+    // Give this var 'Email' or 'Phone' for easy verification switching
+    let verificationMethod = (Object.keys(location.state)[0]).slice(12);
+    console.log(verificationMethod) 
+    if (verificationMethod == "Email") {
+        const signUpContact = location.state.inputContactEmail;
+        console.log(signUpContact);
+    } else {
+        const signUpContact = location.state.inputContactPhone;
+        console.log(signUpContact);
+    }
 
-        // LOCAL STORAGE
-        const [inputContact, setInputContact] = useState('');
-        const [signUpList, setSignUpList] = useState(() => {
-            const savedList = localStorage.getItem('signUpList');
-            return savedList ? JSON.parse(savedList) : [];
-        });
+
+
+    // LOCAL STORAGE
+    const [inputContactEmail, setInputContactEmail] = useState('');
+    const [inputContactPhone, setInputContactPhone] = useState('');
+    const [signUpList, setSignUpList] = useState( () => {
+        return store.get('signUpList');
+    });
+    console.log(signUpList)
 
     const handleClick = () => {
         localStorage.setItem('signUpList', JSON.stringify(signUpList));

@@ -4,6 +4,7 @@ import { RollingNumber } from '@layflags/rolling-number';
 import PageTemplate from './PageTemplate';
 import HomeRewardDialog from './HomeReward';
 import { useState } from 'react';
+import store from "store2";
 
 // Imgs
 import imgBtnReward from '../assets/btn-reward.png';
@@ -23,12 +24,16 @@ import imgReward4 from '../assets/rewards/reward4.png';
 /* USER DETAILS */
 let logInName;
 let logInPoints;
-console.log(JSON.parse(localStorage.getItem('signUpList')))
-if (JSON.parse(localStorage.getItem('signUpList')) === null) {
+console.log(store.get('signUpList'))
+const testLS = store.get('signUpList')
+console.log(testLS);
+// Fallback to default login if LS is empty
+if (testLS == null) {
     logInName = 'Chris';
     logInPoints = 5;
   } else {
-    const signUpList = JSON.parse(localStorage.getItem('signUpList'));
+    // Grab user deets
+    const signUpList = store.get('signUpList');
     const signUpListLen = signUpList.length;
     logInName = signUpList[signUpListLen - 1].name;
     logInPoints = signUpList[signUpListLen - 1].points;
@@ -81,10 +86,10 @@ function initTrackerMilestones() {
     // How many milestones has user unlocked?
     // This season's milestones
     const milestoneArr = [
-        {item: 'test1', img: imgReward1, title: 'Sunstop T-Shirt'},
-        {item: 'test2', img: imgReward2, title: 'Sunstop Hat'},
-        {item: 'test3', img: imgReward3, title: 'Sunstop Sunglasses'},
-        {item: 'test4', img: imgReward4, title: 'Sunstop Jumper'}
+        {item: '1shirt', img: imgReward1, title: 'Sunstop T-Shirt'},
+        {item: '2hat', img: imgReward2, title: 'Sunstop Hat'},
+        {item: '3sung', img: imgReward3, title: 'Sunstop Sunglasses'},
+        {item: '4jump', img: imgReward4, title: 'Sunstop Jumper'}
     ];
 
     const milestoneArrNo = milestoneArr.length;
@@ -98,7 +103,8 @@ function initTrackerMilestones() {
     for (let i = 0; i < milestoneArrNo; i++) {
         const iPoints = (i + 1) * 200;
 
-        if (i==0) {
+        // Make first milestone a bit shorter
+        if ( i == 0 ) {
             milestoneWidth = (lineWidthHTML / milestoneArrNo) - 50;
         } else {
             milestoneWidth = lineWidthHTML / milestoneArrNo;

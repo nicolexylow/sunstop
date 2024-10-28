@@ -9,7 +9,6 @@ import PageTemplate from './PageTemplate';
 
 
 function ScreenSaver() {
-
     const [currentHour, setCurrentHour] = useState(new Date().getHours()); // Get initial hour
     const [uvIndexData, setUvIndexData] = useState([]);
     const [uvTimes, setUvTimes] = useState([]);

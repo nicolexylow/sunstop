@@ -1,4 +1,6 @@
 button {
+    padding: 10px 20px;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,9 +9,44 @@ button {
     border: none;
     background-color: transparent;
     cursor: pointer;
-    font-size: 25px;
 
+    font-size: 25px;
+    border-radius: 30px;
     letter-spacing: 0.25px;
+    color: var(--colour-surface2-txt);
+    background-image: linear-gradient(rgb(0 0 0 / 0.0) 0 0);
+    background-blend-mode: luminosity;
+}
+
+    // Hover: a subtle active effect
+    button:hover {
+        background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
+
+        transition: background-image 0.1s;
+    }
+    // Active: a subtle click effect
+    button:active {
+        background-image: linear-gradient(rgba(117, 61, 23, 0.2) 0 0);
+
+        transition: background-image 0.1s;
+    }
+    button.disabled {
+        background-color: var(--colour-tint-surface1-inactive);
+        outline: 2px solid var(--colour-tint-surface1-inactive-outline);
+        //background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
+
+        transition: background-color 0.1s;
+        img {
+            opacity:  0.65;
+            mix-blend-mode: luminosity;
+        }
+        p {
+            color: var(--colour-tint-surface1-inactive-txt);
+            opacity:  0.5;
+        }
+    }
+input {
+    color: var(--colour-surface2-txt);
 }
 
 .button-nav-container {
@@ -38,6 +75,23 @@ button {
     padding: 5px 20px;
     border-radius: 5px;
 }
+    .next-button.disabled {
+        background-color: var(--colour-tint-surface1-inactive);
+        outline: 2px solid var(--colour-tint-surface1-inactive-outline);
+        //background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
+        color: var(--colour-tint-surface1-inactive-txt);
+        opacity:  0.75;
+
+        transition: background-color 0.1s;
+        img {
+            opacity:  0.65;
+            mix-blend-mode: luminosity;
+        }
+        * {
+            color: var(--colour-tint-surface1-inactive-txt);
+            opacity:  0.25;
+        }
+    }
 .btn-back {
     display: flex;
     flex-direction: row;
@@ -94,13 +148,16 @@ button {
     .btn-xl.inactive {
         background-color: var(--colour-tint-surface1-inactive);
         outline: 2px solid var(--colour-tint-surface1-inactive-outline);
+        //background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
+
+        transition: background-color 0.1s;
         img {
-            opacity:  0.5;
+            opacity:  0.65;
             mix-blend-mode: luminosity;
         }
         p {
             color: var(--colour-tint-surface1-inactive-txt);
-            opacity:  0.65;
+            opacity:  0.5;
         }
     }
     .btn-xl.active {
