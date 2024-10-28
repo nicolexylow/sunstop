@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({
     secure: true,
     auth: {
       user: 'sunstopverify@gmail.com',
-      pass: 'dknt fdgr ppcb qxgs',
+      pass: '',
     },
   });
 
