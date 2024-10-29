@@ -13,7 +13,7 @@ function SignUp() {
     console.log(store.get('signUpList'));
     console.log(localStorage);
 
-    // LOCAL STORAGE
+    /* LOCAL STORAGE */
     // Documentation for store2 localstorage handling can be found here:
     // https://www.npmjs.com/package/store2
     // --> Short version is no json parsing, just use store.get() and store.set()
@@ -24,25 +24,45 @@ function SignUp() {
     });
     console.log(signUpList)
 
-    // UNDONE: No need to push to signUpList if they haven't
-    // finished signing up yet (see next page)
-    //useEffect(() => {
-    //    store.set('signUpList', signUpList);
-    //}, [signUpList]);
-
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(inputContact);
-        // Test if input is correct, if not then warn user input is incorrect
-        if (1 == 1) {
-            navigate('/verify', { state: { inputContact } });
-        } else {
-            // Add warning... can html input alert be dynamically popped up?
-            return;
-        }
+    /* SUBMIT HANDLING */
+    // Genius validation expresions thanks to https://stackoverflow.com/a/13975255
+    const validateEmail = (value) => {
+        var input = document.createElement('input');
+      
+        input.type = 'email';
+        input.required = true;
+        input.value = value;
+      
+        // Complex but keeps browser compatibility
+        return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
     }
+    const validatePhone = (value) => {
+        var input = document.createElement('input');
+      
+        input.type = 'tel';
+        input.required = true;
+        input.pattern = "[0-9]{3}-[0-9]{3}-[0-9]{3}";
+        input.value = value;
+      
+        // Complex but keeps browser compatibility
+        return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
+    }
+        const handleSubmit = (e) => {
+            e.preventDefault();
 
+            console.log(validateEmail(inputContact));
+            console.log(validatePhone(inputContact));
+
+            // Test if input is correct, if not then warn user input is incorrect
+            if ( validateEmail(inputContact) || validatePhone(inputContact)) {
+                navigate('/verify', { state: { inputContact } });
+            } else {
+                // Add warning... can html input alert be dynamically popped up?
+                return;
+            }
+        }
+
+    // Nav buttons
     const handleBack = () => {
         navigate('/');
     }
@@ -56,23 +76,17 @@ function SignUp() {
     // function? Ongoing.
     const inputRef = useRef(null);
     const continueBtnRef = useRef(null);
-    const handleInputSwap = (activeField) => {
-        useEffect(() => {
-            if (activeField == 'first') {
-                emailInputRef.current.value = '';
-                setBtnActive(true);
-            } 
-            if (phoneInputRef.current.value == '' && emailInputRef.current.value == '' ) {
-                //continueBtnRef.current.classList.add('disabled')
-            }
-        });
-    }
+    const handleInputTap = () => {
+        if (inputRef.current.value = '') {
+            setBtnActive(false);
+        } else {
+            setBtnActive(true);
+        }
+    };
 
-    // TODO: Make this work. Currently quite buggy
-    // Render button which is disabled unless either field is populated with text
-    function renderContinueBtn() {
+    function RenderContinueBtn() {
         useEffect(() => {
-            if (inputContactEmail == '' && inputContactPhone == '') {
+            if (inputContact == '' ) {
                 setBtnActive(false);
             } else {
                 setBtnActive(true);
@@ -113,12 +127,13 @@ function SignUp() {
                                 className='input-field' 
                                 ref={inputRef}
                                 value={inputContact}
+                                oninput={handleInputTap}
                                 onChange={(e) => setInputContact(e.target.value)} 
                                 required
                             />
                             <br />
                             <div className={styles['submit-button-container']}>
-                                <input className='next-button' type="submit" value="Continue" />
+                                <RenderContinueBtn />
                             </div>
                         </form>
 
