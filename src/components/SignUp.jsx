@@ -16,8 +16,8 @@ function SignUp() {
     // LOCAL STORAGE
     // Documentation for store2 localstorage handling can be found here:
     // https://www.npmjs.com/package/store2
-    const [inputContactEmail, setInputContactEmail] = useState('');
-    const [inputContactPhone, setInputContactPhone] = useState('');
+    // --> Short version is no json parsing, just use store.get() and store.set()
+    const [inputContact, setInputContact] = useState('');
     const [btnActive, setBtnActive] = useState(false);
     const [signUpList, setSignUpList] = useState( () => {
         return store.get('signUpList');
@@ -30,26 +30,17 @@ function SignUp() {
     //    store.set('signUpList', signUpList);
     //}, [signUpList]);
 
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Move this stuff to next page
-        //const newSignUpList = [...signUpList, {contact: inputContact, name: '', points: 0}];
-        //setSignUpList(newSignUpList);
-        //localStorage.setItem('signUpList', JSON.stringify(newSignUpList));
-        //setInputContactEmail('');
-        //setInputContactPhone('');
-        console.log(inputContactEmail);
-        console.log(inputContactPhone);
-        // Don't let use pass through if both are empty
-        if (inputContactEmail == '' && inputContactPhone == '') {
+        console.log(inputContact);
+        // Test if input is correct, if not then warn user input is incorrect
+        if (1 == 1) {
+            navigate('/verify', { state: { inputContact } });
+        } else {
+            // Add warning... can html input alert be dynamically popped up?
             return;
-        } else if (inputContactEmail == '') {
-            // Push Phone if Email blank
-            navigate('/verify', { state: { inputContactPhone } });
-        } else if (inputContactPhone == '') {
-            // Vice versa
-            navigate('/verify', { state: { inputContactEmail } });
-        }         
+        }
     }
 
     const handleBack = () => {
@@ -63,18 +54,14 @@ function SignUp() {
     // Make inputs mutually exclusive
     // Also potentially roll renderContinueBtn() functionality into this
     // function? Ongoing.
-    const emailInputRef = useRef(null);
-    const phoneInputRef = useRef(null);
+    const inputRef = useRef(null);
     const continueBtnRef = useRef(null);
     const handleInputSwap = (activeField) => {
         useEffect(() => {
             if (activeField == 'first') {
                 emailInputRef.current.value = '';
                 setBtnActive(true);
-            } else {
-                phoneInputRef.current.value = '';
-                setBtnActive(true);
-            }
+            } 
             if (phoneInputRef.current.value == '' && emailInputRef.current.value == '' ) {
                 //continueBtnRef.current.classList.add('disabled')
             }
@@ -105,7 +92,7 @@ function SignUp() {
     return (
         <>
         <PageTemplate>
-            <div className="main-container">
+            <main>
                 <div className="button-nav-container">
                     <button className='back-cancel-button' onClick={handleBack}>
                         <img className='back-cancel-button-icon' src={backIcon} alt="Back Icon" /> Back
@@ -117,39 +104,27 @@ function SignUp() {
                 <div className='center-container'>
                     <div className={styles['content-container']}>
 
+                        {/* Our cool input form! */}
                         <form className={styles['form']} onSubmit={handleSubmit}>
                             <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
-                            <br />
                             <input 
-                                type="email" 
-                                placeholder='Email' 
-                                className='input-field1'
-                                value={inputContactEmail}
-                                ref={emailInputRef}
-                                oninput={handleInputSwap('first')}
-                                onChange={(e) => setInputContactEmail(e.target.value)} 
-                            />
-                            <br />
-                            <br />
-                            <input 
-                                type="tel" 
-                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                                placeholder='Phone' 
-                                className='input-field2'
-                                value={inputContactPhone}
-                                ref={phoneInputRef}
-                                oninput={handleInputSwap('second')}
-                                onChange={(e) => setInputContactPhone(e.target.value)} 
+                                type="text" 
+                                placeholder='Email or Phone' 
+                                className='input-field' 
+                                ref={inputRef}
+                                value={inputContact}
+                                onChange={(e) => setInputContact(e.target.value)} 
+                                required
                             />
                             <br />
                             <div className={styles['submit-button-container']}>
-                                {renderContinueBtn()}
+                                <input className='next-button' type="submit" value="Continue" />
                             </div>
                         </form>
 
                     </div>
                 </div>
-            </div>
+            </main>
         </PageTemplate>
         </>
     );

@@ -92,7 +92,7 @@ function Verify() {
     return (
         <>
         <PageTemplate>
-            <div className="main-container">
+            <main>
                 <div className="button-nav-container">
                     <button className='back-cancel-button' onClick={handleBack}>
                         <img className='back-cancel-button-icon' src={backIcon} alt="Back Icon" /> Back
@@ -112,7 +112,7 @@ function Verify() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </PageTemplate>
         </>
     );

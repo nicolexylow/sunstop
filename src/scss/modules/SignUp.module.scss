@@ -13,3 +13,11 @@
     justify-content: flex-end;
 }
 
+.content-container {
+    width: 60%;
+    form {
+
+        display: flex;
+        flex-direction: column;
+    }
+}
