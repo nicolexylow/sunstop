@@ -29,14 +29,14 @@ function ConfirmVerify() {
 
     return (
         <>
-        <PageTemplate>
-            <div className="main-container">
+        {/* <PageTemplate> */}
+            <main>
                 <div className="button-nav-container">
                     <button className='back-cancel-button' onClick={handleBack}>
-                        <img className='back-cancel-button-icon' src={backIcon} alt="Back Icon" /> Back
-                    </button>
+                        <span class="material-symbols-rounded">arrow_back</span>
+                        </button>
                     <button className='back-cancel-button' onClick={handleCancel}>
-                        <img className='back-cancel-button-icon' src={cancelIcon} alt="Cancel Icon" /> Cancel
+                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
                 
@@ -45,7 +45,7 @@ function ConfirmVerify() {
                         <h1 className={styles['heading']}>Verification Complete</h1>
                        
                         <form onSubmit={handleSubmit} className={styles['form']}>
-                            <label className={styles['label']}>Welcome to SunStop! What's is your name?</label><br />
+                            <label className={styles['label']}>Welcome to SunStop! What's is your name?</label>
                             <input 
                                 type="text" 
                                 placeholder='Name' 
@@ -53,15 +53,14 @@ function ConfirmVerify() {
                                 value={inputName}
                                 onChange={(e) => setInputName(e.target.value)} 
                                 required />
-                            <br />
                             <div className={styles['submit-button-container']}>
                                 <input type="submit" value="Submit" className='next-button' />
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </PageTemplate>
+            </main>
+        {/* </PageTemplate> */}
         </>
     );
 }

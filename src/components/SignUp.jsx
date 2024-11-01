@@ -6,12 +6,33 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react';
 import PageTemplate from './PageTemplate';
 import store from 'store2'
+import { useAnimate, usePresence } from "framer-motion"
 
 function SignUp() {
     const navigate = useNavigate();
 
+    const [scope, animate] = useAnimate();
+    const [isPresent, safeToRemove] = usePresence();
+
     console.log(store.get('signUpList'));
     console.log(localStorage);
+
+    useEffect(() => {
+        if (isPresent) {
+          const enterAnimation = async () => {
+            await animate(scope.current, { x: 0 }, { duration: 1 })
+          }
+          enterAnimation()
+   
+        } else {
+          const exitAnimation = async () => {
+            await animate(scope.current, { x: 1000 }, { duration: 1 })
+            safeToRemove()
+          }
+          
+          exitAnimation()
+        }
+     }, [isPresent])
 
     /* LOCAL STORAGE */
     // Documentation for store2 localstorage handling can be found here:
@@ -54,10 +75,13 @@ function SignUp() {
             console.log(validatePhone(inputContact));
 
             // Test if input is correct, if not then warn user input is incorrect
-            if ( validateEmail(inputContact) || validatePhone(inputContact)) {
-                navigate('/verify', { state: { inputContact } });
+            // Then navigate to verify page, letting it know which verification method user has chosen
+            if ( validateEmail(inputContact) ) {
+                navigate('/verify', { state: { inputContact, method: "email" } });
+            } else if ( validatePhone(inputContact)) {
+                navigate('/verify', { state: { inputContact, method: "phone" } });
             } else {
-                // Add warning... can html input alert be dynamically popped up?
+                // Add warning tooltip: "please add valid phone or phone number!"
                 return;
             }
         }
@@ -94,28 +118,28 @@ function SignUp() {
         });
         if (!btnActive) {
             return (
-            <input className={`next-button disabled`} type="submit" value="Continue" ref={continueBtnRef}/>
+            <input className={`next-button disabled`} type="submit" value="Next" ref={continueBtnRef}/>
             )
         } else {
             return (
-            <input className={`next-button`} type="submit" value="Continue" ref={continueBtnRef}/>
+            <input className={`next-button`} type="submit" value="Next" ref={continueBtnRef}/>
             )
         } 
     }
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             <main>
                 <div className="button-nav-container">
                     <button className='back-cancel-button' onClick={handleBack}>
-                        <img className='back-cancel-button-icon' src={backIcon} alt="Back Icon" /> Back
-                    </button>
+                        <span class="material-symbols-rounded">arrow_back</span>
+                        </button>
                     <button className='back-cancel-button' onClick={handleCancel}>
-                        <img className='back-cancel-button-icon' src={cancelIcon} alt="Cancel Icon" /> Cancel
+                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
-                <div className='center-container'>
+                <div className='center-container' ref={scope}>
                     <div className={styles['content-container']}>
 
                         {/* Our cool input form! */}
@@ -130,8 +154,7 @@ function SignUp() {
                                 oninput={handleInputTap}
                                 onChange={(e) => setInputContact(e.target.value)} 
                                 required
-                            />
-                            <br />
+                            /> 
                             <div className={styles['submit-button-container']}>
                                 <RenderContinueBtn />
                             </div>
@@ -140,7 +163,7 @@ function SignUp() {
                     </div>
                 </div>
             </main>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

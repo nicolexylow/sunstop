@@ -71,7 +71,7 @@ function ScreenSaver() {
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             <div onClick={handleTap} className={styles['content-container']}>
                 <div className={styles['words-container']}>
                     <h1>Darlington</h1>
@@ -94,7 +94,7 @@ function ScreenSaver() {
                     </div>
                 </div>
             </div>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

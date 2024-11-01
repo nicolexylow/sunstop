@@ -16,7 +16,7 @@ function Dispense3LilMore() {
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             <div className="main-container">
                 <div className={styles['content-container']}>
                     <img src={sunIcon} alt="SunStop Icon" className={styles['sun-icon']} />
@@ -29,7 +29,7 @@ function Dispense3LilMore() {
                 </div>
                 
             </div>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

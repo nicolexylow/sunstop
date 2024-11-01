@@ -45,7 +45,7 @@ function Dispense() {
     
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             {/* Wrap content */}
             <main id={styles['main']}>
                 {/* H1, sub */}
@@ -80,7 +80,7 @@ function Dispense() {
                 </div>
                 {/* Ben put your code here */}
             </main>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

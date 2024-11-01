@@ -5,6 +5,9 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
+    --font-size-heading: 40px;
+    --font-weight-heading: 600;
+    --font-size-text: 25px;
   
     // Default colour, override at leisure
     color: var(--colour-surface1-txt);
@@ -34,3 +37,92 @@ hr.hr-horiz {
   border-width: 1px;
   width: 100%;
 }
+
+// Easy tooltip to show 'toggle nav' when hover, kudos https://www.w3schools.com/css/css_tooltip.asp
+.iconbtn {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+  .tooltiptext {
+      opacity: 0;
+      //width: 150px;
+      top: 51%;
+      left: 25%;
+      background-color: var(--colour-secondary);
+      color: var(--colour-secondary-txt) !important;
+      text-align: center;
+      border-radius: 8px;
+      margin-top: 4px;
+      font-size: 18px;
+      padding: 8px 26px;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      transition: opacity ease-out 0.1s;
+      .arrow-up {
+        width: 0; 
+        height: 0; 
+  
+        position: absolute;
+        bottom: 70px;
+  
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid var(--colour-secondary);
+      }
+  }
+  .iconbtn:hover .tooltiptext {
+      opacity: 1;
+  }
+
+// Adapted above tooltip for alert
+.alerttext {
+    opacity: 1;
+    //width: 150px;
+    top: 51%;
+    left: 25%;
+    background-color: var(--colour-secondary);
+    color: var(--colour-secondary-txt) !important;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 4px;
+    font-size: 18px;
+    padding: 8px 26px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    transition: opacity ease-out 0.1s;
+
+    .arrow-up {
+      width: 0; 
+      height: 0; 
+  
+      position: absolute;
+      bottom: 70px;
+  
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 15px solid var(--colour-secondary);
+    }
+}
+
+// Loader thanks to https://www.w3schools.com/howto/howto_css_loader.asp
+.loader {
+  border: 6px solid var(--colour-tint-sunstop); /* Light grey */
+  border-top: 6px solid var(--colour-sunstop); /* Blue */
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 1.25s linear infinite, fadeIn 3s ease-out;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes fadeIn {
+    0% { border-top: 6px solid rgba(244, 104, 11, 0.0); }
+    100% { border-top: 6px solid var(--colour-sunstop); }
+  }

@@ -6,9 +6,10 @@ $base-primary: hsl(24, 59%, 14%);
 $base-secondary: hsl(24, 56%, 28%);
 $base-tertiary: hsl(24, 35%, 28%);
 $base-sunstop: hsl(24, 91%, 50%);
+$base-sunstop2:rgb(172, 79, 18);
 // Surfaces
 $base-surface: hsl(37, 100%, 79%);
-$base-surfaceB: hsl(37, 65%, 75%);
+$base-surfaceB: hsl(37, 60%, 75%);
 $base-surfaceC:rgb(244, 168, 44);
 
 /*
@@ -16,7 +17,7 @@ Colours
 */
 :root {
     // Template wrapper
-    --colour-template-bg: color-mix(in srgb, #{$base-surface} 100%, white 75% );
+    --colour-template-bg: color-mix(in srgb, #{$base-surface} 50%, white 75% );
     --colour-template-txt: color-mix(in srgb, black 100%, #{$base-surface} 20%);
     // Primary
     --colour-primary: #{$base-primary};
@@ -26,14 +27,16 @@ Colours
     --colour-secondary: #{$base-secondary};
     --colour-secondary-bg: color-mix(in srgb, #{$base-secondary} 100%, white 0%);
     --colour-secondary-txt: color-mix(in srgb, white 95%, #{$base-secondary} 5%);
-    // Secondary
+    // Brand colour
     --colour-sunstop: #{$base-sunstop};
+    --colour-sunstop2: #{$base-sunstop2};
     --colour-sunstop-bg: color-mix(in srgb, #{$base-sunstop} 100%, white 25%);
     --colour-sunstop-txt: color-mix(in srgb, #{$base-sunstop} 1%, white 100%);
     --colour-sunstop-txt2: color-mix(in srgb, #{$base-sunstop} 85%, black 15%);
 
     // Tints
     --colour-tint-surface1: rgba(111, 63, 31, 0.5);
+    --colour-tint-surface1-outline: rgba(110, 75, 51, 0.275);
     --colour-tint-surface1-inactive: rgba(160, 146, 116, 0.05);
     --colour-tint-surface1-inactive-outline: rgba(160, 146, 116, 0.25);
     --colour-tint-surface1-inactive-txt: rgba(160, 146, 116, 1);
@@ -42,8 +45,6 @@ Colours
     --colour-tint-sunstop: rgba(245, 148, 36, 0.25);
     --colour-tint-primary: rgba(255, 98, 0, 0.075);
     --colour-tint-shadow: rgba(47, 44, 42, 0.5);
-
-    --colour-test: color-mix(in srgb, #{$base-secondary} 100%, #{$base-surface} 10%);
 
     // Surfaces -- in implicit hierachy
     --colour-surface1-bg: color-mix(in srgb, white 100%, #{$base-surface} 10%);
@@ -65,15 +66,16 @@ Colours
         --colour-surfaceB2-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 40%);
         --colour-surfaceB2-outline: color-mix(in srgb, #{$base-tertiary} 50%, var(--colour-surfaceB2-bg) 85%);
         --colour-surfaceB3-bg: color-mix(in srgb, white 85%, #{$base-surfaceB} 40%);
-        --colour-surfaceB3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
+        --colour-surfaceB3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 50%);
         --colour-surfaceB4-bg: color-mix(in srgb, white 75%, #{$base-surfaceB} 60%);
         --colour-surfaceB4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
 
     // Button
     --colour-button-outline: #D5CCC6;
+    --colour-button-toned-txt: hsl(37, 13%, 31%);
     // Lighter text colours
     --colour-card1-txt: color-mix(in srgb, #{$base-secondary} 100%, silver 25%);
-    --colour-card2-txt: color-mix(in srgb, #{$base-primary} 90%, #{$base-surfaceB} 10%);
+    --colour-card2-txt: color-mix(in srgb, #{$base-secondary} 85%, silver 15%);
     --colour-card3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
     --colour-card4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
 }

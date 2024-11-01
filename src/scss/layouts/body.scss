@@ -8,3 +8,7 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+.center-container {
+    transform: translateX(1000px);
+}

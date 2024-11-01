@@ -1,5 +1,7 @@
+/* BUTTONS */
 button {
     padding: 10px 20px;
+    min-height: 50px;
 
     display: flex;
     flex-direction: row;
@@ -11,9 +13,10 @@ button {
     cursor: pointer;
 
     font-size: 25px;
+    font-weight: 500;
     border-radius: 30px;
     letter-spacing: 0.25px;
-    color: var(--colour-surface2-txt);
+    color: var(--colour-surfaceB2-txt);
     background-image: linear-gradient(rgb(0 0 0 / 0.0) 0 0);
     background-blend-mode: luminosity;
 }
@@ -45,35 +48,39 @@ button {
             opacity:  0.5;
         }
     }
-input {
-    color: var(--colour-surface2-txt);
-}
-
 .button-nav-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 100px;
+    margin-bottom: 75px;
 
     .back-cancel-button {
+        padding: 10px;
+
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+        //border: 2px solid var(--colour-tint-surface1-outline);
+        border-radius: 50px;
     }
 
-    .back-cancel-button-icon {
-        width: 30px;
-        height: 30px;
+    span {
+        font-size: 50px;
+        font-weight: 500;
     }
 }
 
 .next-button {
+    width: 270px;
+    height: 65px;
+    padding: 10px 55px;
+
     font-size: 25px;
     background-color: var(--colour-template-bg);
     border: none;
-    padding: 5px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
+    font-weight: 500;
 }
     .next-button.disabled {
         background-color: var(--colour-tint-surface1-inactive);
@@ -201,3 +208,27 @@ input {
     color: var(--colour-surface4-txt);
     border-radius: 30px;
 }
+
+/* INPUTS */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+input {
+    color: var(--colour-surface2-txt);
+    font-weight: 500;
+}
+    .input-field {
+        margin-bottom: 20px;
+        width: 612px;
+        height: 70px;
+        font-size: 24px;
+        border: 2px solid var(--colour-button-outline);
+        padding-left: 20px;
+        border-radius: 8px;
+    }
+    .input-field:focus {
+        border-color: var(--colour-sunstop);
+        outline: none;
+    }

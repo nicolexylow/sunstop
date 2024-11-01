@@ -1,5 +1,5 @@
 .heading {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: var(--font-size-heading);
     font-weight: var(--font-weight-heading);
     color: var(--colour-primary);
@@ -7,15 +7,11 @@
 
 .text {
     font-size: var(--font-size-text);
+    margin-bottom: 10px;
 }
 
 .content-container {
     width: 60%;
-}
-
-.button-container {
-    text-align: right;
-    margin-top: 30px;
 }
 
 .button {
@@ -25,10 +21,56 @@
 .change-button {
     background-color: transparent;
     margin-right: 20px;
+    color: var(--colour-sunstop2)
 }
 
 .button-container {
+    text-align: right;
+    margin-top: 20px;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
+
+.loader-wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--colour-surfaceB2-bg);
+    border-radius: 20px;
+    p {
+        font-size: 21px;
+        font-weight: 500;
+        letter-spacing: 0.25px;
+        color: var(--colour-card2-txt);
+        animation: fadeInPage_delay ease-out 3s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    .verify-loader { 
+        animation: spin 1.25s linear infinite, fadeIn 3s ease-out, fadeInPage 0.5s ease-out;
+     }
+}
+
+    @keyframes fadeInPage {
+        0% { opacity: 0; }
+        25% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    @keyframes fadeInPage_delay {
+        0% { opacity: 0; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes fadeIn {
+        0% { border-top: 6px solid rgba(244, 104, 11, 0.0); }
+        100% { border-top: 6px solid var(--colour-sunstop); }
+      }

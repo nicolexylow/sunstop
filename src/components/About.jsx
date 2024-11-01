@@ -75,7 +75,7 @@ function About() {
     
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             {/* Wrap content */}
             <main id={styles['main']}>
                 {/* Main head: back btn mostly */}
@@ -92,7 +92,7 @@ function About() {
                 </div>
                 {/* Ben put your code here */}
             </main>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

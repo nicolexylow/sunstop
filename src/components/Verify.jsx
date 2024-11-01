@@ -39,24 +39,15 @@ function initVerifyPhone() {
 
 function Verify() {
     const navigate = useNavigate();
-    // Grab verification method from last page
     const location = useLocation();
-    // Give this var 'Email' or 'Phone' for easy verification switching
-    let verificationMethod = (Object.keys(location.state)[0]).slice(12);
-    console.log(verificationMethod) 
-    if (verificationMethod == "Email") {
-        const signUpContact = location.state.inputContactEmail;
-        console.log(signUpContact);
-    } else {
-        const signUpContact = location.state.inputContactPhone;
-        console.log(signUpContact);
-    }
-
-
+    // Grabs two variables from last page:
+    // verifDetails.inputContact contains phone number or email string (from user)
+    // verifDetails.method contains 'phone' or 'email' string
+    const verifDetails = location.state;
+    console.log(verifDetails)
 
     // LOCAL STORAGE
-    const [inputContactEmail, setInputContactEmail] = useState('');
-    const [inputContactPhone, setInputContactPhone] = useState('');
+    const [verifContact, setVerifContact] = useState('');
     const [signUpList, setSignUpList] = useState( () => {
         return store.get('signUpList');
     });
@@ -91,21 +82,28 @@ function Verify() {
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             <main>
                 <div className="button-nav-container">
                     <button className='back-cancel-button' onClick={handleBack}>
-                        <img className='back-cancel-button-icon' src={backIcon} alt="Back Icon" /> Back
-                    </button>
+                        <span class="material-symbols-rounded">arrow_back</span>
+                        </button>
                     <button className='back-cancel-button' onClick={handleCancel}>
-                        <img className='back-cancel-button-icon' src={cancelIcon} alt="Cancel Icon" /> Cancel
+                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
 
                 <div className='center-container'>
                     <div className={styles['content-container']}>
                         <h1 className={styles['heading']}>Verify that it's you</h1>
-                        <p className={styles['text']}>Please confirm your phone number following the verification link we sent to {contactInfo}.</p>
+                        <p className={styles['text']}> 
+                            Please confirm your identity by following the verification link we sent to 
+                            <p style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)'}}> {verifDetails.inputContact}</p>.
+                        </p>
+                        <div className={styles['loader-wrapper']}>
+                            <div className={`loader ${styles['verify-loader']}`}></div>
+                            <p>Waiting for verification link to be clicked...</p>
+                        </div>
                         <div className={styles['button-container']}>
                             <button className={styles['change-button']} onClick={handleChangeDetails}>Change details</button>
                             <button onClick={handleClick} className='next-button'>Resend Link</button>
@@ -113,9 +111,9 @@ function Verify() {
                     </div>
                 </div>
             </main>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
-}
+};
 
 export default Verify

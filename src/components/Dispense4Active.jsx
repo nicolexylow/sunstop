@@ -12,7 +12,7 @@ function Dispense4Active() {
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
             <div className="main-container">
                 <div className={styles['content-container']}>
                     <h1 className={styles['heading']}>Dispensing a little more sunscreen</h1>
@@ -26,7 +26,7 @@ function Dispense4Active() {
                 </div>
             </div>
 
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }

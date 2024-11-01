@@ -5,18 +5,20 @@ import Verify from './components/Verify';
 import ConfirmVerify from './components/ConfirmVerify';
 import Home from './components/Home';
 // Dispense pages
-import Dispense0 from './components/Dispense0';
-import Dispense1Active from './components/Dispense1Active';
-//import Dispense2Done from './components/Dispense2Done';
-import Dispense3LilMore from './components/Dispense3LilMore';
+  import Dispense0 from './components/Dispense0';
+  import Dispense1Active from './components/Dispense1Active';
+  import Dispense3LilMore from './components/Dispense3LilMore';
+  import Dispense4Active from './components/Dispense4Active';
 import ThankYou from './components/ThankYou';
 import About from './components/About';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import "./ReactotronConfig"
 import PageTemplate from './components/PageTemplate';
-import Dispense4Active from './components/Dispense4Active';
-//import EmailForm from './components/obsolete/TestEmail';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion"
+import { Outlet } from 'react-router-dom';
 import store from "store2";
+import "./ReactotronConfig"
 
 /* INIT LOCAL STORAGE */
 // Get existing list
@@ -35,24 +37,57 @@ if(existingSignUpList == null) {
   console.log(store.get('signUpList'))
 }
 
+/* Options for page transitions*/
+const pageVariants = {
+  initial: {
+    opacity: 0
+  },
+  in: {
+    opacity: 1
+  },
+  out: {
+    opacity: 0
+  }
+};
+const pageTransition = {
+  type: 'tween',
+  ease: 'ease-out',
+  duration: 0.5
+}; 
+
+// Animate between pages, woo!
+const AnimationLayout = () => {
+  const { pathname } = useLocation();
+  return (
+    <PageTemplate>
+
+        <Outlet />
+
+    </PageTemplate>
+  );
+};
+
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<ScreenSaver />} /> 
-        <Route path="/sign_up" element={<SignUp />} /> 
-        <Route path="/verify" element={<Verify />} /> 
-        <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
-        <Route path="/home" element={<Home />} /> 
-          {/* Dispense flow */}
-          <Route path="/dispense0" element={<Dispense0 />} /> 
-          <Route path="/dispense1_active" element={<Dispense1Active />} /> 
-          <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
-          <Route path="/dispense4_active" element={<Dispense4Active />} /> 
-        <Route path="/thank_you" element={<ThankYou />} /> 
-        <Route path="/about" element={<About />} /> 
-        <Route path="/page_template" element={<PageTemplate />} />  
-      </Routes>
+      {/* <PageTemplate> */}
+        <Routes>
+          <Route element={<AnimationLayout />}> 
+            <Route path="/" element={<ScreenSaver />} /> 
+            <Route path="/sign_up" element={<SignUp />} /> 
+            <Route path="/verify" element={<Verify />} /> 
+            <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
+            <Route path="/home" element={<Home />} /> 
+              {/* Dispense flow */}
+              <Route path="/dispense0" element={<Dispense0 />} /> 
+              <Route path="/dispense1_active" element={<Dispense1Active />} /> 
+              <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
+              <Route path="/dispense4_active" element={<Dispense4Active />} /> 
+            <Route path="/thank_you" element={<ThankYou />} /> 
+            <Route path="/about" element={<About />} /> 
+          </Route>
+        </Routes>
+      {/* </PageTemplate> */}
     </Router>
   );
 }

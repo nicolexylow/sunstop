@@ -161,7 +161,7 @@ function DispensePoints() {
 
     return (
         <>
-        <PageTemplate>
+        {/* <PageTemplate> */}
         {/* Wrap content */}
         <main id={styles['main']}>
             {/* Main head: Points counter */}
@@ -192,7 +192,7 @@ function DispensePoints() {
             </div>
             {/* Ben put your code here */}
         </main>
-        </PageTemplate>
+        {/* </PageTemplate> */}
         </>
     );
 }
