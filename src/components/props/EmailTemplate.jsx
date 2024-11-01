@@ -1,3 +1,4 @@
+// Adapted from https://react.email/docs/integrations/nodemailer
 import * as React from 'react';
 import { Html, Button } from "@react-email/components";
 

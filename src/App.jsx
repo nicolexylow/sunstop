@@ -10,7 +10,6 @@ import Home from './components/Home';
   import Dispense3LilMore from './components/Dispense3LilMore';
   import Dispense4Active from './components/Dispense4Active';
 import ThankYou from './components/ThankYou';
-import About from './components/About';
 import PageTemplate from './components/PageTemplate';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -23,9 +22,18 @@ import "./ReactotronConfig"
 /* INIT LOCAL STORAGE */
 // Get existing list
 const existingSignUpList = store.get('signUpList');
-// Check if list is null, if so, plug in dev login and print deets, if not, 
+// Test if it's not just an empty array (fallback for known issue)
+const isLSValid = (array) => {
+    if ( array == null || array.length == 0 ) {
+        return false;
+    } else {
+        return true;
+    }
+  };
+console.log(isLSValid(existingSignUpList));
+// Check if list is empty, if so, plug in dev login and print deets, if not, 
 // just print deets
-if(existingSignUpList == null) {
+if( !isLSValid ) {
   // Dev login
   const devSignUp = [{contact: 'dev@dev', name: 'Developer', points: 400}];
   // Sets local storage
@@ -84,7 +92,6 @@ function App() {
               <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
               <Route path="/dispense4_active" element={<Dispense4Active />} /> 
             <Route path="/thank_you" element={<ThankYou />} /> 
-            <Route path="/about" element={<About />} /> 
           </Route>
         </Routes>
       {/* </PageTemplate> */}

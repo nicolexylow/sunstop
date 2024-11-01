@@ -2,37 +2,17 @@ import styles from '../scss/modules/SignUp.module.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import '../scss/global.scss'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react';
 import PageTemplate from './PageTemplate';
 import store from 'store2'
-import { useAnimate, usePresence } from "framer-motion"
+import { motion, AnimatePresence, easeOut } from "framer-motion"
 
 function SignUp() {
     const navigate = useNavigate();
 
-    const [scope, animate] = useAnimate();
-    const [isPresent, safeToRemove] = usePresence();
-
     console.log(store.get('signUpList'));
     console.log(localStorage);
-
-    useEffect(() => {
-        if (isPresent) {
-          const enterAnimation = async () => {
-            await animate(scope.current, { x: 0 }, { duration: 1 })
-          }
-          enterAnimation()
-   
-        } else {
-          const exitAnimation = async () => {
-            await animate(scope.current, { x: 1000 }, { duration: 1 })
-            safeToRemove()
-          }
-          
-          exitAnimation()
-        }
-     }, [isPresent])
 
     /* LOCAL STORAGE */
     // Documentation for store2 localstorage handling can be found here:
@@ -127,6 +107,28 @@ function SignUp() {
         } 
     }
 
+    /* Options for page transitions*/
+    const pageVariants = {
+        initial: {
+        x: 40,    
+        opacity: 0
+        },
+        in: {
+        x: 0,
+        opacity: 1
+        },
+        out: {
+        x: -40, 
+        opacity: 0
+        }
+    };
+    const pageTransition = {
+        type: 'tween',
+        ease: easeOut,
+        duration: 0.275
+    }; 
+
+    const { pathname } = useLocation();
     return (
         <>
         {/* <PageTemplate> */}
@@ -139,29 +141,37 @@ function SignUp() {
                         <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
-                <div className='center-container' ref={scope}>
-                    <div className={styles['content-container']}>
+                <motion.div
+                    key={pathname}
+                    initial="initial"
+                    animate="in"
+                    variants={pageVariants}
+                    transition={pageTransition}
+                >
+                    <div className='center-container'>
+                        <div className={styles['content-container']}>
 
-                        {/* Our cool input form! */}
-                        <form className={styles['form']} onSubmit={handleSubmit}>
-                            <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
-                            <input 
-                                type="text" 
-                                placeholder='Email or Phone' 
-                                className='input-field' 
-                                ref={inputRef}
-                                value={inputContact}
-                                oninput={handleInputTap}
-                                onChange={(e) => setInputContact(e.target.value)} 
-                                required
-                            /> 
-                            <div className={styles['submit-button-container']}>
-                                <RenderContinueBtn />
-                            </div>
-                        </form>
+                            {/* Our cool input form! */}
+                            <form className={styles['form']} onSubmit={handleSubmit}>
+                                <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
+                                <input 
+                                    type="text" 
+                                    placeholder='Email or Phone' 
+                                    className='input-field' 
+                                    ref={inputRef}
+                                    value={inputContact}
+                                    oninput={handleInputTap}
+                                    onChange={(e) => setInputContact(e.target.value)} 
+                                    required
+                                /> 
+                                <div className={styles['submit-button-container']}>
+                                    <RenderContinueBtn />
+                                </div>
+                            </form>
 
+                        </div>
                     </div>
-                </div>
+                </motion.div>
             </main>
         {/* </PageTemplate> */}
         </>

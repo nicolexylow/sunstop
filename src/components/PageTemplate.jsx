@@ -4,8 +4,8 @@ import logo from '../assets/SunStop_logo.png';
 const PageTemplate = ({ children }) => {
 
     const navigate = useNavigate();
-    const handleClickAbout = () => {
-        navigate('/about');
+    const handleClickUser = () => {
+        //navigate('/profile');
     }
 
     return (
@@ -13,9 +13,9 @@ const PageTemplate = ({ children }) => {
         <div className='page-template-main-container'>
             <header>
                 <img src={logo} alt="SunStop Logo" className='logo' />
-                <button className='about' onClick={handleClickAbout}>
-                    <span className={`material-symbols-rounded`}>info</span>
-                    <p>About</p>
+                <button className='profile' onClick={handleClickUser}>
+                    <span className={`material-symbols-rounded`}>account_circle</span>
+                    <p>Profile</p>
                 </button>
             </header>
             <div className="main-content">

@@ -24,20 +24,24 @@ import imgReward4 from '../assets/rewards/reward4.png';
 /* USER DETAILS */
 let logInName;
 let logInPoints;
-console.log(store.get('signUpList'))
-const testLS = store.get('signUpList')
-console.log(testLS);
+// Get existing list
+const existingSignUpList = store.get('signUpList');
+// Test if it's not just an empty array (fallback for known issue)
+const isLSValid = (array) => {
+    if ( array == null || array.length == 0 ) {
+        return false;
+    } else {
+        return true;
+    }
+  };
+console.log(isLSValid(existingSignUpList));
+
 // Fallback to default login if LS is empty
-if (testLS == null) {
+if ( !isLSValid ) {
     logInName = 'Chris';
     logInPoints = 5;
   } else {
-    // Grab user deets
-    const signUpList = store.get('signUpList');
-    const signUpListLen = signUpList.length;
-    logInName = signUpList[signUpListLen - 1].name;
-    logInPoints = signUpList[signUpListLen - 1].points;
-    console.log(signUpList[signUpListLen - 1].points);
+    // Implement code to carry through user login state
   };
 
 

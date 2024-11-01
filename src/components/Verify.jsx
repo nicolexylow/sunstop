@@ -5,34 +5,67 @@ import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
 import PageTemplate from './PageTemplate';
 import { useState, useEffect } from 'react';
-import store from 'store2'
+import store from 'store2';
+import axios from "axios";
 
-import { sign } from 'chart.js/helpers';
+let APICall = false;
+// Hoo boy submit email time
+async function initVerifyEmail(to) {
+    const navigate = useNavigate();
+    //const handleClick = async (e) => {
 
-function initVerifyEmail() {
-    // Hoo boy submit email time
-    const handleClick = async (e) => {
-        e.preventDefault();
-        console.log(`${to} ${subject} ${message}`)
+        console.log(`${to}`)
         try {
             await axios.post("/api/send", {
                 from: "Sunstop Verify sunstopverify@gmail.com",  
                 to,
-                subject,
-                message
+                subject: "Please verify your Email"
             });
-            alert("Email sent!");
-        } catch(err) {
-            alert(err);
-        }
-    };
+            console.log("Email sent!");
 
-    return (
-        <>
-            <button onClick={handleClick} className='next-button'>Resend Link</button>
-        </>
-    )
+            while (!APICall) {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                waitForVerif();
+            }
+            navigate('/confirm_verify');
+            //});
+        } catch(err) {
+            console.log(err);
+        }
+    //};
 }
+
+async function waitForVerif() {
+    try {
+        await axios.get("/api/handle/verify");
+        console.log("Verif successful haha!");
+        APICall=true;
+    } catch(err) {
+        console.log(err);
+    }
+};
+
+
+function waitForVerif1() {
+    async function waitForVerif() {
+        while (true) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+          let poor = await axios.post("/api/handle/verify");
+            try {
+                poor();
+                console.log(poor.data)
+                console.log(await axios.post("/api/handle/verify"));
+                console.log("Attempt verif");
+            } catch(err) {
+                console.log(err);
+            }
+        }
+      }
+      waitForVerif();
+};
+
+
+
 function initVerifyPhone() {
 
 }
@@ -44,14 +77,12 @@ function Verify() {
     // verifDetails.inputContact contains phone number or email string (from user)
     // verifDetails.method contains 'phone' or 'email' string
     const verifDetails = location.state;
-    console.log(verifDetails)
-
-    // LOCAL STORAGE
-    const [verifContact, setVerifContact] = useState('');
-    const [signUpList, setSignUpList] = useState( () => {
-        return store.get('signUpList');
-    });
-    console.log(signUpList)
+    console.log(verifDetails);
+    if ( verifDetails.method == "email") {
+        initVerifyEmail(verifDetails.inputContact);
+    } else if (verifDetails.method == "phone") {
+        initVerifyPhone(verifDetails.inputContact);
+    }
 
     const handleClick = () => {
         localStorage.setItem('signUpList', JSON.stringify(signUpList));
@@ -76,10 +107,6 @@ function Verify() {
         navigate('/sign_up');
     }
 
-    // LOCAL STORAGE
-    const data = JSON.parse(localStorage.getItem('signUpList'))
-    const contactInfo = data[data.length - 1].contact;
-
     return (
         <>
         {/* <PageTemplate> */}
@@ -98,7 +125,7 @@ function Verify() {
                         <h1 className={styles['heading']}>Verify that it's you</h1>
                         <p className={styles['text']}> 
                             Please confirm your identity by following the verification link we sent to 
-                            <p style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)'}}> {verifDetails.inputContact}</p>.
+                            <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)'}}> {verifDetails.inputContact}</strong>.
                         </p>
                         <div className={styles['loader-wrapper']}>
                             <div className={`loader ${styles['verify-loader']}`}></div>

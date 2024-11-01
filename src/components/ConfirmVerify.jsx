@@ -2,9 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from '../scss/modules/ConfirmVerify.module.scss';
 import '../scss/global.scss';
-import PageTemplate from './PageTemplate';
-import backIcon from '../assets/back_icon.png';
-import cancelIcon from '../assets/cancel_icon.png';
+
 
 function ConfirmVerify() {
     const [inputName, setInputName] = useState('');
@@ -20,11 +18,11 @@ function ConfirmVerify() {
         navigate('/dispense0');
     }
     const handleBack = () => {
-        navigate('/verify')
+        navigate('/verify', { state: verifDetails } )
     }
 
     const handleCancel = () => {
-        navigate('/')
+        navigate('/', { state: verifDetails } )
     }
 
     return (

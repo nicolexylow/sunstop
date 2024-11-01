@@ -11,10 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@fortawesome/react-fontawesome": "^0.2.2",
     "@layflags/rolling-number": "^1.0.0",
-    "@react-email/components": "^0.0.25",
     "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "chartjs-plugin-annotation": "^3.0.1",
@@ -22,6 +19,7 @@
     "date-fns": "^4.1.0",
     "express": "^4.21.1",
     "framer-motion": "^11.11.10",
+    "jsonwebtoken": "^9.0.2",
     "lockr": "^0.9.0-beta.2",
     "nodemailer": "^6.9.15",
     "react": "^18.3.1",
@@ -35,6 +33,7 @@
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "eslint": "^9.11.1",
     "eslint-plugin-react": "^7.37.0",
@@ -44,6 +43,7 @@
     "reactotron-react-js": "^3.3.15",
     "sass": "^1.79.4",
     "sass-loader": "^16.0.2",
+    "twilio": "^5.3.5",
     "vite": "^5.4.8"
   }
 }
