@@ -23,48 +23,34 @@ async function initVerifyEmail(to) {
             });
             console.log("Email sent!");
 
+            // VERIFICATION:
+            // HACK HACK HACK, but my backend knowledge is lacking. Loop this API check
+            // until the API route detects that the user has clicked the link, whereupon
+            // waitForVerif() will positively charge the APICall variable 
             while (!APICall) {
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 waitForVerif();
             }
+            // Navigate to next page once verification is done!!
             navigate('/confirm_verify');
-            //});
+
         } catch(err) {
             console.log(err);
         }
     //};
 }
 
+// Check if user has clicked verif link
 async function waitForVerif() {
     try {
         await axios.get("/api/handle/verify");
+        // Once call is successful, set APICall to break while loop above
         console.log("Verif successful haha!");
         APICall=true;
     } catch(err) {
         console.log(err);
     }
 };
-
-
-function waitForVerif1() {
-    async function waitForVerif() {
-        while (true) {
-          await new Promise(resolve => setTimeout(resolve, 500));
-          let poor = await axios.post("/api/handle/verify");
-            try {
-                poor();
-                console.log(poor.data)
-                console.log(await axios.post("/api/handle/verify"));
-                console.log("Attempt verif");
-            } catch(err) {
-                console.log(err);
-            }
-        }
-      }
-      waitForVerif();
-};
-
-
 
 function initVerifyPhone() {
 
