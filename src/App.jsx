@@ -12,6 +12,9 @@ import Home from './components/Home';
 import ThankYou from './components/ThankYou';
 import PageTemplate from './components/PageTemplate';
 
+import imgReward1 from './assets/rewards/reward1.png';
+
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion"
@@ -33,9 +36,9 @@ const isLSValid = (array) => {
 console.log(isLSValid(existingSignUpList));
 // Check if list is empty, if so, plug in dev login and print deets, if not, 
 // just print deets
-if( !isLSValid ) {
+if( !isLSValid(existingSignUpList) ) {
   // Dev login
-  const devSignUp = [{contact: 'dev@dev', name: 'Developer', points: 400}];
+  const devSignUp = [{contact: 'dev@dev', name: 'Developer', subscribed: false, points: 400, unredeemed: [{ item: '1shirt', img: imgReward1, title: 'Sunstop T-Shirt' }]}];
   // Sets local storage
   store.set('signUpList', devSignUp);
   console.log(localStorage);
@@ -82,16 +85,17 @@ function App() {
         <Routes>
           <Route element={<AnimationLayout />}> 
             <Route path="/" element={<ScreenSaver />} /> 
-            <Route path="/sign_up" element={<SignUp />} /> 
-            <Route path="/verify" element={<Verify />} /> 
-            <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
+              {/* User flow */}
+              <Route path="/sign_up" element={<SignUp />} /> 
+              <Route path="/verify" element={<Verify />} /> 
+              <Route path="/confirm_verify" element={<ConfirmVerify />} /> 
             <Route path="/home" element={<Home />} /> 
               {/* Dispense flow */}
               <Route path="/dispense0" element={<Dispense0 />} /> 
               <Route path="/dispense1_active" element={<Dispense1Active />} /> 
               <Route path="/dispense3_lilmore" element={<Dispense3LilMore />} /> 
               <Route path="/dispense4_active" element={<Dispense4Active />} /> 
-            <Route path="/thank_you" element={<ThankYou />} /> 
+              <Route path="/thank_you" element={<ThankYou />} /> 
           </Route>
         </Routes>
       {/* </PageTemplate> */}

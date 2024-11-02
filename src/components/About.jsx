@@ -80,7 +80,7 @@ function About() {
             <main id={styles['main']}>
                 {/* Main head: back btn mostly */}
                 <div id={styles['main-head']}>
-                    <button className="btn-back">
+                    <button className="btn-icon">
                         <span class="material-symbols-rounded" onClick={() => navigate(-1)}>arrow_back</span>
                     </button>                
                 </div>

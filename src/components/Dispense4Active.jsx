@@ -1,7 +1,18 @@
 import PageTemplate from "./PageTemplate";
 import { useNavigate } from 'react-router-dom'
 import styles from '../scss/modules/Dispense4Active.module.scss';
+import ButtonProfile from './ButtonProfile';
+
 import handSensor from '../assets/hand_sensor.png'; 
+
+function RenderProfileBtn(props) {
+    console.log('rendering btn');
+    return (
+        <ButtonProfile>
+
+        </ButtonProfile>
+    )
+}
 
 function Dispense4Active() {
     const navigate = useNavigate();
@@ -12,6 +23,7 @@ function Dispense4Active() {
 
     return (
         <>
+        <RenderProfileBtn />
         {/* <PageTemplate> */}
             <div className="main-container">
                 <div className={styles['content-container']}>

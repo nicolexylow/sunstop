@@ -4,10 +4,11 @@
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
-    font-weight: 400;
+    font-weight: 450;
     --font-size-heading: 40px;
+    --font-size-title: 50px;
     --font-weight-heading: 600;
-    --font-size-text: 25px;
+    --font-size-text: 23px;
   
     // Default colour, override at leisure
     color: var(--colour-surface1-txt);
@@ -17,25 +18,41 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  /* a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-  }
-  a:hover {
-    color: #535bf2;
-  } */
 
+.signup-head {
+  margin-bottom: 20px;
+  h1 {
+      font-size: var(--font-size-title);
+      font-weight: var(--font-weight-heading);
+      color: var(--colour-primary);
+  }
+  p {
+      font-size: var(--font-size-text);
+  }
+}    
+  
+/* a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+} */
+
+// Dividers
 hr {
   border: none;
-  height: 1px;
   background-color: var(--colour-tint-surface1);
 }
 hr.hr-horiz {
   height: 1px;
   border-width: 1px;
   width: 100%;
+}
+div.hr-vert {
+  width: 1px;
+  background-color: var(--colour-tint-surface1);
 }
 
 // Easy tooltip to show 'toggle nav' when hover, kudos https://www.w3schools.com/css/css_tooltip.asp
@@ -126,3 +143,35 @@ hr.hr-horiz {
     0% { border-top: 6px solid rgba(244, 104, 11, 0.0); }
     100% { border-top: 6px solid var(--colour-sunstop); }
   }
+
+.signup-progtrack-container {
+  position: absolute;
+  left: 30px;
+  top: 105px;
+  width: 1134px;
+  height: 30px;
+  border-radius: 30px 30px 0px 0px;
+  overflow:hidden;
+
+  //background-color: var(--colour-surface1-bg);
+  .signup-progtrack {
+    width: 1134px;
+    height: 10px;
+  
+    background-color: var(--colour-surfaceB1-bg);
+  }
+  .signup-progtrack-active {
+    height: 10px;
+      
+    background-color: var(--colour-sunstop);
+  }
+    .signup-progtrack-active.prog-1 {
+      width: 5%;
+    }
+    .signup-progtrack-active.prog-2 {
+      width: 50%;
+    }
+    .signup-progtrack-active.prog-3 {
+      width: 85%;
+    }
+}

@@ -1,7 +1,6 @@
-.heading {
-    width: 612px;
-    font-size: var(--font-size-heading);
-    font-weight: var(--font-weight-heading);
+.content-container {
+    width: 70%;
+    margin-right: 20px;
 }
 
 .complete-icon {
@@ -20,12 +19,15 @@
     text-align: right;
 }
 
-.label {
-    margin-bottom: 30px;
-    font-size: var(--font-size-text);
-}
-
 .submit-button-container {
     display: flex;
     justify-content: flex-end;
+    gap: 25px;
+    .nope-button {
+        background-color: transparent;
+        padding: 10px 60px;
+        border: none;
+        color: var(--colour-sunstop2);
+        //flex-grow: 2;
+    }
 }

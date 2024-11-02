@@ -1,0 +1,30 @@
+button.profile {
+    position: absolute;
+    left: 970px;
+    top: 25px;
+    z-index: 500;
+    //height: 35px;
+    //gap: 12px;
+    font-size: 26px;
+    padding: 15px 25px;
+    font-weight: 500;
+    border-radius: 200px;
+    background-color: var(--colour-surface4-bg);
+    p {
+    }
+    span {
+        font-variation-settings: 'FILL' 1;
+        font-size: 38px;
+        font-weight: 500;
+        margin-bottom: 1px;
+    }
+}
+    button.profile:hover {
+        //border: 2px solid var(--colour-surface2-outline);
+    }
+    button.profile:active {
+        //border: 2px solid var(--colour-surface2-outline);
+        span {
+            font-variation-settings: 'FILL' 0;
+        }
+    }

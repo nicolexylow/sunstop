@@ -2,14 +2,15 @@
 Base shades: load these as SASS variables compiled at runtime
 */
 // Branding
-$base-primary: hsl(24, 59%, 14%);
+$base-primary: hsl(24, 59%, 20%);
 $base-secondary: hsl(24, 56%, 28%);
-$base-tertiary: hsl(24, 35%, 28%);
-$base-sunstop: hsl(24, 91%, 50%);
-$base-sunstop2:rgb(172, 79, 18);
+$base-tertiary: hsl(24, 90%, 35%);
+$base-quartenary: hsl(20, 5%, 50%);
+$base-sunstop: hsl(28, 94%, 52%);
+$base-sunstop2:hsl(29, 81%, 55%);
 // Surfaces
-$base-surface: hsl(37, 100%, 79%);
-$base-surfaceB: hsl(37, 60%, 75%);
+$base-surface: hsl(37, 100%, 50%);
+$base-surfaceB: hsl(37, 65%, 70%);
 $base-surfaceC:rgb(244, 168, 44);
 
 /*
@@ -17,7 +18,7 @@ Colours
 */
 :root {
     // Template wrapper
-    --colour-template-bg: color-mix(in srgb, #{$base-surface} 50%, white 75% );
+    --colour-template-bg: color-mix(in srgb, #{$base-surface} 25%, white 98% );
     --colour-template-txt: color-mix(in srgb, black 100%, #{$base-surface} 20%);
     // Primary
     --colour-primary: #{$base-primary};
@@ -30,7 +31,7 @@ Colours
     // Brand colour
     --colour-sunstop: #{$base-sunstop};
     --colour-sunstop2: #{$base-sunstop2};
-    --colour-sunstop-bg: color-mix(in srgb, #{$base-sunstop} 100%, white 25%);
+    --colour-sunstop-bg: color-mix(in srgb, #{$base-sunstop} 80%, white 25%);
     --colour-sunstop-txt: color-mix(in srgb, #{$base-sunstop} 1%, white 100%);
     --colour-sunstop-txt2: color-mix(in srgb, #{$base-sunstop} 85%, black 15%);
 
@@ -41,41 +42,52 @@ Colours
     --colour-tint-surface1-inactive-outline: rgba(160, 146, 116, 0.25);
     --colour-tint-surface1-inactive-txt: rgba(160, 146, 116, 1);
     --colour-tint-surface2: rgba(111, 63, 31, 0.5);
-    --colour-tint-surface3: rgba(111, 63, 31, 0.75);
+    --colour-tint-surface3: hsla(24, 65%, 35%, 0.75);
+    --colour-tint-surface4: hsla(24, 92%, 36%, 0.85);
+    --colour-tint-surface4a: hsla(24, 92%, 25%, 0.175);
     --colour-tint-sunstop: rgba(245, 148, 36, 0.25);
+    --colour-tint-sunstop2: rgba(214, 163, 103, 0.5);
     --colour-tint-primary: rgba(255, 98, 0, 0.075);
+    --colour-tint-secondary: rgba(194, 108, 55, 0.05);
     --colour-tint-shadow: rgba(47, 44, 42, 0.5);
 
     // Surfaces -- in implicit hierachy
-    --colour-surface1-bg: color-mix(in srgb, white 100%, #{$base-surface} 10%);
-    --colour-surface1-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 5%);
+    --colour-surface0-bg: color-mix(in srgb, white 98%, #{$base-surface} 2%);
+    --colour-surface0-txt: color-mix(in srgb, #{$base-sunstop} 15%, #{$base-primary} 90%);
+    --colour-surface1-bg: color-mix(in srgb, white 100%, #{$base-surface} 8%);
+    --colour-surface1-txt: color-mix(in srgb, #{$base-sunstop} 25%, #{$base-primary} 90%);
     --colour-surface1-outline: color-mix(in srgb, var(--colour-surface1-bg) 100%, #{$base-sunstop} 15%);
-    --colour-surface2-bg: color-mix(in srgb, white 75%, #{$base-surface} 20%);
-    --colour-surface2-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 20%);
-    --colour-surface2-outline: color-mix(in srgb, #{$base-secondary} 65%, var(--colour-surface1-bg) 85%);
+    --colour-surface2-bg: color-mix(in srgb, white 75%, #{$base-surface} 12%);
+    --colour-surface2-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 40%);
+    --colour-surface2-outline: color-mix(in srgb, #{$base-secondary} 15%, var(--colour-surface2-bg) 25%);
     --colour-surface3-bg: color-mix(in srgb, silver 3%, #{$base-surface} 10%);
     --colour-surface3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 35%);
-    --colour-surface3-outline: color-mix(in srgb, #{$base-secondary} 25%, var(--colour-surface1-bg) 85%);
+    --colour-surface3-outline: color-mix(in srgb, #{$base-secondary} 25%, var(--colour-surface3-bg) 85%);
     --colour-surface4-bg: color-mix(in srgb, white 90%, #{$base-surface} 45%);
     --colour-surface4-txt: color-mix(in srgb, #{$base-primary} 80%, #{$base-surface} 50%);
         // Secondary surfaces
-        --colour-surfaceB1-bg: color-mix(in srgb, white 90%, #{$base-surfaceB} 15%);
-        --colour-surfaceB1-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 5%);
+        --colour-surfaceB1-bg: color-mix(in srgb, white 35%, #{$base-surfaceB} 20%);
+        --colour-surfaceB1-txt: color-mix(in srgb, #{$base-primary} 95%, #{$base-surfaceB} 15%);
         --colour-surfaceB1-outline: color-mix(in srgb, #{$base-secondary} 65%, var(--colour-surfaceB1-bg) 85%);
-        --colour-surfaceB2-bg: color-mix(in srgb, white 100%, #{$base-surfaceB} 25%);
+        --colour-surfaceB2-bg: color-mix(in srgb, white 100%, #{$base-surfaceB} 35%);
         --colour-surfaceB2-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 40%);
         --colour-surfaceB2-outline: color-mix(in srgb, #{$base-tertiary} 50%, var(--colour-surfaceB2-bg) 85%);
-        --colour-surfaceB3-bg: color-mix(in srgb, white 85%, #{$base-surfaceB} 40%);
-        --colour-surfaceB3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 50%);
-        --colour-surfaceB4-bg: color-mix(in srgb, white 75%, #{$base-surfaceB} 60%);
-        --colour-surfaceB4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
+        --colour-surfaceB3-bg: color-mix(in srgb, white 100%, #{$base-surfaceB} 50%);
+        --colour-surfaceB3-txt: color-mix(in srgb, #{$base-sunstop} 15%, #{$base-secondary} 55%);
+        --colour-surfaceB4-bg: color-mix(in srgb, white 85%, #{$base-surfaceB} 60%);
+        --colour-surfaceB4-txt: color-mix(in srgb, #{$base-primary} 5%, #{$base-surfaceB} 20%);
 
     // Button
     --colour-button-outline: #D5CCC6;
-    --colour-button-toned-txt: hsl(37, 13%, 31%);
+    --colour-button-toned-bg: color-mix(in srgb, white 100%, #{$base-surfaceB} 75%);
+    --colour-button-toned-txt: color-mix(in srgb, #{$base-tertiary} 60%, #{$base-sunstop2} 100%);
+    --colour-button-outlined-bg: color-mix(in srgb, #{$base-quartenary} 25%, #{$base-sunstop} 10%);
+    --colour-button-outlined-txt: color-mix(in srgb, #{$base-primary} 65%, #{$base-sunstop} 100%);
+
+
     // Lighter text colours
-    --colour-card1-txt: color-mix(in srgb, #{$base-secondary} 100%, silver 25%);
-    --colour-card2-txt: color-mix(in srgb, #{$base-secondary} 85%, silver 15%);
+    --colour-card1-txt: color-mix(in srgb, #{$base-secondary} 90%, silver 15%);
+    --colour-card2-txt: color-mix(in srgb, #{$base-sunstop} 75%, black 25%);
     --colour-card3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
-    --colour-card4-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 20%);
+    --colour-card4-txt: color-mix(in srgb, #{$base-primary} 65%, #{$base-surfaceB} 20%);
 }

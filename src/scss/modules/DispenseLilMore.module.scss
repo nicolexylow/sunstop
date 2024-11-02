@@ -39,10 +39,14 @@
     border-radius: 30px;
 }
     .more-button {
-        border: 2px solid var(--colour-button-outline);
+        font-weight: 500;
+        border: 2px solid var(--colour-button-outlined-bg);
+        color: var(--colour-button-outlined-txt);
+        border-radius: 30px;
     }
 
     .finish-button {
-        background-color: var(--colour-surfaceB3-bg);
-        color: var(--colour-surface3-txt);
+        background-color: var(--colour-button-toned-bg);
+        color: var(--colour-button-toned-txt);
+        border-radius: 30px;
     }

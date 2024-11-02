@@ -4,9 +4,9 @@ import cancelIcon from '../assets/cancel_icon.png';
 import '../scss/global.scss'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react';
-import PageTemplate from './PageTemplate';
 import store from 'store2'
 import { motion, AnimatePresence, easeOut } from "framer-motion"
+import { forwardRef } from 'react';
 
 function SignUp() {
     const navigate = useNavigate();
@@ -18,11 +18,8 @@ function SignUp() {
     // Documentation for store2 localstorage handling can be found here:
     // https://www.npmjs.com/package/store2
     // --> Short version is no json parsing, just use store.get() and store.set()
-    const [inputContact, setInputContact] = useState('');
-    const [btnActive, setBtnActive] = useState(false);
-    const [signUpList, setSignUpList] = useState( () => {
-        return store.get('signUpList');
-    });
+    const [inputContact, setInputContact] = useState('');   
+    const [signUpList, setSignUpList] = useState(store.get('signUpList'));
     console.log(signUpList)
 
     /* SUBMIT HANDLING */
@@ -76,38 +73,13 @@ function SignUp() {
     }
 
     // Make inputs mutually exclusive
-    // Also potentially roll renderContinueBtn() functionality into this
-    // function? Ongoing.
+    const [btnActive, setBtnActive] = useState(`disabled`);
     const inputRef = useRef(null);
-    const continueBtnRef = useRef(null);
-    const handleInputTap = () => {
-        if (inputRef.current.value = '') {
-            setBtnActive(false);
-        } else {
-            setBtnActive(true);
-        }
-    };
 
-    function RenderContinueBtn() {
-        useEffect(() => {
-            if (inputContact == '' ) {
-                setBtnActive(false);
-            } else {
-                setBtnActive(true);
-            }
-        });
-        if (!btnActive) {
-            return (
-            <input className={`next-button disabled`} type="submit" value="Next" ref={continueBtnRef}/>
-            )
-        } else {
-            return (
-            <input className={`next-button`} type="submit" value="Next" ref={continueBtnRef}/>
-            )
-        } 
-    }
-
-    /* Options for page transitions*/
+    // Cool func for shifting up interface, to fit soft keyboard, if input is active
+    const [contentShifty, setContentShifty] = useState(false)
+    
+    /* Options for page transitions */
     const pageVariants = {
         initial: {
         x: 40,    
@@ -133,12 +105,14 @@ function SignUp() {
         <>
         {/* <PageTemplate> */}
             <main>
+                <div className='signup-progtrack-container'>
+                    <div className='signup-progtrack'>
+                        <div className={`signup-progtrack-active prog-1`}></div>
+                    </div>
+                </div>
                 <div className="button-nav-container">
-                    <button className='back-cancel-button' onClick={handleBack}>
+                    <button className='btn-icon' onClick={handleBack}>
                         <span class="material-symbols-rounded">arrow_back</span>
-                        </button>
-                    <button className='back-cancel-button' onClick={handleCancel}>
-                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
                 <motion.div
@@ -148,24 +122,38 @@ function SignUp() {
                     variants={pageVariants}
                     transition={pageTransition}
                 >
-                    <div className='center-container'>
+                    <div className={`center-container ${contentShifty ? `up` : null}`}>
                         <div className={styles['content-container']}>
-
+                            <div className='signup-head'>
+                                <h1>Log in or sign up</h1>
+                                <p>Sign into an existing account, or register now to <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)', letterSpacing: '0.25px'}}>get free sunscreen and exclusive rewards.</strong></p>
+                            </div>
                             {/* Our cool input form! */}
                             <form className={styles['form']} onSubmit={handleSubmit}>
-                                <label for="details" className={styles['label']}>Free Sunscreen and Rewards</label>
                                 <input 
                                     type="text" 
                                     placeholder='Email or Phone' 
                                     className='input-field' 
                                     ref={inputRef}
                                     value={inputContact}
-                                    oninput={handleInputTap}
-                                    onChange={(e) => setInputContact(e.target.value)} 
+                                    //onFocus={() => { setContentShifty(true); console.log(contentShifty)}}
+                                    //onBlur={() => { setContentShifty(false); console.log(contentShifty)}}
+                                    onChange={(e) => {
+                                        setInputContact(e.target.value); 
+                                        console.log(e.target.value); 
+                                        if (e.target.value == '') {
+                                            setBtnActive(`disabled`);
+                                            console.log(e.target.value)
+                                        } else {
+                                            setBtnActive(`enabled`);
+                                            console.log(e.target.value)
+                                        }
+                                    }} 
+                                    //onChange={handleInputTap}
                                     required
                                 /> 
                                 <div className={styles['submit-button-container']}>
-                                    <RenderContinueBtn />
+                                    <input className={`next-button ${btnActive}`} type="submit" value="Next"/>
                                 </div>
                             </form>
 

@@ -1,19 +1,9 @@
-.heading {
-    margin-bottom: 20px;
-}
-
-.label {
-    font-size: var(--font-size-heading);
-    font-weight: var(--font-weight-heading);
-    color: var(--colour-primary);
+.content-container {
+    width: 70%;
+    margin-right: 20px;
 }
 
 .submit-button-container {
     display: flex;
     justify-content: flex-end;
-}
-
-.center-container {
-    //transform: translateX(1020);
-    animation: all 1s ease;
 }

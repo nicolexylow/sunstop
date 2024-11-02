@@ -25,6 +25,10 @@ const jwt = require("jsonwebtoken");
 let testVar=false;
 
 
+// Grab local ip address, since probably going to be running this on local network
+// Genius idea from https://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js#comment120137862_8440736
+let localIP=[].concat(...Object.values(require('os').networkInterfaces())).find(x => !x.internal && x.family === 'IPv4')?.address;
+
 /* 
 ##################
 ## JSONWEBTOKEN ##
@@ -45,7 +49,8 @@ const generateToken = (contact) => {
 ################## */
 
 /* VARIABLES */
-//  Grab our email template
+// Grab our email template
+// Not too useful yet
 const emailHtml = (email) => {
   return `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->
@@ -73,7 +78,7 @@ app.post("/api/send", (req, res) => {
 
   // Prepare claim handshake
   const token = generateToken(req.body.to);
-  const link = `http://localhost:8888/api/verify?token=${token}`;
+  const link = `${localIP}:8888/api/verify?token=${token}`;
 
   // Email variables
   const mailOptions = {

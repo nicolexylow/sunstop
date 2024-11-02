@@ -2,6 +2,8 @@ import styles from '../scss/modules/DispenseActive.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PageTemplate from './PageTemplate';
 import { useState } from 'react';
+import ButtonProfile from './ButtonProfile';
+
 
 // Imgs
 import imgSensorDiagram from '../assets/body/sensor-diagram.png';
@@ -106,6 +108,15 @@ function RenderActiveBodyPart(props) {
     );
 };
 
+function RenderProfileBtn(props) {
+    console.log('rendering btn');
+    return (
+        <ButtonProfile>
+
+        </ButtonProfile>
+    )
+}
+
 
 function DispenseActive() {
     // index tracks which body part we're on
@@ -140,13 +151,14 @@ function DispenseActive() {
     
     return (
         <>
+        <RenderProfileBtn />
         {/* <PageTemplate> */}
             {/* Wrap content */}
             <main id={styles['main']}>
                 {/* H1, sub */}
                 <div id={styles['main-head']}>
                     <div id={styles['main-title']}> 
-                        <button className="btn-back">
+                        <button className="btn-icon">
                             <span class="material-symbols-rounded">arrow_back</span>
                         </button>
                         <h1>Dispensing sunscreen</h1>
@@ -177,7 +189,7 @@ function DispenseActive() {
                             <img src={imgSensorDiagram}></img>
                         </div>
 
-                        <button className="btn-scnd" id={styles['btn-skip']} onClick={handleNextTap}>Skip</button>
+                        <button className="btn-prmry" id={styles['btn-skip']} onClick={handleNextTap}>Skip</button>
                     </div>
                 </div>
                 {/* Ben put your code here */}

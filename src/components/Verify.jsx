@@ -24,9 +24,9 @@ async function initVerifyEmail(to) {
             console.log("Email sent!");
 
             // VERIFICATION:
-            // HACK HACK HACK, but my backend knowledge is lacking. Loop this API check
-            // until the API route detects that the user has clicked the link, whereupon
-            // waitForVerif() will positively charge the APICall variable 
+            // HACK HACK HACK, but my backend knowledge is lacking. Loop this API check 
+            // every 1.5suntil the API route detects that the user has clicked the link,
+            // then waitForVerif() will positively charge the APICall variable 
             while (!APICall) {
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 waitForVerif();
@@ -97,29 +97,38 @@ function Verify() {
         <>
         {/* <PageTemplate> */}
             <main>
+                <div className='signup-progtrack-container'>
+                    <div className='signup-progtrack'>
+                        <div className={`signup-progtrack-active prog-2`}></div>
+                    </div>
+                </div>
                 <div className="button-nav-container">
-                    <button className='back-cancel-button' onClick={handleBack}>
+                    <button className='btn-icon' onClick={handleBack}>
                         <span class="material-symbols-rounded">arrow_back</span>
                         </button>
-                    <button className='back-cancel-button' onClick={handleCancel}>
-                        <span class="material-symbols-rounded">close</span>
-                    </button>
                 </div>
 
                 <div className='center-container'>
                     <div className={styles['content-container']}>
-                        <h1 className={styles['heading']}>Verify that it's you</h1>
-                        <p className={styles['text']}> 
-                            Please confirm your identity by following the verification link we sent to 
-                            <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)'}}> {verifDetails.inputContact}</strong>.
-                        </p>
+                        <div className='signup-head'>
+                            <h1>Verify that it's you</h1>
+                            <p> 
+                                Please confirm your identity by following the verification link we sent to 
+                                <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)', letterSpacing: '1px'}}> {verifDetails.inputContact}</strong>.
+                            </p>
+                        </div>
                         <div className={styles['loader-wrapper']}>
                             <div className={`loader ${styles['verify-loader']}`}></div>
                             <p>Waiting for verification link to be clicked...</p>
                         </div>
                         <div className={styles['button-container']}>
-                            <button className={styles['change-button']} onClick={handleChangeDetails}>Change details</button>
-                            <button onClick={handleClick} className='next-button'>Resend Link</button>
+                            <button className={styles['change-button']} onClick={handleChangeDetails}>Cancel</button>
+                            <button onClick={handleClick} className='next-button2'>
+                                <span class="material-symbols-rounded">
+                                send
+                                </span>
+                                Resend link
+                            </button>
                         </div>
                     </div>
                 </div>

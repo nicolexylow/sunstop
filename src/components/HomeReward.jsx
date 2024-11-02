@@ -39,8 +39,68 @@ function RenderDialogSingle ({ rewards, children }) {
                     </div>
                     <div>
                         <p className={styles['desc-text']}>
-                            You’ll receive a text to your phone number or email with instructions on how to receive the T-Shirt. 
+                            Redeem below to get a message to your phone/email with instructions on how to receive your item. 
                         </p>
+                    </div>
+                </div>
+                <div className='btns-container'>
+                    {children}
+                </div>
+            </div>
+        </dialog>
+        </>
+    );
+}
+
+function RenderDialogMulti ({ rewards, children }) {
+    const rewardsLength = rewards.length;  
+
+    const RenderRewardListing = (reward) => {
+        return (
+            <>
+            <button className='rewards-listing-wrapper'>
+                <div className='listing-img-border'>
+                    <img src={reward.img}></img>
+                </div>
+                <div className='listing-info-trail'>
+                    <h4>{reward.title}</h4>
+                    <span class="material-symbols-rounded">chevron_right</span>
+                </div>
+            </button>
+            </>
+        )
+    }
+
+    const RenderRewards = () => {
+        const rewardsDOM = [];
+        for ( let i = 0; i < rewardsLength; i ++ ) {
+            rewardsDOM.push(RenderRewardListing(rewards[i]));
+        }
+        return (
+            <>
+                {rewardsDOM}
+            </>
+        )
+    }
+
+    return (
+        <>
+        <dialog>
+            <div className='dialog-container'>
+                <div className={styles['head-container']}>
+                    <h1>Redeem rewards</h1>
+                    <p>You have multiple outstanding items to redeem. Open one from the list, or redeem all.</p>
+                </div>
+                <div className='content-container'>
+                    <div className='rewards-list-container'>
+                        <RenderRewards/>
+                    </div>
+                    <div>
+                        {/* 
+                            <p className={styles['desc-text']}>
+                                Redeem below to get a message to your phone/email with instructions on how to receive your items. 
+                            </p>
+                        */}
                     </div>
                 </div>
                 <div className='btns-container'>
@@ -59,8 +119,10 @@ function RenderDialogSingle ({ rewards, children }) {
 */
 
 
-function HomeRewardDialog ({ rewards, children } ) {
+function HomeRewardDialog ( { rewards, children } ) {
+
     const rewardsLength = rewards.length
+    console.log(rewards)
 
     // If we've only got one unredeemed reward, just return regular
     // single-reward dialog
@@ -73,7 +135,13 @@ function HomeRewardDialog ({ rewards, children } ) {
             </RenderDialogSingle>
         )
     } else {
-        
+        return (
+            <RenderDialogMulti
+            rewards={rewards}
+            >
+                {children}
+            </RenderDialogMulti>
+        )
     }
 }
 

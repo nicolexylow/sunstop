@@ -2,6 +2,17 @@ import PageTemplate from "./PageTemplate";
 import sunIcon from '../assets/sun_icon.png';
 import styles from '../scss/modules/DispenseLilMore.module.scss';
 import { useNavigate } from 'react-router-dom';
+import ButtonProfile from './ButtonProfile';
+
+
+function RenderProfileBtn(props) {
+    console.log('rendering btn');
+    return (
+        <ButtonProfile>
+
+        </ButtonProfile>
+    )
+}
 
 function Dispense3LilMore() {
     const navigate = useNavigate();
@@ -16,6 +27,7 @@ function Dispense3LilMore() {
 
     return (
         <>
+        <RenderProfileBtn />
         {/* <PageTemplate> */}
             <div className="main-container">
                 <div className={styles['content-container']}>

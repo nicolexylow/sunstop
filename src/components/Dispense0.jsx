@@ -1,6 +1,8 @@
 import styles from '../scss/modules/Dispense.module.scss';
 import { useNavigate } from 'react-router-dom';
 import PageTemplate from './PageTemplate';
+import ButtonProfile from './ButtonProfile';
+
 
 // Imgs
 import imgBody1 from '../assets/body/beach.png';
@@ -8,6 +10,14 @@ import imgBody2 from '../assets/body/office.png';
 import imgBody3 from '../assets/body/casual.png';
 import imgBody4 from '../assets/body/other.png';
 
+function RenderProfileBtn(props) {
+    console.log('rendering btn');
+    return (
+        <ButtonProfile>
+
+        </ButtonProfile>
+    )
+}
 
 function Dispense() {
     // Navigation here
@@ -45,13 +55,14 @@ function Dispense() {
     
     return (
         <>
+        <RenderProfileBtn />
         {/* <PageTemplate> */}
             {/* Wrap content */}
             <main id={styles['main']}>
                 {/* H1, sub */}
                 <div id={styles['main-head']}>
                     <div id={styles['main-title']}> 
-                        <button className="btn-back" onClick={handleBkTap}>
+                        <button className="btn-icon" onClick={handleBkTap}>
                             <span class="material-symbols-rounded">arrow_back</span>
                         </button>
                         <h1>How much sunscreen do you need?</h1>

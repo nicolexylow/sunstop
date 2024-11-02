@@ -1,5 +1,5 @@
 /* BUTTONS */
-button {
+button, input {
     padding: 10px 20px;
     min-height: 50px;
 
@@ -7,7 +7,7 @@ button {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -16,20 +16,24 @@ button {
     font-weight: 500;
     border-radius: 30px;
     letter-spacing: 0.25px;
-    color: var(--colour-surfaceB2-txt);
+    color: var(--colour-button-toned-txt);
     background-image: linear-gradient(rgb(0 0 0 / 0.0) 0 0);
     background-blend-mode: luminosity;
+    span.material-symbols-rounded {
+        font-size: 40px;
+        font-weight: 350;
+    }
 }
 
     // Hover: a subtle active effect
-    button:hover {
-        background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
+    button:hover,input:hover {
+        background-image: linear-gradient(rgba(148, 79, 5, 0.1) 0 0);
 
         transition: background-image 0.1s;
     }
     // Active: a subtle click effect
-    button:active {
-        background-image: linear-gradient(rgba(117, 61, 23, 0.2) 0 0);
+    button:active,input:active {
+        background-image: linear-gradient(rgba(151, 66, 9, 0.2) 0 0);
 
         transition: background-image 0.1s;
     }
@@ -52,34 +56,19 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 75px;
-
-    .back-cancel-button {
-        padding: 10px;
-
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-        //border: 2px solid var(--colour-tint-surface1-outline);
-        border-radius: 50px;
-    }
-
-    span {
-        font-size: 50px;
-        font-weight: 500;
-    }
+    margin-bottom: 30px;
 }
 
 .next-button {
-    width: 270px;
-    height: 65px;
+    width: 230px;
+    height: 80px;
     padding: 10px 55px;
 
     font-size: 25px;
-    background-color: var(--colour-template-bg);
+    background-color: var(--colour-sunstop-bg);
+    color: var(--colour-sunstop-txt);
     border: none;
-    border-radius: 15px;
+    border-radius: 25px;
     font-weight: 500;
 }
     .next-button.disabled {
@@ -99,21 +88,20 @@ button {
             opacity:  0.25;
         }
     }
-.btn-back {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    span {
-        font-size: 40px;
-        font-weight: 700;
-        color: var(--colour-surface2-txt);
-    }
-    h1 {
 
-    }
+    button.next-button2 {
+    //flex-grow: 1;
+    height: 80px;
+    padding: 10px 55px;
+
+    font-size: 25px;
+    border: 2px solid var(--colour-button-outlined-bg);
+    color: var(--colour-sunstop2);
+    border-radius: 25px;
+    font-weight: 500;
 }
-.btn-logout {
+
+button.btn-logout {
     padding: 15px 40px;
 
     gap: 15px;
@@ -137,17 +125,18 @@ button {
     }
 }
 
-.btn-xl {
+button.btn-xl {
     padding: 30px 0;
 
     gap: 30px;
 
     font-size: 40px;  
-    background-color: var(--colour-surface4-bg);
-    color: var(--colour-surfaceB2-txt);
+    background-color: var(--colour-button-toned-bg);
+    color: var(--colour-button-toned-txt);
     font-weight: 500;
     border-radius: 50px;
     letter-spacing: 1px;
+    filter: drop-shadow(2px 3px 4px hsla(0, 0%, 0%, 0.15)) drop-shadow(1px 2px 1px hsla(0, 0%, 0%, 0.04));
     p {
         text-align: left;
     }
@@ -156,7 +145,7 @@ button {
         background-color: var(--colour-tint-surface1-inactive);
         outline: 2px solid var(--colour-tint-surface1-inactive-outline);
         //background-image: linear-gradient(rgb(0 0 0 / 0.05) 0 0);
-
+        filter: none;
         transition: background-color 0.1s;
         img {
             opacity:  0.65;
@@ -168,46 +157,73 @@ button {
         }
     }
     .btn-xl.active {
-        background-color: var(--colour-sunstop-bg);
+        background-color: var(--colour-sunstop);
         color: var(--colour-sunstop-txt);
 
         img {
-            filter: brightness(1.2) contrast(1.15);
+            filter: brightness(0.95) contrast(1.05);
         }
     }
 // Primary colour button
-.btn-prmry {
+button.btn-prmry {
     padding: 15px;
     height: 60px;
 
     font-size: 25px;
     font-weight: 500;
-    background-color: var(--colour-secondary);
-    color: var(--colour-secondary-txt);
+    background-color: var(--colour-sunstop2);
+    color: var(--colour-sunstop-txt);
     border-radius: 30px;
 }
 // Toned colour button
-.btn-scnd {
+button.btn-scnd {
     padding: 15px;
     height: 60px;
 
     font-size: 25px;
     font-weight: 500;
-    background-color: var(--colour-surfaceB3-bg);
-    color: var(--colour-surface2-txt);
+    background-color: var(--colour-button-toned-bg);
+    color: var(--colour-button-toned-txt);
     border-radius: 30px;
 }
 // Outline button
-.btn-outlined {
+button.btn-outlined {
     padding: 15px;
     height: 60px;
 
     font-size: 25px;
     font-weight: 500;
-    border: 2px solid var(--colour-button-outline);
-    color: var(--colour-surface4-txt);
+    border: 2px solid var(--colour-button-outlined-bg);
+    color: var(--colour-button-outlined-txt);
     border-radius: 30px;
 }
+// Outline button
+button.btn-txt {
+    padding: 15px;
+    height: 60px;
+
+    font-size: 25px;
+    font-weight: 500;
+    border: none;
+    color: var(--colour-button-outlined-txt);
+    border-radius: 30px;
+}
+// Icon button
+button.btn-icon {
+    padding: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    color: var(--colour-surfaceB1-txt);
+    border-radius: 50px;
+    span {
+        font-size: 50px;
+        font-weight: 500;
+    }
+}
+
 
 /* INPUTS */
 form {
@@ -219,16 +235,28 @@ input {
     color: var(--colour-surface2-txt);
     font-weight: 500;
 }
+input::placeholder {
+    color: var(--colour-card3-txt);
+    opacity: 0.65;
+  }
     .input-field {
         margin-bottom: 20px;
-        width: 612px;
+        //width: 612px;
         height: 70px;
         font-size: 24px;
         border: 2px solid var(--colour-button-outline);
+        color: var(--colour-surface2-txt);
+        background-color: white;
         padding-left: 20px;
         border-radius: 8px;
     }
+    .input-field:hover {
+        background-image: none;
+        border: 2px solid var(--colour-sunstop2);
+        outline: none;
+    }
     .input-field:focus {
-        border-color: var(--colour-sunstop);
+        background-image: none;
+        border: 2px solid var(--colour-sunstop);
         outline: none;
     }

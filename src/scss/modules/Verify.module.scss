@@ -1,17 +1,6 @@
-.heading {
-    margin-bottom: 15px;
-    font-size: var(--font-size-heading);
-    font-weight: var(--font-weight-heading);
-    color: var(--colour-primary);
-}
-
-.text {
-    font-size: var(--font-size-text);
-    margin-bottom: 10px;
-}
-
 .content-container {
-    width: 60%;
+    width: 70%;
+    margin-right: 20px;
 }
 
 .button {
@@ -20,26 +9,29 @@
 
 .change-button {
     background-color: transparent;
-    margin-right: 20px;
-    color: var(--colour-sunstop2)
+    padding: 10px 60px;
+    color: var(--colour-sunstop2);
+    //flex-grow: 2;
 }
 
 .button-container {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 40px;
 
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    gap: 25px;
 }
 
+// Our lovely 'waiting for verification' communicator
 .loader-wrapper {
     padding: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
-    background-color: var(--colour-surfaceB2-bg);
+    background-color: var(--colour-surfaceB1-bg);
     border-radius: 20px;
     p {
         font-size: 21px;

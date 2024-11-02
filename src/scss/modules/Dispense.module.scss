@@ -1,16 +1,16 @@
 // Define main layout and display options
 #main {
-    gap: 50px;
+    gap: 20px;
     #main-head {
         //display: flex;
         //flex-direction: column;
         //justify-content: space-between;
         //align-items: center;
         
-        padding: 10px 0px;
+        //padding: 10px 0px;
 
         #main-title {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 20px;
@@ -18,17 +18,15 @@
             h1 {
                 font-size: 40px;
                 font-weight: 500;
-                color: var(--colour-surface1-txt);
+                color: var(--colour-primary);
                 line-height: 30px;
-                margin-bottom: 4px;
+                margin-bottom: 1px;
             }
         }
         h2 {
-            padding: 0px 10px;
-
             font-size: 30px;
-            font-weight: 600;
-            color: var(--colour-surface3-txt);
+            font-weight: 500;
+            color: var(--colour-surface2-txt);
         }
     }
     #main-cards {
@@ -52,18 +50,18 @@
         gap: 30px;
 
         width: 240px;
-        padding: 50px 20px 20px 20px;
+        padding: 30px 20px 20px 20px;
 
         background-color: var(--colour-surfaceB2-bg);
         border-radius: 20px;
         img {
-            width: 150px;
+            width: 170px;
             //mix-blend-mode: luminosity;
         }
         h2 {
-            font-weight: 500;
-            letter-spacing: 0.25px;
-            color: var(--colour-surface3-txt);
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--colour-surfaceB2-txt);
         }
     }
 }

@@ -1,12 +1,21 @@
 import styles from '../scss/modules/ScreenSaver.module.scss';
 import '../scss/global.scss'
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import axios from 'axios';
 import AreaChart from './AreaChart';
 import { format } from 'date-fns';
 import PageTemplate from './PageTemplate';
 
+const MyInput = forwardRef(function MyInput(props, ref) {
+    const { label, ...otherProps } = props;
+    return (
+      <label>
+        {label}
+        <input {...otherProps} ref={ref} />
+      </label>
+    );
+  });
 
 function ScreenSaver() {
     const [currentHour, setCurrentHour] = useState(new Date().getHours()); // Get initial hour
@@ -78,9 +87,12 @@ function ScreenSaver() {
                     <p className={styles['current-date']}>{date}</p>
 
                     {uvTimes.length >= 2 && 
-                        (<p className={styles['uv-warning']}>
-                            ⚠ Sun protection is required from {`${uvTimes[0]} - ${uvTimes[uvTimes.length - 1]}`}
-                        </p>)
+                        (<div className={styles['uv-warning']}>
+                            <span className={`material-symbols-rounded ${styles['uv-warning-symbol']}`}>
+                            brightness_alert
+                            </span>
+                            <p>Sun protection is required from {`${uvTimes[0]} – ${uvTimes[uvTimes.length - 1]}`}</p>
+                        </div>)
                     }
                 </div>
                 <div className={styles['visuals']}>

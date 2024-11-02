@@ -29,21 +29,24 @@ function ConfirmVerify() {
         <>
         {/* <PageTemplate> */}
             <main>
+                <div className='signup-progtrack-container'>
+                    <div className='signup-progtrack'>
+                        <div className={`signup-progtrack-active prog-3`}></div>
+                    </div>
+                </div>
                 <div className="button-nav-container">
-                    <button className='back-cancel-button' onClick={handleBack}>
+                    <button className='btn-icon' onClick={handleBack}>
                         <span class="material-symbols-rounded">arrow_back</span>
-                        </button>
-                    <button className='back-cancel-button' onClick={handleCancel}>
-                        <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
                 
                 <div className='center-container'>
-                    <div className={styles['content-container']}>
-                        <h1 className={styles['heading']}>Verification Complete</h1>
-                       
+                    <div className={styles['content-container']}>   
+                        <div className='signup-head'>
+                            <h1>Verification complete!</h1>
+                            <p>Welcome to SunStop! Please add a name for your account.</p>  
+                        </div>     
                         <form onSubmit={handleSubmit} className={styles['form']}>
-                            <label className={styles['label']}>Welcome to SunStop! What's is your name?</label>
                             <input 
                                 type="text" 
                                 placeholder='Name' 
@@ -52,6 +55,7 @@ function ConfirmVerify() {
                                 onChange={(e) => setInputName(e.target.value)} 
                                 required />
                             <div className={styles['submit-button-container']}>
+                                <input type="submit" value="No thanks" className={styles['nope-button']} />
                                 <input type="submit" value="Submit" className='next-button' />
                             </div>
                         </form>
