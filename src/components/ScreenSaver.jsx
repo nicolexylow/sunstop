@@ -2,10 +2,10 @@ import styles from '../scss/modules/ScreenSaver.module.scss';
 import '../scss/global.scss'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, forwardRef } from 'react';
-import axios from 'axios';
 import AreaChart from './AreaChart';
 import { format } from 'date-fns';
 import PageTemplate from './PageTemplate';
+import logo from '../assets/SunStop_logo.png';
 
 const MyInput = forwardRef(function MyInput(props, ref) {
     const { label, ...otherProps } = props;
@@ -17,48 +17,22 @@ const MyInput = forwardRef(function MyInput(props, ref) {
     );
   });
 
-function ScreenSaver() {
+function ScreenSaver( props ) {
     const [currentHour, setCurrentHour] = useState(new Date().getHours()); // Get initial hour
-    const [uvIndexData, setUvIndexData] = useState([]);
     const [uvTimes, setUvTimes] = useState([]);
     const date = format(new Date(), "EEEE, do MMMM");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                'https://api.open-meteo.com/v1/forecast',
-                {
-                    params: {
-                    latitude: -33.8924,
-                    longitude: 151.1917,
-                    hourly: ['uv_index', 'temperature_2m'],
-                    timezone: 'Australia/Sydney',
-                    forecast_days: 1,
-                    },
-                }
-                );
-                
-                setUvIndexData(response.data.hourly.uv_index); 
-    
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        if (uvIndexData.length > 0) {
+        if (props.uvData.length > 0) {
             getWarningTime(); 
         }
-    }, [uvIndexData]);
-
+    }, [props.uvData]);
+    
    const getWarningTime = () => {
         let times = []
-        for (let i = 0; i < uvIndexData.length; i++) {
-            if (uvIndexData[i] >= 3) {
+        for (let i = 0; i < props.uvData.length; i++) {
+            if (props.uvData[i] >= 3) {
                 //format time
                 const hour = i % 12 || 12;
                 const suffix = i >= 12 ? 'PM' : 'AM';
@@ -82,11 +56,13 @@ function ScreenSaver() {
         <>
         {/* <PageTemplate> */}
             <div onClick={handleTap} className={styles['content-container']}>
+            <div id={styles['main-head']}>
                 <div className={styles['words-container']}>
                     <h1>Darlington</h1>
+                    <p>•</p>
                     <p className={styles['current-date']}>{date}</p>
-
-                    {uvTimes.length >= 2 && 
+                </div>
+                {uvTimes.length >= 2 && 
                         (<div className={styles['uv-warning']}>
                             <span className={`material-symbols-rounded ${styles['uv-warning-symbol']}`}>
                             brightness_alert
@@ -94,16 +70,18 @@ function ScreenSaver() {
                             <p>Sun protection is required from {`${uvTimes[0]} – ${uvTimes[uvTimes.length - 1]}`}</p>
                         </div>)
                     }
-                </div>
+            </div>
                 <div className={styles['visuals']}>
-                    <AreaChart data={uvIndexData}/>
-                    <div className={styles['heading-section']}>
-                        <h1 className={styles['h1']}>tap for<span className={styles['colour']}> free sunscreen </span></h1>
-                        <div className={styles['sign-up-container']}>
-                            <p className={styles['small']}>free sign up!</p>
-                            <span className={`material-symbols-rounded ${styles['tap-icon']}`}>touch_app</span>
+                    <AreaChart data={props.uvData}/>
+                    <button className={`btn-scnd ${styles['heading-section']}`}>
+                    <span className={`material-symbols-rounded ${styles['tap-icon']}`}>touch_app</span>
+                        <div id={styles['heading-secion-leadandtext']}>
+                            <h1 className={styles['h1']}>Get   <span className={styles['colour']}> free sunscreen </span></h1>
                         </div>
-                    </div>
+                        <div className={styles['sign-up-container']}>
+                            <p className={styles['small']}>Sign up now!</p>
+                        </div>
+                    </button>
                 </div>
             </div>
         {/* </PageTemplate> */}

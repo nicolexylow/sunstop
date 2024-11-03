@@ -50,6 +50,7 @@ Colours
     --colour-tint-primary: rgba(255, 98, 0, 0.075);
     --colour-tint-secondary: rgba(194, 108, 55, 0.05);
     --colour-tint-shadow: rgba(47, 44, 42, 0.5);
+    --colour-tint-shadow2: rgba(47, 44, 42, 0.15);
 
     // Surfaces -- in implicit hierachy
     --colour-surface0-bg: color-mix(in srgb, white 98%, #{$base-surface} 2%);

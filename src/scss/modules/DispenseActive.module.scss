@@ -65,8 +65,8 @@
         background-color: var(--colour-surfaceB3-bg);
         border-radius: 20px;
         img {
-           opacity: 0.75;
-           mix-blend-mode: luminosity;
+           //opacity: 0.75;
+           //mix-blend-mode: luminosity;
         }
     }
 
@@ -131,34 +131,31 @@
 
         h1 {
             margin-bottom: 5px;
-            font-size: 20px;
-    
-            font-weight: 650;
+            font-size: 18px;
+            font-weight: 600;
+            //height: 10px;
+            //letter-spacing: 0.5px;
             color: var(--colour-tint-surface3);
-            letter-spacing: 0.75px;
+            line-height: 30px;
         }
             #dispense-area {
                 height: 85px;
                 width: 100%;
                 //padding: 10px;
     
-                
                 font-size: 70px;
                 line-height: 90px;
-                font-weight: 600;
+                font-weight: 400;
                 color: var(--colour-surface0-txt);
 
             }
     }
 
     #main-right-diagram {
-        h2 {
+        p {
             margin: 0px 0px 25px 0px;
-            font-size: 20px;
-    
-            font-weight: 650;
-            color: var(--colour-tint-surface4);
-            letter-spacing: 0.75px;
+
+            line-height: 30px;
         }
         img {
             position: relative;

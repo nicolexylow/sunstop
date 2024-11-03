@@ -1,7 +1,7 @@
 import styles from '../scss/modules/Home.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
-import HomeRewardDialog from './HomeReward';
+import Dialog_HomeReward from './Dialog_HomeReward';
 import ButtonProfile from './ButtonProfile';
 import { useState } from 'react';
 import store from "store2";
@@ -86,7 +86,7 @@ let trackLineWidth = userPoints;
 ###########
 */
 
-function renderScoreHead() {
+function RenderScoreHead() {
     return (
         <>
             <div id={styles['points-total-container']}>
@@ -101,7 +101,7 @@ function renderScoreHead() {
 }
 
 // Milestone tracker stuff
-function initTrackerMilestones() {
+function InitTrackerMilestones() {
     // How many milestones has user unlocked?
     // This season's milestones
     const milestoneArr = [
@@ -186,7 +186,7 @@ function initUserPointsUpdate() {
 }
 function renderUserPointsUpdate() {
 }
-function renderUserPointsLine() {
+function RenderUserPointsLine() {
     // Calculate line width based on user points/points max
     // For now, points are the same as max line width
     trackLineWidth = userPointsNew;
@@ -224,7 +224,7 @@ function RenderDialog(props) {
     // Show dialog, and pass buttons to it
     return (
         <>
-            <HomeRewardDialog
+            <Dialog_HomeReward
                 rewards={props.rewards}
             >
                 <button className={`btn-txt ${styles['dialog-btn-cancel']}`} onClick={handleCloseTap}>
@@ -234,7 +234,7 @@ function RenderDialog(props) {
                     <img src={imgBtnReward}/>
                     {rewardItemsLength == 1 ? `Redeem` : `Redeem all`}
                 </button>
-            </HomeRewardDialog>
+            </Dialog_HomeReward>
         </>
     )
 }
@@ -265,10 +265,6 @@ function DispensePoints() {
     const handleDispenseTap = () => {
         navigate('/dispense0');
     }
-    // Log out btn
-    const handleLogOutTap = () => {
-        navigate('/')
-    };
 
     return (
         <>
@@ -282,7 +278,7 @@ function DispensePoints() {
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-wrapper']}>
                         <div id={styles['points-container']}>
-                            {renderScoreHead()}
+                            <RenderScoreHead/>
                         </div>
                     </div>
                     {/* */}
@@ -299,7 +295,7 @@ function DispensePoints() {
                     {/* Our milestones sit here */}
                     <div id={styles['tracker-milestones-container']}>
                         {/* Insert row of milestones */}
-                        {initTrackerMilestones()}
+                        <InitTrackerMilestones/>
                     </div>
                     <div id={styles['tracker-baseline-container']}>
                         {/* Baseline base */}
@@ -307,7 +303,7 @@ function DispensePoints() {
 
                         </div>
                         {/* Baseline active */}
-                        {renderUserPointsLine()}
+                        <RenderUserPointsLine/>
                     </div>
                 </div>
                 {/* Reward/dispense buttons */}

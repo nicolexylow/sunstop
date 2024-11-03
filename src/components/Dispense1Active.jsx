@@ -185,7 +185,7 @@ function DispenseActive() {
                         </div>
                         <hr className='hr-horiz'></hr>
                         <div id={styles['main-right-diagram']}>
-                            <h2>Place hand underneath</h2>
+                            <p>Place hand underneath</p>
                             <img src={imgSensorDiagram}></img>
                         </div>
 

@@ -44,16 +44,24 @@ function ConfirmVerify() {
                     <div className={styles['content-container']}>   
                         <div className='signup-head'>
                             <h1>Verification complete!</h1>
-                            <p>Welcome to SunStop! Please add a name for your account.</p>  
+                            <p>Welcome! If you like, you can add a short username we can refer to you by below.</p>  
                         </div>     
-                        <form onSubmit={handleSubmit} className={styles['form']}>
+                        <form onSubmit={handleSubmit} className={styles['name-form']}>
                             <input 
                                 type="text" 
-                                placeholder='Name' 
-                                className='input-field' 
+                                placeholder='Username' 
+                                className={`input-field ${styles['input-field-name']}`} 
                                 value={inputName}
                                 onChange={(e) => setInputName(e.target.value)} 
                                 required />
+                            <label className={`input-checkbox-label ${styles['input-checkbox-subscribe']}`} >
+                            <input 
+                                type="checkbox" 
+                                id='subscribe-check-verify'
+                                className='input-checkbox' 
+                                onChange={(e) => setInputName(e.target.value)} />
+                                Get sunscreen application reminders every 2 hours when UV is high
+                            </label>
                             <div className={styles['submit-button-container']}>
                                 <input type="submit" value="No thanks" className={styles['nope-button']} />
                                 <input type="submit" value="Submit" className='next-button' />

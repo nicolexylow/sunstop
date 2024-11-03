@@ -10,14 +10,16 @@ import Home from './components/Home';
   import Dispense3LilMore from './components/Dispense3LilMore';
   import Dispense4Active from './components/Dispense4Active';
 import ThankYou from './components/ThankYou';
-import PageTemplate from './components/PageTemplate';
+//import PageTemplate from './components/PageTemplate';
 
 import imgReward1 from './assets/rewards/reward1.png';
 
-
+import { format } from 'date-fns';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion"
+import axios from 'axios';
 import { Outlet } from 'react-router-dom';
 import store from "store2";
 import "./ReactotronConfig"
@@ -66,25 +68,117 @@ const pageTransition = {
   duration: 0.5
 }; 
 
-// Animate between pages, woo!
-const AnimationLayout = () => {
+import logo from './assets/SunStop_logo.png';
+function PageTemplate( props ) {
+    //const location = useLocation();
+    //const uvPull = location.state.uvData;
+    console.log(props);
+    // Clock logic
+    const [time, updateTime] = useState(new Date());
+    const [hour, updateHour] = useState(time.getHours());
+    const [currentUV, updateCurrentUV] = useState(0);
+
+    // Code borrowed from https://saurabhnativeblog.medium.com/react-30-project-3-building-a-digital-clock-app-with-react-js-3b198962e92c
+    useEffect(() => {
+      // timer updation logic
+      console.log('apple');
+      const timer = setInterval(() => {
+        updateTime(new Date());
+
+        updateHour(time.getHours());
+        console.log('apple2');
+        for( let i = 0; i < props.uvData.length; i++ ) {
+          console.log(`${i} ${hour}`)
+          if (i==hour) {
+              updateCurrentUV(props.uvData[i]);
+              console.log(currentUV);
+          }
+      }
+      }, 10000);
+      return () => clearInterval(timer);
+    }, []);
+
+    console.log(hour);
+
+
+    return (
+        <>
+        <div className='page-template-main-container'>
+            <header>
+                <div id='header-lead-container'>
+                    <img src={logo} alt="SunStop Logo" className='logo' />
+                    <div id='header-realtime-wrapper'>
+                      <div className="time-container">
+                          {/* print the string prettily */}
+                          <span className="time">{time.toLocaleTimeString(undefined, {timeStyle:'short', hour12: true})}</span>
+                      </div>
+                      <div className="head-uv-container">
+                          <span className={`material-symbols-rounded uv-warning-symbol`}>sunny</span>
+                          <div>
+                            <p>UV</p>
+                            <p>{currentUV}</p>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </header>
+            <div className="main-content">
+                <Outlet />
+            </div>
+        </div>
+        </>
+    );
+}
+
+/* CUT
+// Animate between pages, woo?
+function AnimationLayout(props) {
+  console.log(props);
   const { pathname } = useLocation();
   return (
-    <PageTemplate>
+    <PageTemplate uvData={props.uvData}>
 
         <Outlet />
 
     </PageTemplate>
   );
-};
+}; */
 
 function App() {
+  const [uvIndexData, setUvIndexData] = useState([]);
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(
+              'https://api.open-meteo.com/v1/forecast',
+              {
+                  params: {
+                  latitude: -33.8924,
+                  longitude: 151.1917,
+                  hourly: ['uv_index', 'temperature_2m'],
+                  timezone: 'Australia/Sydney',
+                  forecast_days: 1,
+                  },
+              }
+              );
+              
+              setUvIndexData(response.data.hourly.uv_index); 
+  
+          } catch (error) {
+              console.error("Error fetching data:", error);
+          }
+      };
+      fetchData();
+  }, []);
+  console.log(uvIndexData);
+
   return (
     <Router>
       {/* <PageTemplate> */}
         <Routes>
-          <Route element={<AnimationLayout />}> 
-            <Route path="/" element={<ScreenSaver />} /> 
+          <Route element={<PageTemplate uvData={uvIndexData}/>}> 
+            <Route path="/" element={<ScreenSaver uvData={uvIndexData}/>} /> 
               {/* User flow */}
               <Route path="/sign_up" element={<SignUp />} /> 
               <Route path="/verify" element={<Verify />} /> 

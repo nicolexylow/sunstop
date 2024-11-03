@@ -1,4 +1,4 @@
-import styles from '../scss/modules/HomeReward.module.scss';
+import styles from '../scss/modules/Dialog_Profile.module.scss';
 import { useState, useEffect, useRef } from 'react';
 
 
@@ -119,7 +119,7 @@ function RenderDialogMulti ({ rewards, children }) {
 */
 
 
-function HomeRewardDialog ( { rewards, children } ) {
+function Dialog_Profile ( { rewards, children } ) {
 
     const rewardsLength = rewards.length
     console.log(rewards)
@@ -145,4 +145,4 @@ function HomeRewardDialog ( { rewards, children } ) {
     }
 }
 
-export default HomeRewardDialog
+export default Dialog_Profile

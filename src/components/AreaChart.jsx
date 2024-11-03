@@ -30,7 +30,7 @@ function AreaChart({ data: uvData }) {
     // Get root CSS variables for colors
     const rootColours = getComputedStyle(document.documentElement);
     const sunstopColour = rootColours.getPropertyValue('--colour-sunstop').trim();
-    const backgroundColour = rootColours.getPropertyValue('--colour-template-bg').trim();
+    const backgroundColour = rootColours.getPropertyValue('--colour-surfaceB3-bg').trim();
     const secondaryColour = rootColours.getPropertyValue('--colour-secondary').trim();
 
     // Update current hour every minute
@@ -102,7 +102,8 @@ function AreaChart({ data: uvData }) {
                         xValue: currentHour,
                         yValue: currentUVIndex,
                         backgroundColor: sunstopColour, // Color for the point
-                        radius: 10, // Make the highlighted point size larger
+                        borderWidth: 0,
+                        radius: 11, // Make the highlighted point size larger
                     },
                     // Label showing the current UV index value above the highlighted point
                     pointLabel: {
@@ -112,10 +113,10 @@ function AreaChart({ data: uvData }) {
                         content: `${currentUVIndex}`, // Display the number above the circle
                         color: sunstopColour,
                         font: {
-                            size: 40,
-                            weight: 'bold',
+                            size: 60,
+                            weight: '700',
                         },
-                        yAdjust: 40, // Position label slightly above the highlighted point
+                        yAdjust: 80, // Position label slightly above the highlighted point
                     },
                 },
             },
