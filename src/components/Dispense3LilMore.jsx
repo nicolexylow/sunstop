@@ -1,4 +1,4 @@
-import PageTemplate from "./PageTemplate";
+//import PageTemplate from "./PageTemplate";
 import sunIcon from '../assets/sun_icon.png';
 import styles from '../scss/modules/DispenseLilMore.module.scss';
 import { useNavigate } from 'react-router-dom';

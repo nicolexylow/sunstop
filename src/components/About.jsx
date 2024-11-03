@@ -1,7 +1,7 @@
 import styles from '../scss/modules/About.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 
 // Imgs
 import imgAbout1 from '../assets/sign-up.png';

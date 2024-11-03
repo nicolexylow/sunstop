@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, forwardRef } from 'react';
 import AreaChart from './AreaChart';
 import { format } from 'date-fns';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 import logo from '../assets/SunStop_logo.png';
 
 const MyInput = forwardRef(function MyInput(props, ref) {

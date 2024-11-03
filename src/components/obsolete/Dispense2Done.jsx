@@ -1,7 +1,7 @@
 import styles from '../scss/modules/DispensePoints.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 
 /* 
 ###############

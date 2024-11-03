@@ -1,6 +1,6 @@
 import styles from '../scss/modules/Dispense.module.scss';
 import { useNavigate } from 'react-router-dom';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 import ButtonProfile from './ButtonProfile';
 
 

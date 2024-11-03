@@ -3,7 +3,7 @@ import styles from '../scss/modules/Verify.module.scss';
 import '../scss/global.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 import { useState, useEffect } from 'react';
 import store from 'store2';
 import axios from "axios";

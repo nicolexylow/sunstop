@@ -1,6 +1,6 @@
 import styles from '../scss/modules/DispenseActive.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PageTemplate from './PageTemplate';
+//import PageTemplate from './PageTemplate';
 import { useState } from 'react';
 import ButtonProfile from './ButtonProfile';
 
