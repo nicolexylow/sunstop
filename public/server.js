@@ -28,6 +28,7 @@ let testVar=false;
 // Grab local ip address, since probably going to be running this on local network
 // Genius idea from https://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js#comment120137862_8440736
 let localIP=[].concat(...Object.values(require('os').networkInterfaces())).find(x => !x.internal && x.family === 'IPv4')?.address;
+console.log(localIP);
 
 /* 
 ##################
@@ -52,12 +53,9 @@ const generateToken = (contact) => {
 // Grab our email template
 // Not too useful yet
 const emailHtml = (email) => {
+  console.log(email);
   return `
-  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->
-<html dir="ltr" lang="en"><a href="${email}" style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:0px 0px 0px 0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:NaN%;mso-text-raise:0" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:0">Click me</span><span><!--[if mso]><i style="mso-font-width:NaN%" hidden>&#8203;</i><![endif]--></span></a>
-
-</html>
-`}
+  Click the following link to verify your email:  ${email}`}
 console.log(emailHtml);
 
 // Nodemailer transporter
@@ -78,14 +76,16 @@ app.post("/api/send", (req, res) => {
 
   // Prepare claim handshake
   const token = generateToken(req.body.to);
+  console.log(token);
   const link = `${localIP}:8888/api/verify?token=${token}`;
+  console.log(emailHtml(link));
 
   // Email variables
   const mailOptions = {
       from: req.body.from,
       to: req.body.to,
       subject: req.body.subject,
-      html: emailHtml(link),
+      text: emailHtml(link),
   };
 
   // Beam me down Scotty!

@@ -46,7 +46,7 @@ const rewardItemsLength = rewardItems.length;
 let unredeemedLength = 0;
 
 
-if (!isLSValid(existingSignUpList)) {
+if ( !isLSValid(existingSignUpList) ) {
     // Fallback to default login if LS is empty
     userName = 'Chris';
     userPoints = 5;
