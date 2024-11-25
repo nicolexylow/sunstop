@@ -38,10 +38,11 @@ Colours
     // Tints
     --colour-tint-surface1: rgba(111, 63, 31, 0.5);
     --colour-tint-surface1-outline: rgba(110, 75, 51, 0.275);
-    --colour-tint-surface1-inactive: rgba(160, 146, 116, 0.05);
-    --colour-tint-surface1-inactive-outline: rgba(160, 146, 116, 0.25);
-    --colour-tint-surface1-inactive-txt: rgba(160, 146, 116, 1);
+    --colour-tint-surface1-inactive: rgba(160, 146, 116, 0.15);
+    --colour-tint-surface1-inactive-outline: rgba(160, 146, 116, 0.3);
+    --colour-tint-surface1-inactive-txt: rgb(148, 134, 104);
     --colour-tint-surface2: rgba(111, 63, 31, 0.5);
+    --colour-tint-surface2a: rgba(111, 63, 31, 0.65);
     --colour-tint-surface3: hsla(24, 65%, 35%, 0.75);
     --colour-tint-surface4: hsla(24, 92%, 36%, 0.85);
     --colour-tint-surface4a: hsla(24, 92%, 25%, 0.175);
@@ -61,7 +62,7 @@ Colours
     --colour-surface2-bg: color-mix(in srgb, white 75%, #{$base-surface} 12%);
     --colour-surface2-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 40%);
     --colour-surface2-outline: color-mix(in srgb, #{$base-secondary} 15%, var(--colour-surface2-bg) 25%);
-    --colour-surface3-bg: color-mix(in srgb, silver 3%, #{$base-surface} 10%);
+    --colour-surface3-bg: color-mix(in srgb, white 90%, #{$base-surface} 23%);
     --colour-surface3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surface} 35%);
     --colour-surface3-outline: color-mix(in srgb, #{$base-secondary} 25%, var(--colour-surface3-bg) 85%);
     --colour-surface4-bg: color-mix(in srgb, white 90%, #{$base-surface} 45%);
@@ -79,16 +80,20 @@ Colours
         --colour-surfaceB4-txt: color-mix(in srgb, #{$base-primary} 5%, #{$base-surfaceB} 20%);
 
     // Button
-    --colour-button-outline: #D5CCC6;
+    --colour-button-outline: color-mix(in srgb, black 5%, #{$base-secondary} 35%);
+    --colour-button-outline2: color-mix(in srgb, black 2%, #{$base-secondary} 15%);
     --colour-button-toned-bg: color-mix(in srgb, white 100%, #{$base-surfaceB} 75%);
     --colour-button-toned-txt: color-mix(in srgb, #{$base-tertiary} 60%, #{$base-sunstop2} 100%);
     --colour-button-outlined-bg: color-mix(in srgb, #{$base-quartenary} 25%, #{$base-sunstop} 10%);
     --colour-button-outlined-txt: color-mix(in srgb, #{$base-primary} 65%, #{$base-sunstop} 100%);
-
+    --colour-button-switch-inactive: color-mix(in srgb, silver 85%, #{$base-secondary} 35%);
+    --colour-button-switch-inactive-bg: color-mix(in srgb, silver 25%, var(--colour-surface1-bg) 100%);
 
     // Lighter text colours
     --colour-card1-txt: color-mix(in srgb, #{$base-secondary} 90%, silver 15%);
     --colour-card2-txt: color-mix(in srgb, #{$base-sunstop} 75%, black 25%);
     --colour-card3-txt: color-mix(in srgb, #{$base-primary} 100%, #{$base-surfaceB} 15%);
     --colour-card4-txt: color-mix(in srgb, #{$base-primary} 65%, #{$base-surfaceB} 20%);
+    --colour-card5-txt: color-mix(in srgb, #{$base-sunstop} 75%, black 45%);
+    --colour-card5a-txt: color-mix(in srgb, #{$base-sunstop} 100%, black 10%);
 }

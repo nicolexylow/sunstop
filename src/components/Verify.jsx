@@ -1,17 +1,21 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import styles from '../scss/modules/Verify.module.scss';
 import '../scss/global.scss';
-import backIcon from '../assets/back_icon.png';
-import cancelIcon from '../assets/cancel_icon.png';
 //import PageTemplate from './PageTemplate';
-import { useState, useEffect } from 'react';
-import store from 'store2';
+import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
+import store from 'store2'
+import { AuthContext } from './_AuthContext';
 
-let APICall = false;
+/* INIT LOCAL STORAGE */
+const existingSignUpList = store.get('signUpList');
+
+// Reset api check
+let loopAPIcheck = false;
+
 // Hoo boy submit email time
-async function initVerifyEmail(to) {
-    const navigate = useNavigate();
+async function initVerifyEmail(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId) {
+    const to = verifDetails.userContact;
     //const handleClick = async (e) => {
 
         console.log(`${to}`)
@@ -26,27 +30,59 @@ async function initVerifyEmail(to) {
             // VERIFICATION:
             // HACK HACK HACK, but my backend knowledge is lacking. Loop this API check 
             // every 1.5suntil the API route detects that the user has clicked the link,
-            // then waitForVerif() will positively charge the APICall variable 
-            while (!APICall) {
+            // then waitForVerif() will positively charge the loopAPIcheck variable 
+            while (!loopAPIcheck) {
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 waitForVerif();
             }
-            // Navigate to next page once verification is done!!
-            navigate('/confirm_verify');
-
+            // Reset loop once verified, start finalising new user, or log in existing user
+            finishVerify(verifDetails, navigate);
         } catch(err) {
             console.log(err);
         }
     //};
 }
 
+function finishVerify(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId) {
+    loopAPIcheck = false;
+    console.log('finishing verification...')
+    console.log(verifDetails)
+
+    //verifDetails = {userContact, userContactMethod, userExists, {IF userExists -> (userId)}}
+
+    // Either make new user and go to confirm_verify, or go to home if they exist
+    if (verifDetails.userExists) {
+        console.log('finishing verification...');
+        setCurrentUser(existingSignUpList[verifDetails.userId]);
+        setCurrentUserId(verifDetails.userId);
+        navigate('/home');
+    } else {
+        // Random id
+        const userId=Math.floor(Math.random() * Date.now()).toString(16);
+        console.log(userId);
+        const newUser = {
+            contact: verifDetails.userContact, 
+            name: 'Sunstop user', 
+            subscribed: false, 
+            points: 0, 
+            rewards: { shirt1: 'default', hat2: 'default', sung3: 'default', jump4: 'default' }
+        };
+        
+        let updatedSignUpList = {...existingSignUpList, [userId]:newUser};
+        console.log(updatedSignUpList);
+        store.set('signUpList', updatedSignUpList);
+
+        navigate('/confirm_verify');
+    };
+};
+
 // Check if user has clicked verif link
 async function waitForVerif() {
     try {
         await axios.get("/api/handle/verify");
-        // Once call is successful, set APICall to break while loop above
+        // Once call is successful, set loopAPIcheck to break while loop above
         console.log("Verif successful haha!");
-        APICall=true;
+        loopAPIcheck=true;
     } catch(err) {
         console.log(err);
     }
@@ -54,29 +90,29 @@ async function waitForVerif() {
 
 function initVerifyPhone() {
 
-}
+};
 
 function Verify() {
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext); 
+
     const navigate = useNavigate();
     const location = useLocation();
-    // Grabs two variables from last page:
-    // verifDetails.inputContact contains phone number or email string (from user)
-    // verifDetails.method contains 'phone' or 'email' string
+    // {userContact, userContactMethod, userExists, {IF userExists -> (userId)}}
     const verifDetails = location.state;
+
     console.log(verifDetails);
-    if ( verifDetails.method == "email") {
-        initVerifyEmail(verifDetails.inputContact);
-    } else if (verifDetails.method == "phone") {
-        initVerifyPhone(verifDetails.inputContact);
+    // Email or phone
+    if ( verifDetails.userContactMethod == "email") {
+        initVerifyEmail(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId);
+    } else if ( verifDetails.userContactMethod == "phone") {
+        initVerifyPhone(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId);
+    } else {
+        // Well there's some kind of error isn't there. Invalid characters perhaps?
     }
 
+    // Temp solution since phone handling no work
     const handleClick = () => {
-        localStorage.setItem('signUpList', JSON.stringify(signUpList));
-        const devSignUp = [...signUpList, {contact: 'developer', name: 'Chris', points: 400}];
-        localStorage.setItem('signUpList', JSON.stringify(devSignUp));
-        console.log('dev added...')
-        console.log(JSON.parse(localStorage.getItem('signUpList')))
-        navigate('/confirm_verify');
+        finishVerify(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId);
     }
 
     const handleBack = () => {
@@ -88,8 +124,6 @@ function Verify() {
     }
     
     const handleChangeDetails = () => {
-        let signUpList = JSON.parse(localStorage.getItem('signUpList'))
-        signUpList.pop()
         navigate('/sign_up');
     }
 
@@ -114,7 +148,7 @@ function Verify() {
                             <h1>Verify that it's you</h1>
                             <p> 
                                 Please confirm your identity by following the verification link we sent to 
-                                <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)', letterSpacing: '1px'}}> {verifDetails.inputContact}</strong>.
+                                <strong style={{display:'inline', fontWeight: '600', color: 'var(--colour-primary)', letterSpacing: '0.425px'}}> {verifDetails.userContact}</strong>.
                             </p>
                         </div>
                         <div className={styles['loader-wrapper']}>

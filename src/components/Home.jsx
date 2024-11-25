@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
 import Dialog_HomeReward from './Dialog_HomeReward';
 import ButtonProfile from './ButtonProfile';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from './_AuthContext';
 import store from "store2";
 
 // Imgs
@@ -21,63 +22,18 @@ import imgReward4 from '../assets/rewards/reward4.png';
 ## Variables ##
 ###############
 */
-// Get existing list
-const existingSignUpList = store.get('signUpList');
-// Test if it's not just an empty array (fallback for known issue)
-const isLSValid = (array) => {
-    if (array == null || array.length == 0) {
-        return false;
-    } else {
-        return true;
-    }
-};
-console.log(isLSValid(existingSignUpList));
-console.log(store.get('signUpList'))
 
-/* USER DETAILS */
-let currentUser;
-let userName;
-let userPoints;
-
-/* REWARDS */
-const rewardItems = [];
-const rewardItemsLength = rewardItems.length;
-// Check later if user has unredeemed rewards
-let unredeemedLength = 0;
-
-
-if ( !isLSValid(existingSignUpList) ) {
-    // Fallback to default login if LS is empty
-    userName = 'Chris';
-    userPoints = 5;
-} else {
-    // Populate page variables w/ user info
-    currentUser = existingSignUpList[0];
-    userName = currentUser.name;
-    userPoints = currentUser.points;
-
-    unredeemedLength = currentUser.unredeemed.length;
-    console.log(unredeemedLength);
-    for (let i = 0; i < unredeemedLength; i++) {
-        rewardItems.push(existingSignUpList[0].unredeemed[i])
-    }
-    console.log(rewardItems);
-    // Implement code to carry through user login state
-};
+// This season's milestones
+const milestoneArr = [
+    { item: 'shirt1', img: imgReward1, title: 'Sunstop T-Shirt', threshold: 200 },
+    { item: 'hat2', img: imgReward2, title: 'Sunstop Hat', threshold: 400 },
+    { item: 'sung3', img: imgReward3, title: 'Sunstop Sunglasses', threshold: 600 },
+    { item: 'jump4', img: imgReward4, title: 'Sunstop Jumper', threshold: 800 }
+];
 
 /* USER POINTS */
-// There are four milestones, reached at each multiple of 200 up to
-// 800 points
-const userPointsMax = 1000;
-// How many points has user gained?
-const userPointsGained = 20;
-// New points total
-const userPointsNew = userPoints + userPointsGained;
-
 // Total width of line container in html
 const lineWidthHTML = 1000;
-// Tracker line widthS
-let trackLineWidth = userPoints;
 
 
 /* 
@@ -86,68 +42,55 @@ let trackLineWidth = userPoints;
 ###########
 */
 
-function RenderScoreHead() {
+// User total points
+function RenderScoreHead( props ) {
+    console.log(props.userPoints);
     return (
         <>
             <div id={styles['points-total-container']}>
                 <h4>Total points</h4>
                 <layflags-rolling-number className={styles['points-total-dial']}>
-                    {userPointsNew}
+                    {props.userPoints}
                 </layflags-rolling-number>
             </div>
-            <h1 className={styles['points-gained']}>+{userPointsGained}</h1>
+            <h1 className={styles['points-gained']}>+{props.gainedPoints}</h1>
         </>
     )
 }
 
 // Milestone tracker stuff
-function InitTrackerMilestones() {
-    // How many milestones has user unlocked?
-    // This season's milestones
-    const milestoneArr = [
-        { item: '1shirt', img: imgReward1, title: 'Sunstop T-Shirt' },
-        { item: '2hat', img: imgReward2, title: 'Sunstop Hat' },
-        { item: '3sung', img: imgReward3, title: 'Sunstop Sunglasses' },
-        { item: '4jump', img: imgReward4, title: 'Sunstop Jumper' }
-    ];
+function InitTrackerMilestones( props ) {
+    const milestoneArrLen = milestoneArr.length;
+    // Length is total width of tracker line divided by total milestones
+    let milestoneWidth = lineWidthHTML / milestoneArrLen;
+    console.log(milestoneWidth)
 
-    const milestoneArrNo = milestoneArr.length;
-    console.log(milestoneArrNo);
-    console.log(lineWidthHTML / milestoneArrNo);
-    let milestoneWidth = lineWidthHTML / milestoneArrNo;
-
-    // HTML array
+    // Init HTML array for rewards
     const renderedMilestoneArr = [];
 
     // Pushing HTML elements to array
-    for (let i = 0; i < milestoneArrNo; i++) {
-        const iPoints = (i + 1) * 200;
+    for (let i = 0; i < milestoneArrLen; i++) {
+        // Multiply i by 200 to get reward tracker steps (we get a reward every 200 pts)
+        const key = milestoneArr[i].item;
 
         // Make first milestone a bit shorter
+        
         if (i == 0) {
-            milestoneWidth = (lineWidthHTML / milestoneArrNo) - 50;
+            milestoneWidth = (lineWidthHTML / milestoneArrLen) - 50;
         } else {
-            milestoneWidth = lineWidthHTML / milestoneArrNo;
-        }
+            milestoneWidth = lineWidthHTML / milestoneArrLen;
+        } 
 
-        // If we've reached the user has just reached the points 
-        // threshold, and it hasn't already been reached, push the
-        // active milestone HTML
-        if ((iPoints / userPointsNew) <= 1 && (iPoints / userPoints) >= 1) {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active', iPoints));
-            rewardItems.push(milestoneArr[i]);
-            console.log(rewardItems);
-            console.log(`+1`)
-        }
-        // If user reached milestone previously, push previously 
-        // redeemed milestone HTML
-        else if ((iPoints / userPoints) <= 1) {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'active-past', iPoints));
-        }
-        // Otherwise, push unredeemed milestone HTML
-        else {
-            renderedMilestoneArr.push(renderTrackerMilestone(milestoneWidth, `${i} ${milestoneArr[i].item}`, milestoneArr[i].img, 'default', iPoints));
-        }
+        // Add each milestone to html array
+        renderedMilestoneArr.push(
+            renderTrackerMilestone(
+                milestoneWidth, 
+                `${key}`, 
+                milestoneArr[i].img, 
+                milestoneArr[i].threshold, // points required label
+                props.userDetails.rewards, // reward state for class
+            )
+        );
     };
 
     return (
@@ -156,12 +99,11 @@ function InitTrackerMilestones() {
         </>
     );
 }
-function renderTrackerMilestone(lineWidthHTML, item, img, state, pointsRequired) {
-
+function renderTrackerMilestone(lineWidthHTML, item, img, pointsRequired, rewardStates) {
     return (
         <>
             {/* Wrap milestone elements */}
-            <div className={`${styles['milestone']} ${styles[state]}`} key={item} style={{ width: lineWidthHTML }}>
+            <div className={`${styles['milestone']} ${styles[rewardStates[item]]}`} key={item} style={{ width: lineWidthHTML }}>
                 {/* Icon w/ img */}
                 <div className={styles['milestone-icon-container']}>
                     <img src={img}></img>
@@ -178,18 +120,19 @@ function renderTrackerMilestone(lineWidthHTML, item, img, state, pointsRequired)
             </div>
         </>
     )
-}
+};
 
 // Update user points on head and tracker
 function initUserPointsUpdate() {
 
-}
+};
 function renderUserPointsUpdate() {
-}
-function RenderUserPointsLine() {
+
+};
+function RenderUserPointsLine( props ) {
     // Calculate line width based on user points/points max
     // For now, points are the same as max line width
-    trackLineWidth = userPointsNew;
+    let trackLineWidth = props.userDetails.points;
 
     return (
         <>
@@ -200,11 +143,11 @@ function RenderUserPointsLine() {
 };
 function initReward() {
 
-}
+};
 
 function initRedeem() {
 
-}
+};
 
 // Load our dialog which displays the great, cool reward dialog which totally didn't take
 // me a millenia to get working :)
@@ -239,13 +182,37 @@ function RenderDialog(props) {
     )
 }
 
-function RenderProfileBtn(props) {
-    console.log('rendering btn');
-    return (
-        <ButtonProfile>
+const updateCurrentUser = (setState, key, val, reward) => {
+    // If we're updating a reward (true/false), use different syntax
+    if(reward == 'UpdateReward') {
+        setState(prevState => ({
+            ...prevState,
+            rewards: {...prevState.rewards, [key]: val}
+        }));
+    } else {
+        setState(prevState => ({
+            ...prevState,
+            key: val
+        }));
+    }
+}
 
-        </ButtonProfile>
-    )
+// Handle updates to rewards based on gained points
+function initNewRewards( currentUser, setCurrentUser, oldPoints, newPoints ) {
+    // Run check for each reward
+    Object.values(currentUser.rewards).forEach(function(val,index) {
+        const threshold=milestoneArr[index].threshold
+        // Copy rewards object to edit
+        const newRewardsObj = currentUser.rewards;
+        // Maths: if the user has just reached the points threshold, and it hasn't already been reached, make reward active
+        if ( val == 'default' && (threshold / newPoints) <= 1 && (threshold / oldPoints) >= 1) {
+            console
+            updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active', 'UpdateReward');
+        }
+    });
+}
+function renderNewRewards( props ) {
+
 }
 
 /* 
@@ -254,11 +221,49 @@ function RenderProfileBtn(props) {
 ###############
 */
 
-function DispensePoints() {
-    const [isActive, setIsActive] = useState(false);
-    const [haveRewards, setHaveRewards] = useState(true);
+function Home( props ) {
+    // Setup users' details
+    // Context for current user
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext); console.log(currentUser);
 
-    //const test = RollingNumber();
+    console.log(typeof currentUser == 'undefined')
+    if ( typeof currentUser == 'undefined' ) {
+        const existingSignUpList = store.get('signUpList');
+        setCurrentUser(existingSignUpList.devUser);
+        console.log(existingSignUpList.devUser)
+        setCurrentUserId('devUser')
+        console.log(currentUser);
+    }
+
+    /*
+    useEffect(() => {
+        setCurrentUser(prevState => ({
+            ...prevState,
+            name: 'foo'
+        }));
+        console.log(currentUser);
+    }, []); */
+
+    // Points
+    const gainedPoints = 20;
+    const oldPoints = currentUser.points;
+    const [ newPoints, setNewPoints ] = useState(oldPoints + gainedPoints);
+
+
+    // Set new points from sunscreen dispense page
+    useEffect(() => {
+
+    }, []);
+
+    // Do we got rewards, to change btn state
+    const [ haveRewards, setHaveRewards ] = useState(true);
+    // Click redeem btn opens redeem dialog
+    const [isActive, setIsActive] = useState(false);
+
+    useEffect(() => {
+        initNewRewards( currentUser, setCurrentUser, oldPoints, newPoints );
+    }, []);
+
     // Navigation here
     const navigate = useNavigate();
     // Dispense btn
@@ -268,23 +273,23 @@ function DispensePoints() {
 
     return (
         <>
-            {/* <PageTemplate> */}
-            <RenderProfileBtn />
-            {/* Wrap content */}
+            {/* Profile btn*/}
+            <ButtonProfile/>
 
+            {/* Wrap content */}
             <main id={styles['main']}>
                 {/* Main head: User logon message, points */}
                 <div id={styles['main-head']}>
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-wrapper']}>
                         <div id={styles['points-container']}>
-                            <RenderScoreHead/>
+                            <RenderScoreHead userPoints={newPoints} gainedPoints={gainedPoints}/>
                         </div>
                     </div>
                     {/* */}
                     <div className={`hr-vert ${styles['head-divider']}`} style={{ height: '110px', backgroundColor: 'var(--colour-tint-surface4a)' }} />
                     <div id={styles['home-messaging-wrapper']}>
-                        <h3>Your skin thanks you, {userName}!</h3>
+                        <h3>Your skin thanks you, {currentUser.name}!</h3>
 
                         <h5>Have some rewards, on us.</h5>
                     </div>
@@ -295,15 +300,13 @@ function DispensePoints() {
                     {/* Our milestones sit here */}
                     <div id={styles['tracker-milestones-container']}>
                         {/* Insert row of milestones */}
-                        <InitTrackerMilestones/>
+                        <InitTrackerMilestones userDetails={currentUser}/>
                     </div>
                     <div id={styles['tracker-baseline-container']}>
                         {/* Baseline base */}
-                        <div id={styles['tracker-baseline']}>
-
-                        </div>
+                        <div id={styles['tracker-baseline']}/>
                         {/* Baseline active */}
-                        <RenderUserPointsLine/>
+                        <RenderUserPointsLine userDetails={currentUser}/>
                     </div>
                 </div>
                 {/* Reward/dispense buttons */}
@@ -348,9 +351,8 @@ function DispensePoints() {
                 <div id={styles['footer']}>
                 </div>
             </main>
-            {/* </PageTemplate> */}
         </>
     );
 }
 
-export default DispensePoints
+export default Home

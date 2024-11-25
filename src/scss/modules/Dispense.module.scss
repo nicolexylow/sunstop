@@ -54,14 +54,32 @@
 
         background-color: var(--colour-surfaceB2-bg);
         border-radius: 20px;
+        background-image: linear-gradient(rgb(0 0 0 / 0.0) 0 0);
+        background-blend-mode: luminosity;
         img {
             width: 170px;
             //mix-blend-mode: luminosity;
         }
         h2 {
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--colour-surfaceB2-txt);
+            margin-top: 5px;
+            margin-bottom: 15px;
+
+            font-size: 22px;
+            font-weight: 450;
+            letter-spacing: 0.5px;
+            color: var(--colour-card4-txt);
         }
     }
+        // Hover: a subtle active effect
+        .card-body:hover {
+            background-image: linear-gradient(rgba(148, 79, 5, 0.1) 0 0);
+
+            transition: background-image 0.1s;
+        }
+        // Active: a subtle click effect
+        .card-body:active {
+            background-image: linear-gradient(rgba(151, 66, 9, 0.2) 0 0);
+
+            transition: background-image 0.1s;
+        }
 }

@@ -1,28 +1,17 @@
 import styles from '../scss/modules/ScreenSaver.module.scss';
 import '../scss/global.scss'
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from './_AuthContext';
 import AreaChart from './AreaChart';
 import { format } from 'date-fns';
-//import PageTemplate from './PageTemplate';
-import logo from '../assets/SunStop_logo.png';
-
-const MyInput = forwardRef(function MyInput(props, ref) {
-    const { label, ...otherProps } = props;
-    return (
-      <label>
-        {label}
-        <input {...otherProps} ref={ref} />
-      </label>
-    );
-  });
+import store from "store2";
 
 function ScreenSaver( props ) {
-    const [currentHour, setCurrentHour] = useState(new Date().getHours()); // Get initial hour
     const [uvTimes, setUvTimes] = useState([]);
     const date = format(new Date(), "EEEE, do MMMM");
     const navigate = useNavigate();
-
+    console.log(props.uvData);
     useEffect(() => {
         if (props.uvData.length > 0) {
             getWarningTime(); 
@@ -54,7 +43,6 @@ function ScreenSaver( props ) {
 
     return (
         <>
-        {/* <PageTemplate> */}
             <div onClick={handleTap} className={styles['content-container']}>
             <div id={styles['main-head']}>
                 <div className={styles['words-container']}>
@@ -72,7 +60,10 @@ function ScreenSaver( props ) {
                     }
             </div>
                 <div className={styles['visuals']}>
-                    <AreaChart data={props.uvData}/>
+                    <div className={styles['chart-container']}>
+                        <h3>Current UV</h3>
+                        <AreaChart data={props.uvData}/>
+                    </div>
                     <button className={`btn-scnd ${styles['heading-section']}`}>
                     <span className={`material-symbols-rounded ${styles['tap-icon']}`}>touch_app</span>
                         <div id={styles['heading-secion-leadandtext']}>
@@ -84,7 +75,6 @@ function ScreenSaver( props ) {
                     </button>
                 </div>
             </div>
-        {/* </PageTemplate> */}
         </>
     );
 }

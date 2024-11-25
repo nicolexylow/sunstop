@@ -197,17 +197,17 @@
                     border-radius: 20px;
                 }
             }
-
+            // Points marker
             p.milestone-pointsreq {
                 text-align: center;
                 width: 40px;
-
+ 
                 position: relative;
                 bottom: 6px;
                 left: 20px;
 
                 font-size: 19px;
-                font-weight: 600;
+                font-weight: 500;
                 color: var(--colour-tint-surface3);
                 letter-spacing: 0.325px;
             }
@@ -215,7 +215,7 @@
         // DEFAULT STATE - lighter inactive colour, smaller,
         // half-transparent icon 
         .milestone.default { 
-            flex-grow: 25;
+            //flex-grow: 25;
             transition: all 1s ease-out;              
             .milestone-icon-container {
                 // Image
@@ -231,7 +231,7 @@
         }
         // ACTIVE STATE - darker colour, larger, full opacity icon
         .milestone.active { 
-            flex-grow: 25;
+            //flex-grow: 25;
             transition: all 1s ease-out;              
             .milestone-icon-container {
                 bottom: 15px;
@@ -244,6 +244,10 @@
                 }
             }
             .milestone-line-container {
+                .milestone-line {
+                    background-color: var(--colour-sunstop-bg);
+                    opacity: 1;
+                }
                 .milestone-endpoint {
                     width: 36px;
                     height: 36px;
@@ -251,13 +255,57 @@
                     bottom: 13px;
                     left: 18px;
 
+                    background-color: var(--colour-sunstop);
+                }
+            }
+            // Points marker
+            p.milestone-pointsreq {
+                text-align: center;
+                width: 50px;
+ 
+                position: relative;
+                bottom: 6px;
+                left: 25px;
+
+                font-size: 22px;
+                font-weight: 800;
+                color: var(--colour-sunstop);
+                letter-spacing: 0.325px;
+            }
+        }
+        // PAST MILESTONES NOT REDEEMED
+        .milestone.active-past {                
+            //flex-shrink: 5;
+            .milestone-icon-container {
+                opacity: 0.85;
+                background-color: var(--colour-sunstop-bg);
+                outline: none;
+            }
+
+            .milestone-line-container {
+                .milestone-endpoint {
+                    //bottom: 12px;
                     background-color: var(--colour-sunstop-bg);
                 }
             }
+            // Points marker
+            p.milestone-pointsreq {
+                text-align: center;
+                width: 40px;
+ 
+                position: relative;
+                bottom: 6px;
+                left: 20px;
+
+                font-size: 19px;
+                font-weight: 700;
+                color: var(--colour-sunstop-bg);
+                letter-spacing: 0.325px;
+            }
         }
         // MILESTONES ALREADY REDEEMED
-        .milestone.active-past {                
-            flex-shrink: 5;
+        .milestone.redeemed {                
+            //flex-shrink: 5;
             .milestone-icon-container {
                 background-color: var(--colour-tint-sunstop);
                 outline: none;

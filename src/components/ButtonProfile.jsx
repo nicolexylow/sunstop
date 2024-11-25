@@ -1,7 +1,7 @@
 import styles from '../scss/modules/ButtonProfile.module.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Dialog_Confirm from './Dialog_Confirm';
+import { AuthContext } from './_AuthContext';
 import store from "store2";
 
 /* 
@@ -9,37 +9,6 @@ import store from "store2";
 ## Variables ##
 ###############
 */
-// Get existing list
-const existingSignUpList = store.get('signUpList');
-// Test if it's not just an empty array (fallback for known issue)
-const isLSValid = (array) => {
-    if (array == null || array.length == 0) {
-        return false;
-    } else {
-        return true;
-    }
-};
-console.log(isLSValid(existingSignUpList));
-console.log(store.get('signUpList'))
-
-/* USER DETAILS */
-// Object
-let currentUser;
-// Individual key recall
-let userName;
-let userContact;
-
-
-if (!isLSValid(existingSignUpList)) {
-    // Fallback to default login if LS is empty
-    userName = 'Chris';
-} else {
-    // Populate page variables w/ user info
-    currentUser = existingSignUpList[0];
-    userName = currentUser.name;
-    userContact = currentUser.contact;
-    // Implement code to carry through user login state
-};
 
 /* SUBMIT HANDLING */
 // Genius validation expresions thanks to https://stackoverflow.com/a/13975255
@@ -64,44 +33,105 @@ const validatePhone = (value) => {
     // Complex but keeps browser compatibility
     return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
 }
-    const handleSubmit = (e) => {
-        e.preventDefault();
 
-        console.log(validateEmail(inputContact));
-        console.log(validatePhone(inputContact));
 
-        // Test if input is correct, if not then warn user input is incorrect
-        // Then navigate to verify page, letting it know which verification method user has chosen
-        if ( validateEmail(inputContact) ) {
-            navigate('/verify', { state: { inputContact, method: "email" } });
-        } else if ( validatePhone(inputContact)) {
-            navigate('/verify', { state: { inputContact, method: "phone" } });
-        } else {
-            // Add warning tooltip: "please add valid phone or phone number!"
-            return;
-        }
-    }
 
 function RenderEditDialog( props ) {
-    const [inputContact, setInputContact] = useState('');   
-    const [inputName, setInputName] = useState('');   
+    const [inputs, setInputs] = useState({name: '', contact: '', check: false});   
     const [btnActive, setBtnActive] = useState(`disabled`);
+    const [localUserDetailsChange, setLocalUserDetailsChange] = useState(props.userDetails)
+    const navigate = useNavigate();
+    console.log(props.editActive);
+
+    const updateCurrentUser = (key, val) => {
+        console.log(`${key} ${val}`)
+        setLocalUserDetailsChange(prevState => ({
+            ...prevState,
+            [key]: val
+        }));
+        console.log(localUserDetailsChange);
+    }
+
+    useEffect(() => {
+        props.setUserDetails(localUserDetailsChange);
+        console.log(props.userDetails);
+    }, [localUserDetailsChange]);
 
     // Log out btn
     const handleLogOutTap = () => {
         navigate('/');
         store.remove('currentUser');
     };
-    // Log out btn
-    const handleSubmit = () => {
-        navigate('/');
-        store.remove('currentUser');
+    const handleSubmit = (e) => {
+        console.log(e);
+        e.preventDefault();
+        // Check contact val, then check validity
+        if (inputs.contact != '') {
+            if (validateEmail(inputs.contact)) {
+                updateCurrentUser('contact', inputs.contact)
+            }
+            if (validatePhone(inputs.contact)) {
+                updateCurrentUser('contact', inputs.contact)
+            }
+        }
+        // Check name val
+        if (inputs.name != '') {
+            updateCurrentUser('name', inputs.name)
+        }
+        // Check subscribe val
+        if (inputs.check != props.userDetails.subcribed) {
+            updateCurrentUser('subscribed', inputs.check)
+        }
+    }
+    // Close our dialogue
+    const handleCloseTap = () => {
+        props.shareEditActive(false);
+    }
+
+    const handleChangeText = (e) => {
+        if ('value' in e.target) {
+            const { name, value } = e.target;
+            setInputs({
+                ...inputs,
+                [name]: value,
+            });
+        } else if ('checked' in e.target) {
+            const { name, checked } = e.target;
+            setInputs({
+                ...inputs,
+                [name]: checked,
+            });
+        }
+        console.log(e);
+            checkBtnAvailable();
     };
+
+    const handleChangeCheck = (e) => {
+        console.log(e);
+        const { name, checked } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: checked,
+        });
+    };
+
+    // Check our values if save btn is available
+    useEffect(() => {
+        checkBtnAvailable();
+    }, [inputs]);
+
+    const checkBtnAvailable = () => {
+        if (inputs.name == '' && inputs.contact == '' && inputs.check == '') {
+            setBtnActive(`disabled`);
+        } else {
+            setBtnActive(`enabled`);
+        }
+    }
 
     return (
         <>
-        <dialog>
-        <div className={`dialog-container ${styles['edit-dialog-container']}`}>
+        <dialog onClick={handleCloseTap}>
+        <div className={`dialog-container ${styles['edit-dialog-container']}`} onClick={e => e.stopPropagation()}>
             <div className={styles['head-container']}>
                 <h1>Edit profile</h1>
             </div>
@@ -111,52 +141,35 @@ function RenderEditDialog( props ) {
                         <label for='field-name'>Username</label>
                         <input 
                             type="text" 
-                            placeholder={userName}
+                            placeholder={props.userDetails.name}
                             id='field-name'
                             className='input-field' 
-                            value={inputName}
-                            onChange={(e) => {
-                                setInputName(e.target.value); 
-                                console.log(e.target.value); 
-                                if (e.target.value == '') {
-                                    setBtnActive(`disabled`);
-                                    console.log(e.target.value)
-                                } else {
-                                    setBtnActive(`enabled`);
-                                    console.log(e.target.value)
-                                }
-                            }} 
-                            required
+                            value={inputs.name}
+                            onChange={handleChangeText} 
+                            name="name"
                         /> 
-                        <label for='field-name'>Contact</label>
+                        <label for='field-contact'>Contact</label>
                         <input 
                             type="text" 
-                            placeholder={userContact} 
-                            id='field-name'
+                            placeholder={props.userDetails.contact} 
+                            id='field-contact'
                             className='input-field' 
-                            value={inputContact}
-                            onChange={(e) => {
-                                setInputContact(e.target.value); 
-                                console.log(e.target.value); 
-                                if (e.target.value == '') {
-                                    setBtnActive(`disabled`);
-                                    console.log(e.target.value)
-                                } else {
-                                    setBtnActive(`enabled`);
-                                    console.log(e.target.value)
-                                }
-                            }} 
-                            required
+                            value={inputs.contact}
+                            onChange={handleChangeText} 
+                            name="contact"
                         /> 
                         <label className={`input-checkbox-label ${styles['input-checkbox-subscribe']}`} >
                             <input 
                                 type="checkbox" 
                                 id='subscribe-check-verify'
                                 className='input-checkbox' 
-                                onChange={(e) => setInputName(e.target.value)} />
+                                onChange={handleChangeCheck} 
+                                name="check"
+                                />
                                 Get sunscreen application reminders every 2 hours when UV is high
                         </label>
                             <div className={styles['submit-button-container']}>
+                                <input className={`btn-txt ${styles['dialog-btn-cancel']}`} type="cancel" onClick={handleCloseTap} value="Cancel"/>
                                 <input className={`next-button ${btnActive}`} type="submit" value="Save"/>
                             </div>
                     </form>
@@ -169,6 +182,7 @@ function RenderEditDialog( props ) {
 }
 
 function RenderOverflowMenu( props ) {
+    const navigate = useNavigate();
     // Log out btn
     const handleLogOutTap = () => {
         navigate('/');
@@ -178,7 +192,6 @@ function RenderOverflowMenu( props ) {
     const handleEditTap = () => {
         props.shareActive2(true);
         props.shareActive(false);
-        console.log(shareActive2);
     };
 
     return (
@@ -199,7 +212,8 @@ function RenderOverflowMenu( props ) {
     )
 }
 
-function ButtonProfile( { rewards, children } ) {
+function ButtonProfile( props ) {
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext);    
     const [isOverflowActive, setOverflowActive] = useState(false);
     const [isEditActive, setEditActive] = useState(false);
 
@@ -207,7 +221,7 @@ function ButtonProfile( { rewards, children } ) {
         <>
         <button className={`btn-scnd ${styles['profile']}`} onClick={() => setOverflowActive( !isOverflowActive )}>
             <span className={`material-symbols-rounded`}>account_circle</span>
-            <p>{userName}</p>
+            <p>{currentUser.name}</p>
         </button>
         {isOverflowActive ? 
             <RenderOverflowMenu
@@ -218,8 +232,12 @@ function ButtonProfile( { rewards, children } ) {
         : null }
         {isEditActive ? 
             <RenderEditDialog
-            active={isEditActive}
-            shareActive={setEditActive}/>
+            editActive={isEditActive}
+            shareEditActive={setEditActive}
+            userDetails={currentUser}
+            setUserDetails={setCurrentUser}
+            emptyUserLogin={emptyUser}
+            />
         : null }
         </>
     )

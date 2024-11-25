@@ -1,23 +1,49 @@
 import styles from '../scss/modules/SignUp.module.scss';
 import backIcon from '../assets/back_icon.png';
 import cancelIcon from '../assets/cancel_icon.png';
-import '../scss/global.scss'
+import '../scss/global.scss';
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react';
-import store from 'store2'
-import { motion, AnimatePresence, easeOut } from "framer-motion"
+import { motion, AnimatePresence, easeOut } from "framer-motion";
 import { forwardRef } from 'react';
+
+/* LOCAL STORAGE */
+// Documentation for store2 localstorage handling can be found here:
+// https://www.npmjs.com/package/store2
+// --> Short version is no json parsing, just use store.get() and store.set()
+import store from 'store2'
+const existingSignUpList = store.get('signUpList');
+let existingSignUpListLen = 0;
+let existingUserIds;
+if ( existingSignUpList !== null ) {
+    existingUserIds = Object.keys(existingSignUpList);
+    existingSignUpListLen = existingUserIds.length;
+}
+
+function finishSignUpIn( userContact, userContactMethod, navigate ) {
+    console.log('begin')
+    console.log(existingSignUpList[existingUserIds])
+    console.log(existingSignUpListLen)
+    // Assumed guilty
+    let userExists = false;
+    let userId = 0;
+    // Check if existing user by cycling through object
+    for (let i = 0; i < existingSignUpListLen; i++ ) {
+        console.log(i);
+        console.log(existingSignUpList[existingUserIds[i]].contact)
+        // If contact matches, they're an existing user, send to next page knowing their id
+        if (existingSignUpList[existingUserIds[i]].contact = userContact) {
+            userExists = true;
+            userId=existingUserIds[i];
+            console.log(userId);
+        };
+    };
+    navigate('/verify', { state: { userContact, userContactMethod, userExists, userId } });
+};
 
 function SignUp() {
     const navigate = useNavigate();
 
-    console.log(store.get('signUpList'));
-    console.log(localStorage);
-
-    /* LOCAL STORAGE */
-    // Documentation for store2 localstorage handling can be found here:
-    // https://www.npmjs.com/package/store2
-    // --> Short version is no json parsing, just use store.get() and store.set()
     const [inputContact, setInputContact] = useState('');   
     const [signUpList, setSignUpList] = useState(store.get('signUpList'));
     console.log(signUpList)
@@ -45,23 +71,25 @@ function SignUp() {
         // Complex but keeps browser compatibility
         return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
     }
-        const handleSubmit = (e) => {
-            e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-            console.log(validateEmail(inputContact));
-            console.log(validatePhone(inputContact));
+        console.log(validateEmail(inputContact));
+        console.log(validatePhone(inputContact));
 
-            // Test if input is correct, if not then warn user input is incorrect
-            // Then navigate to verify page, letting it know which verification method user has chosen
-            if ( validateEmail(inputContact) ) {
-                navigate('/verify', { state: { inputContact, method: "email" } });
-            } else if ( validatePhone(inputContact)) {
-                navigate('/verify', { state: { inputContact, method: "phone" } });
-            } else {
-                // Add warning tooltip: "please add valid phone or phone number!"
-                return;
-            }
+
+
+        // Test if input is correct, if not then warn user input is incorrect
+        // Then navigate to verify page, letting it know which verification method user has chosen
+        if ( validateEmail(inputContact) ) {
+            finishSignUpIn( inputContact, "email", navigate);
+        } else if ( validatePhone(inputContact)) {
+            finishSignUpIn( inputContact, "phone", navigate );
+        } else {
+            // Add warning tooltip: "please add valid phone or phone number!"
+            return;
         }
+    }
 
     // Nav buttons
     const handleBack = () => {
@@ -122,7 +150,7 @@ function SignUp() {
                     variants={pageVariants}
                     transition={pageTransition}
                 >
-                    <div className={`center-container ${contentShifty ? `up` : null}`}>
+                    <div className={`center-container ${contentShifty}`}>
                         <div className={styles['content-container']}>
                             <div className='signup-head'>
                                 <h1>Log in or sign up</h1>
@@ -136,8 +164,8 @@ function SignUp() {
                                     className='input-field' 
                                     ref={inputRef}
                                     value={inputContact}
-                                    //onFocus={() => { setContentShifty(true); console.log(contentShifty)}}
-                                    //onBlur={() => { setContentShifty(false); console.log(contentShifty)}}
+                                    onFocus={() => { setContentShifty('up'); console.log(contentShifty)}}
+                                    onBlur={() => { setContentShifty('down'); console.log(contentShifty)}}
                                     onChange={(e) => {
                                         setInputContact(e.target.value); 
                                         console.log(e.target.value); 

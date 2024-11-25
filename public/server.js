@@ -22,7 +22,8 @@ const app = express();
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
-let testVar=false;
+// User is only verified once they've clicked the verif link, setting this var to true
+let isUserVerified=false;
 
 
 // Grab local ip address, since probably going to be running this on local network
@@ -162,14 +163,15 @@ app.get("/api/verify", (req, res) => {
     return;
   }  
   res.status(200).send("verfication successful");
-  testVar = true;
-  console.log(testVar)
+  isUserVerified = true;
+  console.log(isUserVerified)
 });
 
-
 app.get("/api/handle/verify", (req, res) => {
-  console.log(testVar)
-  if ( testVar == true) {
+  console.log(isUserVerified);
+  if ( isUserVerified == true) {
+    // Reset verif check and send confirmation of verif to frontend
+    isUserVerified = false;
     res.status(200).send("verfication successful");
   } else {
     res.status(401).send("unsuccessful");

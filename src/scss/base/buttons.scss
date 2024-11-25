@@ -136,7 +136,7 @@ button.btn-xl {
     font-weight: 500;
     border-radius: 50px;
     letter-spacing: 1px;
-    filter: drop-shadow(2px 3px 4px hsla(0, 0%, 0%, 0.15)) drop-shadow(1px 2px 1px hsla(0, 0%, 0%, 0.04));
+    filter: drop-shadow(2px 5px 4px hsla(0, 0%, 0%, 0.15)) drop-shadow(1px 2px 1px hsla(0, 0%, 0%, 0.08));
     p {
         text-align: left;
     }
@@ -263,43 +263,53 @@ input::placeholder {
 // Reset checkbox, thanks to https://moderncss.dev/pure-css-custom-checkbox-style/
 input[type="checkbox"] {
     appearance: none;
-    background-color: #fff;
+    background-color: var(--colour-button-switch-inactive-bg);
     margin: 0;
+    overflow: hidden;
 
     display: grid;
     place-content: center;
     
     font: inherit;
-    color: currentColor;
-    min-height: auto;
     padding: 15px;
-    width: 25px;
-    height: 25px;
-    border: 3px solid var(--colour-surfaceB2-txt);
-    border-radius: 4px;
+    min-width: 90px;
+    height: 57px;
+    border: 3px solid var(--colour-button-switch-inactive);
+    transition: 70ms all ease-out;
+
+    border-radius: 1000px;
 }
 input[type="checkbox"]::before {
-    content: "✔";
-    width: 30px;
-    height: 30px;
-    transform: scale(0);
-    transition: 120ms transform ease-out;
-    box-shadow: inset 30px 25px var(--colour-surfaceB2-txt);
-  }
-  input[type="checkbox"]:checked::before {
-    transform: scale(1);
-  }
+    content: ' ';
+    width: 32px;
+    height: 32px;
+    transform: translateX(-14px) scale(1);
+    transition: 70ms all ease-out;
+    box-shadow: inset 30px 25px var(--colour-button-switch-inactive);
+    border-radius: 100px;
+}
+    input[type="checkbox"]:checked {
+        border-color: var(--colour-sunstop-bg);
+        background-color: var(--colour-sunstop-bg);
+    }
+    input[type="checkbox"]:checked::before {
+        box-shadow: inset 30px 25px var(--colour-sunstop-txt);
+        transform: translateX(14px) scale(1.25);
+    }
     .input-checkbox-label{
+        padding: 10px 0px;
+        justify-content: space-between;
         //height: 30px;
         display: flex;
-        font-size: 20px;
         align-items: center;
         gap: 20px;
-        font-weight: 500;
-    }
-    .input-checkbox:hover {
-        background-image: none;
-    }
-    .input-checkbox:focus {
-        background-image: none;
+        h4 {
+            color: var(--colour-primary);
+            font-weight: 550;
+            font-size: 24px;
+        }
+        p {
+            max-width: 550px;
+            font-size: 20px;
+        }
     }

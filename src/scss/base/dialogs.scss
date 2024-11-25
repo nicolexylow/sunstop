@@ -28,7 +28,7 @@ dialog {
       
 // Dialog template
 .dialog-container {
-    max-width: 700px;
+    max-width: 800px;
     padding: 32px 40px 40px 40px;
 
     display: flex;
@@ -36,6 +36,7 @@ dialog {
     gap: 20px;
     
     border-radius: 40px;
+    z-index: 2000;
     background-color: var(--colour-surface1-bg);
     animation: flyIn ease-out 0.25s;
     .head-container {
@@ -59,7 +60,7 @@ dialog {
             padding: 50px 10px;
             flex-grow: 1;
 
-            font-size: 35px;
+            //font-size: 30px;
         }
     }
 }

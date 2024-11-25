@@ -6,6 +6,9 @@ import '../scss/global.scss';
 
 function ConfirmVerify() {
     const [inputName, setInputName] = useState('');
+    const [isSubcribed, setIsSubscribed] = useState(false);
+    
+    const [btnActive, setBtnActive] = useState(`disabled`);
 
     const navigate = useNavigate();
     const handleSubmit = (e) => {
@@ -18,11 +21,11 @@ function ConfirmVerify() {
         navigate('/dispense0');
     }
     const handleBack = () => {
-        navigate('/verify', { state: verifDetails } )
+        navigate('/');
     }
 
     const handleCancel = () => {
-        navigate('/', { state: verifDetails } )
+        navigate('/', { state: verifDetails } );
     }
 
     return (
@@ -41,30 +44,42 @@ function ConfirmVerify() {
                 </div>
                 
                 <div className='center-container'>
-                    <div className={styles['content-container']}>   
+                    <div className={styles['content-container']}>
                         <div className='signup-head'>
                             <h1>Verification complete!</h1>
                             <p>Welcome! If you like, you can add a short username we can refer to you by below.</p>  
-                        </div>     
+                        </div>
                         <form onSubmit={handleSubmit} className={styles['name-form']}>
                             <input 
                                 type="text" 
                                 placeholder='Username' 
                                 className={`input-field ${styles['input-field-name']}`} 
                                 value={inputName}
-                                onChange={(e) => setInputName(e.target.value)} 
-                                required />
+                                onChange={(e) => {
+                                    setInputName(e.target.value)
+                                    if (e.target.value == '') {
+                                        setBtnActive(`disabled`);
+                                        console.log(e.target.value)
+                                    } else {
+                                        setBtnActive(`enabled`);
+                                        console.log(e.target.value)
+                                    }
+                                }}/>
+
                             <label className={`input-checkbox-label ${styles['input-checkbox-subscribe']}`} >
+                            
+                            <div><h4>Application reminders</h4>
+                            <p>Send me sunscreen application reminders every 2 hours when UV is high</p></div>
                             <input 
                                 type="checkbox" 
                                 id='subscribe-check-verify'
                                 className='input-checkbox' 
-                                onChange={(e) => setInputName(e.target.value)} />
-                                Get sunscreen application reminders every 2 hours when UV is high
+                                onChange={(e) => setIsSubscribed(e.target.value)}/>
                             </label>
+
                             <div className={styles['submit-button-container']}>
                                 <input type="submit" value="No thanks" className={styles['nope-button']} />
-                                <input type="submit" value="Submit" className='next-button' />
+                                <input type="submit" value="Submit" className={`next-button ${btnActive}`} />
                             </div>
                         </form>
                     </div>

@@ -25,6 +25,9 @@ button.profile {
 }
     button.profile:hover {
         //border: 2px solid var(--colour-surface2-outline);
+        span {
+            font-variation-settings: 'FILL' 0;
+        }
     }
     button.profile:active {
         //border: 2px solid var(--colour-surface2-outline);
@@ -166,7 +169,7 @@ button.profile {
 
 // Edit profile dialog 
 .edit-dialog-container {
-    width: 600px;
+    width: 700px;
     .head-container {
         display: flex;
         flex-direction: column;
@@ -181,13 +184,19 @@ button.profile {
         form.edit-form {
             gap: 5px;
             label {
-                font-weight: 600;
-                font-size: 18px;
+                font-weight: 550;
+                font-size: 19px;
                 color: var(--colour-card4-txt);
             }
             .submit-button-container {
+                margin-top: 40px;
                 display: flex;
                 justify-content: flex-end;
+                gap: 20px;
+                input.dialog-btn-cancel {
+                    width: 230px;
+                    text-align: center;
+                }
             }
         }
     }

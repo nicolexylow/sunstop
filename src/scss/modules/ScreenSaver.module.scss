@@ -28,7 +28,7 @@
     //background-color: var(--colour-template-bg);
 
     #main-head {
-        height: 120px;
+        min-height: 120px;
         .words-container {
             margin-bottom: 10px;
             display: flex;
@@ -55,22 +55,41 @@
     height: 500px;
     gap: 50px;
 
+    .chart-container { 
+        margin-top: 30px;
+        h3 {
+            display: none;
+            font-size: 18px;
+            font-weight: 700;
+            margin-left: 58px;
+            color: var(--colour-card4-txt);
+        }
+        .area-chart-container {
+            padding: 15px 10px 40px 10px;
+        }
+    }
+
     button.heading-section {
+        margin-right: 20px;
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
         padding: 30px;
-        margin-bottom: 10px;
+        margin-bottom: 40px;
         height: 375px;
         gap: 0px;
-        background-color: var(--colour-surface2-bg);
-        filter: drop-shadow(2px 3px 4px hsla(0, 0%, 0%, 0.15)) drop-shadow(1px 2px 1px hsla(0, 0%, 0%, 0.04));                    
+
+        background-color: var(--colour-surface3-bg);
+        color: var(--colour-card5-txt);
+        filter: drop-shadow(3px 6px 5px hsla(0, 0%, 0%, 0.15)) drop-shadow(1px 2px 1px hsla(0, 0%, 0%, 0.08));      
+        animation: nudge 1.75s ease-out infinite;              
         .tap-icon {
             //display: block;
             text-align: right;
             font-size: 100px;
-            font-weight: 200px;
+            font-weight: 350;
             transform: rotate(-30deg);
             position: relative;
             bottom: 10px;
@@ -115,6 +134,12 @@
         }
     }
 }
+
+@keyframes nudge {
+    0% { transform: translateY(0px); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(0px); }
+  }
 
 .uv-warning {
     display: flex;
