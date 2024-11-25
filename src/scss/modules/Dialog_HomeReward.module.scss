@@ -1,3 +1,7 @@
+.reward-dialog-container {
+    max-width: 700px;
+}
+
 .head-container {
     display: flex;
     flex-direction: column;
@@ -26,4 +30,16 @@
 
 .desc-text {
     font-size: 24px;
+}
+
+// BUTTONS
+.dialog-btn-redeem {
+    gap: 20px;
+    background-color: var(--colour-sunstop);
+
+    color: var(--colour-sunstop-bg-txt2);
+    img {
+        width: 50px;
+        margin-bottom: 3px;
+    }
 }

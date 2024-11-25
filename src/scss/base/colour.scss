@@ -67,6 +67,8 @@ Colours
     --colour-surface3-outline: color-mix(in srgb, #{$base-secondary} 25%, var(--colour-surface3-bg) 85%);
     --colour-surface4-bg: color-mix(in srgb, white 90%, #{$base-surface} 45%);
     --colour-surface4-txt: color-mix(in srgb, #{$base-primary} 80%, #{$base-surface} 50%);
+    --colour-surface5-bg: color-mix(in srgb, white 90%, #{$base-surface} 55%);
+    --colour-surface4-txt: color-mix(in srgb, #{$base-primary} 80%, #{$base-surface} 50%);
         // Secondary surfaces
         --colour-surfaceB1-bg: color-mix(in srgb, white 35%, #{$base-surfaceB} 20%);
         --colour-surfaceB1-txt: color-mix(in srgb, #{$base-primary} 95%, #{$base-surfaceB} 15%);

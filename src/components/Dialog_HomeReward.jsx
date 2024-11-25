@@ -1,6 +1,6 @@
 import styles from '../scss/modules/Dialog_HomeReward.module.scss';
-import { useState, useEffect, useRef } from 'react';
-
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './_AuthContext';
 
 // Imgs
 import imgBtnReward from '../assets/btn-reward.png';
@@ -24,6 +24,22 @@ import imgReward4 from '../assets/rewards/reward4.png';
 ## Props ##
 ###########
 */
+
+const updateCurrentUser = (setState, key, val, reward) => {
+    // If we're updating a reward (true/false), use different syntax
+    if(reward == 'UpdateReward') {
+        setState(prevState => ({
+            ...prevState,
+            rewards: {...prevState.rewards, [key]: val}
+        }));
+    } else {
+        setState(prevState => ({
+            ...prevState,
+            key: val
+        }));
+    }
+}
+
 function RenderDialogSingle ({ rewards, children }) {
     return (
         <>
@@ -52,8 +68,27 @@ function RenderDialogSingle ({ rewards, children }) {
     );
 }
 
-function RenderDialogMulti ({ rewards, children }) {
-    const rewardsLength = rewards.length;  
+function RenderDialogMulti (props) {
+    const rewardsLength = props.rewards.length;  
+
+    // Individual reward clicky
+    const handleRewardClick = () => {
+        navigate('/');
+        
+    };
+    // Close our dialogue
+    const handleCloseTap = () => {
+        props.activeShare(false);
+    }
+    // Close our dialogue
+    const handleRedeemTap = () => {
+        for (let i = 0; i < rewardsLength; i++) {
+            updateCurrentUser(props.setCurrentUser, props.rewards[i].item, 'redeemed', 'UpdateReward');
+        }   
+
+        props.activeShare(false);
+        props.redeemRenderShare(false);
+    }
 
     const RenderRewardListing = (reward) => {
         return (
@@ -74,7 +109,7 @@ function RenderDialogMulti ({ rewards, children }) {
     const RenderRewards = () => {
         const rewardsDOM = [];
         for ( let i = 0; i < rewardsLength; i ++ ) {
-            rewardsDOM.push(RenderRewardListing(rewards[i]));
+            rewardsDOM.push(RenderRewardListing(props.rewards[i]));
         }
         return (
             <>
@@ -86,7 +121,7 @@ function RenderDialogMulti ({ rewards, children }) {
     return (
         <>
         <dialog>
-            <div className='dialog-container'>
+            <div className={`dialog-container ${styles['reward-dialog-container']}`}>
                 <div className={styles['head-container']}>
                     <h1>Redeem rewards</h1>
                     <p>You have multiple outstanding items to redeem. Open one from the list, or redeem all.</p>
@@ -104,7 +139,13 @@ function RenderDialogMulti ({ rewards, children }) {
                     </div>
                 </div>
                 <div className='btns-container'>
-                    {children}
+                    <button className={`btn-txt ${styles['dialog-btn-cancel']}`} onClick={handleCloseTap}>
+                        Cancel
+                    </button>
+                    <button className={`btn-prmry ${styles['dialog-btn-redeem']}`} onClick={handleRedeemTap}>
+                        <img src={imgBtnReward}/>
+                        Redeem All
+                    </button>
                 </div>
             </div>
         </dialog>
@@ -119,28 +160,35 @@ function RenderDialogMulti ({ rewards, children }) {
 */
 
 
-function Dialog_HomeReward ( { rewards, children } ) {
+function Dialog_HomeReward ( props ) {
+    console.log(props);
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext);
 
-    const rewardsLength = rewards.length
-    console.log(rewards)
+    const rewardsLength = props.rewards.length
+    console.log(props.rewards)
 
     // If we've only got one unredeemed reward, just return regular
     // single-reward dialog
     if (rewardsLength == 1) {
         return (
             <RenderDialogSingle
-            rewards={rewards[0]}
-            >
-                {children}
-            </RenderDialogSingle>
+            rewards={props.rewards[0]}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            activeShare={props.activeShare}
+            redeemRenderShare={redeemRenderShare}
+            />
         )
     } else {
         return (
             <RenderDialogMulti
-            rewards={rewards}
-            >
-                {children}
-            </RenderDialogMulti>
+            rewards={props.rewards}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            activeShare={props.activeShare}
+            redeemRenderShare={redeemRenderShare}
+            />
+
         )
     }
 }

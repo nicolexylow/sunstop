@@ -170,10 +170,13 @@ button.btn-prmry {
     height: 60px;
 
     font-size: 25px;
-    font-weight: 500;
+    font-weight: 450;
     background-color: var(--colour-sunstop2);
     color: var(--colour-sunstop-txt);
     border-radius: 30px;
+    img {
+        filter: brightness(0.95) contrast(1.05);
+    }
 }
 // Toned colour button
 button.btn-scnd {

@@ -132,7 +132,12 @@ function renderUserPointsUpdate() {
 function RenderUserPointsLine( props ) {
     // Calculate line width based on user points/points max
     // For now, points are the same as max line width
-    let trackLineWidth = props.userDetails.points;
+    let trackLineWidth;
+    if (props.userDetails.points < 200 )
+        trackLineWidth = props.userDetails.points
+    else {
+        trackLineWidth = props.userDetails.points * 1.155;
+    }
 
     return (
         <>
@@ -152,31 +157,48 @@ function initRedeem() {
 // Load our dialog which displays the great, cool reward dialog which totally didn't take
 // me a millenia to get working :)
 function RenderDialog(props) {
+    console.log(props.currentUser.rewards);
+    let poo = Object.keys(props.currentUser.rewards);
+    let newRewardsArr = [];
+
+    useEffect(() => {
+        Object.values(props.currentUser.rewards).forEach(function(val,index) {
+            console.log(poo[index]);
+            // Maths: if the user has just reached the points threshold, and it hasn't already been reached, make reward active
+            if ( val !== 'default' ) {
+                newRewardsArr.push(milestoneArr[index])
+                console.log(props.localRewards);
+            };
+            props.setLocalRewards(newRewardsArr);
+        });
+    }, [props.currentUser.rewards]);
+    
+    let newRewardsArrLen = newRewardsArr.length;
+
     // Close our dialogue
     const handleCloseTap = () => {
         props.activeShare(false);
     }
     // Close our dialogue
     const handleRedeemTap = () => {
+        if ( newRewardsArrLen == 1 ) {
+            localRewards[0]
+            updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active', 'UpdateReward');
+        }   
+
         props.activeShare(false);
-        props.rewardTestShare(false);
     }
     console.log('rendering dialog...')
-
-    console.log(unredeemedLength);
+    
     // Show dialog, and pass buttons to it
     return (
         <>
             <Dialog_HomeReward
-                rewards={props.rewards}
+                rewards={props.localRewards}
+                setRewards={props.setLocalRewards}
+                activeShare={props.activeShare}
+                redeemRenderShare={props.redeemRenderShare}
             >
-                <button className={`btn-txt ${styles['dialog-btn-cancel']}`} onClick={handleCloseTap}>
-                    Cancel
-                </button>
-                <button className={`btn-scnd ${styles['dialog-btn-redeem']}`} onClick={handleRedeemTap}>
-                    <img src={imgBtnReward}/>
-                    {rewardItemsLength == 1 ? `Redeem` : `Redeem all`}
-                </button>
             </Dialog_HomeReward>
         </>
     )
@@ -256,9 +278,11 @@ function Home( props ) {
     }, []);
 
     // Do we got rewards, to change btn state
-    const [ haveRewards, setHaveRewards ] = useState(true);
+    const [ haveRewards, setHaveRewards ] = useState(false);
     // Click redeem btn opens redeem dialog
     const [isActive, setIsActive] = useState(false);
+    // Local rewards handling
+    const [ rewards, setRewards ] = useState([]);
 
     useEffect(() => {
         initNewRewards( currentUser, setCurrentUser, oldPoints, newPoints );
@@ -289,9 +313,14 @@ function Home( props ) {
                     {/* */}
                     <div className={`hr-vert ${styles['head-divider']}`} style={{ height: '110px', backgroundColor: 'var(--colour-tint-surface4a)' }} />
                     <div id={styles['home-messaging-wrapper']}>
-                        <h3>Your skin thanks you, {currentUser.name}!</h3>
-
-                        <h5>Have some rewards, on us.</h5>
+                        {haveRewards ? 
+                            <h3> Your skin thanks you, {currentUser.name}!</h3>
+                        :   <h3> Welcome, {currentUser.name}!</h3> 
+                        }
+                        {haveRewards ? 
+                            <h5> Have some rewards, on us.</h5>
+                        :   null
+                        }
                     </div>
                 </div>
 
@@ -330,11 +359,12 @@ function Home( props ) {
 
                     {isActive ? 
                         <RenderDialog
-                            rewards={rewardItems}
+                            currentUser={currentUser}
                             active={isActive}
                             activeShare={setIsActive}
-                            rewardTest={haveRewards}
-                            rewardTestShare={setHaveRewards}
+                            redeemRenderShare={setHaveRewards}
+                            localRewards={rewards}
+                            setLocalRewards={setRewards}
                         />
                     : null }
                     <button
