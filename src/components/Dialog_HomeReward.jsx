@@ -184,7 +184,7 @@ function RenderDialogMulti (props) {
 
 function Dialog_HomeReward ( props ) {
     console.log(props);
-    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext);
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId } = useContext(AuthContext);
 
     const rewardsLength = props.rewards.length
     console.log(props.rewards)

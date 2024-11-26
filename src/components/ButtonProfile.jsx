@@ -213,7 +213,7 @@ function RenderOverflowMenu( props ) {
 }
 
 function ButtonProfile( props ) {
-    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext);    
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId } = useContext(AuthContext);    
     const [isOverflowActive, setOverflowActive] = useState(false);
     const [isEditActive, setEditActive] = useState(false);
 
@@ -236,7 +236,6 @@ function ButtonProfile( props ) {
             shareEditActive={setEditActive}
             userDetails={currentUser}
             setUserDetails={setCurrentUser}
-            emptyUserLogin={emptyUser}
             />
         : null }
         </>

@@ -93,7 +93,7 @@ function initVerifyPhone() {
 };
 
 function Verify() {
-    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext); 
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId } = useContext(AuthContext); 
 
     const navigate = useNavigate();
     const location = useLocation();

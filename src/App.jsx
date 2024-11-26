@@ -28,6 +28,7 @@ import { AuthProvider } from './components/_AuthContext';
 /* INIT LOCAL STORAGE */
 // Get existing list
 const existingSignUpList = store.get('signUpList');
+console.log(`${existingSignUpList} pie?`)
 
 // Check if list is empty, if so, plug in dev login and print deets, if not, just print deets
 if( existingSignUpList == null ) {
@@ -35,7 +36,7 @@ if( existingSignUpList == null ) {
   // Default dev login
   const devSignUp = {
     devUser: {
-      contact: import.meta.env.VITE_MY_EMAIL, 
+      contact: 'zeendercrew@gmail.com', 
       name: 'Developer', 
       subscribed: false, 
       points: 140, 
@@ -66,6 +67,7 @@ const pageTransition = {
   ease: 'ease-out',
   duration: 0.5
 }; 
+console.log(`ipad1`)
 
 import logo from './assets/SunStop_logo.png';
 function PageTemplate( props ) {
@@ -143,7 +145,8 @@ function App() {
   }, []);
   console.log(uvIndexData);
 
-  
+  console.log(`ipad2`)
+
 
   return (
     <Router>

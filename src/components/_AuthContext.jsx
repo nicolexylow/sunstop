@@ -20,10 +20,8 @@ const AuthProvider = () => {
     store.set('signUpList', updatedSignUpList);
   }, [currentUser] ) 
 
-  const emptyUser = () => setCurrentUser({});
-
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser, currentUserId, setCurrentUserId }}>
       <Outlet />
     </AuthContext.Provider>
   );

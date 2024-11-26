@@ -255,7 +255,7 @@ function Home( ) {
 
     // Setup users' details
     // Context for current user
-    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext); console.log(currentUser);
+    const { currentUser, setCurrentUser, currentUserId, setCurrentUserId } = useContext(AuthContext); console.log(currentUser);
 
     // Points
     const oldPoints = currentUser.points
