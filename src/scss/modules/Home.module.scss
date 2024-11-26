@@ -218,6 +218,14 @@
             //flex-grow: 25;
             transition: all 1s ease-out;              
             .milestone-icon-container {
+                .milestone-line {
+                    opacity: 1;
+                    height: 10px;
+        
+                    border-radius: 20px;
+                    background-color: var(--colour-surfaceB3-bg);
+                    z-index: 50;
+                }
                 // Image
                 img {
                     opacity: 0.65;
@@ -256,6 +264,7 @@
                     left: 18px;
 
                     background-color: var(--colour-sunstop);
+                    z-index: 100;
                 }
             }
             // Points marker

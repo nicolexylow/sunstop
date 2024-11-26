@@ -34,8 +34,6 @@ const validatePhone = (value) => {
     return typeof input.checkValidity === 'function' ? input.checkValidity() : /\S+@\S+\.\S+/.test(value);
 }
 
-
-
 function RenderEditDialog( props ) {
     const [inputs, setInputs] = useState({name: '', contact: '', check: false});   
     const [btnActive, setBtnActive] = useState(`disabled`);
@@ -82,6 +80,7 @@ function RenderEditDialog( props ) {
         if (inputs.check != props.userDetails.subcribed) {
             updateCurrentUser('subscribed', inputs.check)
         }
+        props.shareEditActive(false);
     }
     // Close our dialogue
     const handleCloseTap = () => {
@@ -159,6 +158,8 @@ function RenderEditDialog( props ) {
                             name="contact"
                         /> 
                         <label className={`input-checkbox-label ${styles['input-checkbox-subscribe']}`} >
+                            <div><h4>Application reminders</h4>
+                            <p>Send me sunscreen application reminders every 2 hours when UV is high</p></div>
                             <input 
                                 type="checkbox" 
                                 id='subscribe-check-verify'
@@ -166,7 +167,6 @@ function RenderEditDialog( props ) {
                                 onChange={handleChangeCheck} 
                                 name="check"
                                 />
-                                Get sunscreen application reminders every 2 hours when UV is high
                         </label>
                             <div className={styles['submit-button-container']}>
                                 <input className={`btn-txt ${styles['dialog-btn-cancel']}`} type="cancel" onClick={handleCloseTap} value="Cancel"/>

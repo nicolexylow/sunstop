@@ -1,5 +1,5 @@
 import styles from '../scss/modules/Home.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { RollingNumber } from '@layflags/rolling-number';
 import Dialog_HomeReward from './Dialog_HomeReward';
 import ButtonProfile from './ButtonProfile';
@@ -45,17 +45,28 @@ const lineWidthHTML = 1000;
 // User total points
 function RenderScoreHead( props ) {
     console.log(props.userPoints);
-    return (
-        <>
-            <div id={styles['points-total-container']}>
-                <h4>Total points</h4>
-                <layflags-rolling-number className={styles['points-total-dial']}>
+    if (props.gainedPoints != 0) {
+        return (
+            <>
+                <div id={styles['points-total-container']}>
+                    <h4>Total points</h4>
+                    <layflags-rolling-number className={styles['points-total-dial']}>
+                        {props.userPoints}
+                    </layflags-rolling-number>
+                </div>
+                <h1 className={styles['points-gained']}>+{props.gainedPoints}</h1>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <div id={styles['points-total-container']}>
+                    <h4>Total points</h4>
                     {props.userPoints}
-                </layflags-rolling-number>
-            </div>
-            <h1 className={styles['points-gained']}>+{props.gainedPoints}</h1>
-        </>
-    )
+                </div>
+            </>
+        )
+    }
 }
 
 // Milestone tracker stuff
@@ -74,11 +85,10 @@ function InitTrackerMilestones( props ) {
         const key = milestoneArr[i].item;
 
         // Make first milestone a bit shorter
-        
         if (i == 0) {
             milestoneWidth = (lineWidthHTML / milestoneArrLen) - 50;
         } else {
-            milestoneWidth = lineWidthHTML / milestoneArrLen;
+            milestoneWidth = 220;
         } 
 
         // Add each milestone to html array
@@ -136,7 +146,7 @@ function RenderUserPointsLine( props ) {
     if (props.userDetails.points < 200 )
         trackLineWidth = props.userDetails.points
     else {
-        trackLineWidth = props.userDetails.points * 1.155;
+        trackLineWidth = props.userDetails.points -20;
     }
 
     return (
@@ -145,13 +155,6 @@ function RenderUserPointsLine( props ) {
             </div>
         </>
     )
-};
-function initReward() {
-
-};
-
-function initRedeem() {
-
 };
 
 // Load our dialog which displays the great, cool reward dialog which totally didn't take
@@ -173,21 +176,6 @@ function RenderDialog(props) {
         });
     }, [props.currentUser.rewards]);
     
-    let newRewardsArrLen = newRewardsArr.length;
-
-    // Close our dialogue
-    const handleCloseTap = () => {
-        props.activeShare(false);
-    }
-    // Close our dialogue
-    const handleRedeemTap = () => {
-        if ( newRewardsArrLen == 1 ) {
-            localRewards[0]
-            updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active', 'UpdateReward');
-        }   
-
-        props.activeShare(false);
-    }
     console.log('rendering dialog...')
     
     // Show dialog, and pass buttons to it
@@ -214,27 +202,43 @@ const updateCurrentUser = (setState, key, val, reward) => {
     } else {
         setState(prevState => ({
             ...prevState,
-            key: val
+            [key]: val
         }));
     }
 }
 
-// Handle updates to rewards based on gained points
-function initNewRewards( currentUser, setCurrentUser, oldPoints, newPoints ) {
-    // Run check for each reward
-    Object.values(currentUser.rewards).forEach(function(val,index) {
-        const threshold=milestoneArr[index].threshold
-        // Copy rewards object to edit
-        const newRewardsObj = currentUser.rewards;
-        // Maths: if the user has just reached the points threshold, and it hasn't already been reached, make reward active
-        if ( val == 'default' && (threshold / newPoints) <= 1 && (threshold / oldPoints) >= 1) {
-            console
-            updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active', 'UpdateReward');
-        }
-    });
-}
-function renderNewRewards( props ) {
-
+// Handle updates to rewards based on gained points, only called if gained points
+function initRewards( currentUser, setCurrentUser, newPoints, setHaveRewards, setNewPoints, gainedPoints ) {
+    console.log(newPoints + gainedPoints);
+    console.log(currentUser.points);
+    const updatedPoints = newPoints + gainedPoints;
+    // Double check if we actually have new points
+    if (currentUser.points != updatedPoints) {
+        // Run check for each reward
+        Object.values(currentUser.rewards).forEach(function(val,index) {
+            const threshold=milestoneArr[index].threshold
+            // Copy rewards object to edit
+            const newRewardsObj = currentUser.rewards;
+            // Maths: if the user has just reached the points threshold, and it hasn't already been reached, make reward active
+            if ( val == 'default' && (threshold / newPoints) <= 1 && (threshold / currentUser.points) >= 1) {
+                // Find old actives and make them active-past 
+                Object.values(currentUser.rewards).forEach(function(val,index) {
+                    if ( val == 'active' ) {
+                        updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active-past', 'UpdateReward');
+                    };
+                });
+                updateCurrentUser(setCurrentUser, milestoneArr[index].item, 'active', 'UpdateReward');
+                setHaveRewards(true);
+            }
+        });
+        Object.values(currentUser.rewards).forEach(function(val,index) { 
+            if ( val == 'active' || val == 'active-past' ) {
+                console.log(val);
+                setHaveRewards(true);
+            };
+        });
+    }
+    setNewPoints( newPoints + gainedPoints)
 }
 
 /* 
@@ -243,57 +247,56 @@ function renderNewRewards( props ) {
 ###############
 */
 
-function Home( props ) {
+function Home( ) {
+    // Grab gained points, if applicable
+    const location = useLocation();
+    // Navigation here
+    const navigate = useNavigate();
+
     // Setup users' details
     // Context for current user
     const { currentUser, setCurrentUser, currentUserId, setCurrentUserId, emptyUser } = useContext(AuthContext); console.log(currentUser);
 
-    console.log(typeof currentUser == 'undefined')
-    if ( typeof currentUser == 'undefined' ) {
-        const existingSignUpList = store.get('signUpList');
-        setCurrentUser(existingSignUpList.devUser);
-        console.log(existingSignUpList.devUser)
-        setCurrentUserId('devUser')
-        console.log(currentUser);
-    }
-
-    /*
-    useEffect(() => {
-        setCurrentUser(prevState => ({
-            ...prevState,
-            name: 'foo'
-        }));
-        console.log(currentUser);
-    }, []); */
-
     // Points
-    const gainedPoints = 20;
-    const oldPoints = currentUser.points;
-    const [ newPoints, setNewPoints ] = useState(oldPoints + gainedPoints);
-
-
-    // Set new points from sunscreen dispense page
-    useEffect(() => {
-
-    }, []);
-
+    const oldPoints = currentUser.points
+    const [ newPoints, setNewPoints ] = useState(oldPoints);
+    
     // Do we got rewards, to change btn state
     const [ haveRewards, setHaveRewards ] = useState(false);
-    // Click redeem btn opens redeem dialog
-    const [isActive, setIsActive] = useState(false);
-    // Local rewards handling
-    const [ rewards, setRewards ] = useState([]);
+
+    console.log(oldPoints);
+
+    let gainedPoints = 0;
+    console.log(location.state);
+    if (location.state !== null) {
+        gainedPoints=location.state.pointsGained;
+    }
+    const renderedPoints = oldPoints + gainedPoints;
 
     useEffect(() => {
-        initNewRewards( currentUser, setCurrentUser, oldPoints, newPoints );
+        console.log(location.state);
+        if (location.state !== null) {
+            initRewards( currentUser, setCurrentUser, newPoints, setHaveRewards, setNewPoints, gainedPoints );
+        }
     }, []);
 
-    // Navigation here
-    const navigate = useNavigate();
+    console.log(haveRewards)
+    // Click redeem btn opens redeem dialog
+    const [ isActive, setIsActive ] = useState(false);
+    // Local rewards handling
+    const [ rewards, setRewards ] = useState([]);
+    
     // Dispense btn
     const handleDispenseTap = () => {
         navigate('/dispense0');
     }
+
+    console.log(newPoints);
+    useEffect(() => {
+        updateCurrentUser( setCurrentUser, 'points', newPoints);
+    }, [newPoints]);
+    console.log(newPoints);
+
 
     return (
         <>
@@ -307,7 +310,7 @@ function Home( props ) {
                     {/* Points total and rolling text dial to signify new points */}
                     <div id={styles['points-wrapper']}>
                         <div id={styles['points-container']}>
-                            <RenderScoreHead userPoints={newPoints} gainedPoints={gainedPoints}/>
+                            <RenderScoreHead userPoints={renderedPoints} gainedPoints={gainedPoints}/>
                         </div>
                     </div>
                     {/* */}

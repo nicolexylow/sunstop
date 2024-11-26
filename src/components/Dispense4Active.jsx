@@ -17,8 +17,10 @@ function RenderProfileBtn(props) {
 function Dispense4Active() {
     const navigate = useNavigate();
 
+    const pointsGained = 20;
+
     const handleSkip = () => {
-        navigate('/home');
+        navigate('/home', { state: { pointsGained } });
     }
 
     return (

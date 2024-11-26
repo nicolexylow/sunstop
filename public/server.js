@@ -28,8 +28,8 @@ let isUserVerified=false;
 
 // Grab local ip address, since probably going to be running this on local network
 // Genius idea from https://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js#comment120137862_8440736
-let localIP=[].concat(...Object.values(require('os').networkInterfaces())).find(x => !x.internal && x.family === 'IPv4')?.address;
-console.log(localIP);
+//let localIP=[].concat(...Object.values(require('os').networkInterfaces())).find(x => !x.internal && x.family === 'IPv4')?.address;
+//console.log(localIP);
 
 /* 
 ##################
@@ -78,7 +78,7 @@ app.post("/api/send", (req, res) => {
   // Prepare claim handshake
   const token = generateToken(req.body.to);
   console.log(token);
-  const link = `${localIP}:8888/api/verify?token=${token}`;
+  const link = `${process.env.WEB_LINK}/api/verify?token=${token}`;
   console.log(emailHtml(link));
 
   // Email variables

@@ -35,11 +35,11 @@ if( existingSignUpList == null ) {
   // Default dev login
   const devSignUp = {
     devUser: {
-      contact: 'dev@dev', 
+      contact: import.meta.env.VITE_MY_EMAIL, 
       name: 'Developer', 
       subscribed: false, 
-      points: 380, 
-      rewards: { shirt1: 'active-past', hat2: 'default', sung3: 'default', jump4: 'default' }
+      points: 140, 
+      rewards: { shirt1: 'default', hat2: 'default', sung3: 'default', jump4: 'default' }
     }
   };
   // Sets local storage

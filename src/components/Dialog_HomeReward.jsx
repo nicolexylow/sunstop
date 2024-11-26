@@ -40,7 +40,24 @@ const updateCurrentUser = (setState, key, val, reward) => {
     }
 }
 
-function RenderDialogSingle ({ rewards, children }) {
+function RenderDialogSingle (props) {
+
+    // Individual reward clicky
+    const handleRewardClick = () => {
+        navigate('/');
+    };
+    // Close our dialogue
+    const handleCloseTap = () => {
+        props.activeShare(false);
+    }
+    // Close our dialogue
+    const handleRedeemTap = () => {
+        updateCurrentUser(props.setCurrentUser, props.rewards.item, 'redeemed', 'UpdateReward');
+
+        props.activeShare(false);
+        props.redeemRenderShare(false);
+    }
+
     return (
         <>
         <dialog>
@@ -50,8 +67,8 @@ function RenderDialogSingle ({ rewards, children }) {
                 </div>
                 <div className='content-container'>
                     <div className={styles['reward-wrapper']}>
-                        <img className={styles['reward-img']} src={rewards.img}></img>
-                        <h3 className={styles['reward-title']}>{rewards.title}</h3>
+                        <img className={styles['reward-img']} src={props.rewards.img}></img>
+                        <h3 className={styles['reward-title']}>{props.rewards.title}</h3>
                     </div>
                     <div>
                         <p className={styles['desc-text']}>
@@ -60,7 +77,13 @@ function RenderDialogSingle ({ rewards, children }) {
                     </div>
                 </div>
                 <div className='btns-container'>
-                    {children}
+                    <button className={`btn-txt ${styles['dialog-btn-cancel']}`} onClick={handleCloseTap}>
+                        Cancel
+                    </button>
+                    <button className={`btn-prmry ${styles['dialog-btn-redeem']}`} onClick={handleRedeemTap}>
+                        <img src={imgBtnReward}/>
+                        Redeem All
+                    </button>
                 </div>
             </div>
         </dialog>
@@ -73,8 +96,7 @@ function RenderDialogMulti (props) {
 
     // Individual reward clicky
     const handleRewardClick = () => {
-        navigate('/');
-        
+        RenderDialogSingle();
     };
     // Close our dialogue
     const handleCloseTap = () => {
@@ -124,7 +146,7 @@ function RenderDialogMulti (props) {
             <div className={`dialog-container ${styles['reward-dialog-container']}`}>
                 <div className={styles['head-container']}>
                     <h1>Redeem rewards</h1>
-                    <p>You have multiple outstanding items to redeem. Open one from the list, or redeem all.</p>
+                    <p>You have multiple outstanding items to redeem.</p>
                 </div>
                 <div className='content-container'>
                     <div className='rewards-list-container'>
@@ -176,7 +198,7 @@ function Dialog_HomeReward ( props ) {
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
             activeShare={props.activeShare}
-            redeemRenderShare={redeemRenderShare}
+            redeemRenderShare={props.redeemRenderShare}
             />
         )
     } else {
@@ -186,7 +208,7 @@ function Dialog_HomeReward ( props ) {
             currentUser={currentUser}
             setCurrentUser={setCurrentUser}
             activeShare={props.activeShare}
-            redeemRenderShare={redeemRenderShare}
+            redeemRenderShare={props.redeemRenderShare}
             />
 
         )

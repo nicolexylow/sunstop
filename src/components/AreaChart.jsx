@@ -25,7 +25,15 @@ ChartJS.register(
 
 function AreaChart({ data: uvData }) {
     const [currentHour, setCurrentHour] = useState(new Date().getHours());
+    console.log(currentHour);
+
     const currentUVIndex = uvData[currentHour] || 0;
+    const uvIndexRound = currentUVIndex.toFixed(1);
+    
+    //const uvDataRounded = uvData.map(function(each_element){
+    //    return Number(each_element.toFixed(1));
+    //});
+    
     console.log(uvData);
     // AM/PM format time
     const editedTimes = ['12am','1am','2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm'];
@@ -49,6 +57,7 @@ function AreaChart({ data: uvData }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentHour(new Date().getHours());
+            console.log(currentHour);
         }, 60000);
 
         return () => clearInterval(interval);
@@ -97,6 +106,40 @@ function AreaChart({ data: uvData }) {
         ],
     };
 
+    // Test which side our marker should be on
+    const flipMarkerPos = () => {
+        const testPos = uvData[currentHour - 1] - uvData[currentHour]
+        if ( Math.sign(testPos) == 1 || currentHour >= 16 ) {
+            if ( uvData[currentHour] < 2 ) {
+            return 40;
+            } else {
+                return 60
+            }
+        } else {
+            if ( uvData[currentHour] < 2 ) {
+                return -40;
+            } else {
+                return -60
+            }
+        }
+    }
+    // Style marker based on UV strength
+    const testMarkerStrength = () => {
+        if ( uvData[currentHour] < 2 ) {
+            return 30;
+        } else {
+            return 55;
+        }
+    }
+    // Style marker based on UV strength
+    const testMarkerColor = () => {
+        if ( uvData[currentHour] < 2 ) {
+            return tickColour;
+        } else {
+            return sunstopColour;
+        }
+    }
+
     // Chart options configuration with annotations
     const options = {
         responsive: true,
@@ -113,15 +156,26 @@ function AreaChart({ data: uvData }) {
             },
             annotation: {
                 annotations: {
+                    // UV limit line
+                    yUVLimit: {
+                        type: 'box',
+                        xMin: 0,
+                        xMax: 24,
+                        yMin: 2,
+                        yMax: 2,
+                        borderColor: 'rgba(110, 79, 65, 0.15)', 
+                        borderWidth: 1,
+                        //borderDash: [6, 8],
+                    },
                     // Dotted line from the point to the X-axis
                     xDottedLine: {
                         type: 'line',
                         xMin: currentHour,
                         xMax: currentHour,
                         yMin: 0,
-                        yMax: currentUVIndex,
+                        yMax: currentUVIndex - 0.1875,
                         borderColor: 'rgba(165, 42, 42, 0.5)', // Brown dotted line color
-                        borderWidth: 1,
+                        borderWidth: 0,
                         borderDash: [6, 8],
                     },
                     // Dotted line from the point to the Y-axis
@@ -140,24 +194,55 @@ function AreaChart({ data: uvData }) {
                         type: 'point',
                         xValue: currentHour,
                         yValue: currentUVIndex,
-                        backgroundColor: sunstopColour, // Color for the point
-                        borderColor: backgroundColour1b,
+                        backgroundColor: testMarkerColor(), // Color for the point
+                        borderColor: backgroundColour1,
                         borderWidth: 4,
-                        radius: 9, // Make the highlighted point size larger
+                        radius: 10, // Make the highlighted point size larger
                     },
-                    // Label showing the current UV index value above the highlighted point
+                    // Label showing the current UV index value left/right of highlighted point
                     pointLabel: {
                         type: 'label',
                         xValue: currentHour,
                         yValue: currentUVIndex,
-                        content: `${currentUVIndex}`, // Display the number above the circle
-                        color: sunstopColour,
+                        content: `${uvIndexRound}`, // Display the number above the circle
+                        color: testMarkerColor(),
+                        borderShadowColor: 'black',
+                        shadowBlur: 3,
+                        shadowOffsetX: 1,
+                        shadowOffsetY: 1,
                         font: {
-                            size: 65,
+                            size: testMarkerStrength(),
                             weight: '700',
                             family: 'Inter'
                         },
-                        yAdjust: 60, // Position label slightly above the highlighted point
+                        xAdjust: flipMarkerPos(), // Position left of marker
+                        yAdjust: 1.5, 
+                    },
+                    // Label for safe UV level
+                    safeLabel: {
+                        type: 'label',
+                        xValue: 2.8,
+                        yValue: 1.65,
+                        content: `Safe`, // Display the number above the circle
+                        color: axesColour,
+                        font: {
+                            size: 12,
+                            weight: '600',
+                            family: 'Inter'
+                        },
+                    },
+                    // Label for bad UV level
+                    badLabel: {
+                        type: 'label',
+                        xValue: 2.8,
+                        yValue: 2.3,
+                        content: `High`, // Display the number above the circle
+                        color: tickColour,
+                        font: {
+                            size: 12,
+                            weight: '600',
+                            family: 'Inter'
+                        },
                     },
                 },
             },
@@ -215,7 +300,8 @@ function AreaChart({ data: uvData }) {
                     text: 'UV',    // Sets the Y-axis label text
                     color: tickColour, // Optional: set color for the label
                     font: { size: 18, weight: 650, family: 'Inter' }, // Optional: customize font style
-                    padding: 20
+                    padding: 20,
+                    labelRotation : 45
                 },
             },
         },

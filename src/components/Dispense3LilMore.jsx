@@ -21,8 +21,10 @@ function Dispense3LilMore() {
         navigate('/dispense4_active')
     }
 
+    const pointsGained = 20;
+
     const handleFinish = () => {
-        navigate('/home');
+        navigate('/home', { state: { pointsGained } });
     }
 
     return (
