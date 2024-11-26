@@ -158,7 +158,7 @@ function DispenseActive() {
                 {/* H1, sub */}
                 <div id={styles['main-head']}>
                     <div id={styles['main-title']}> 
-                        <button className="btn-icon">
+                        <button className="btn-icon" onClick={handleBkTap}>
                             <span class="material-symbols-rounded">arrow_back</span>
                         </button>
                         <h1>Dispensing sunscreen</h1>

@@ -220,7 +220,7 @@ function initRewards( currentUser, setCurrentUser, newPoints, setHaveRewards, se
             // Copy rewards object to edit
             const newRewardsObj = currentUser.rewards;
             // Maths: if the user has just reached the points threshold, and it hasn't already been reached, make reward active
-            if ( val == 'default' && (threshold / newPoints) <= 1 && (threshold / currentUser.points) >= 1) {
+            if ( val == 'default' && (threshold / updatedPoints) <= 1 && (threshold / updatedPoints) >= 1) {
                 // Find old actives and make them active-past 
                 Object.values(currentUser.rewards).forEach(function(val,index) {
                     if ( val == 'active' ) {
