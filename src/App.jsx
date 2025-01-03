@@ -16,7 +16,7 @@ import imgReward1 from './assets/rewards/reward1.png';
 
 import { format } from 'date-fns';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion"
 import axios from 'axios';
@@ -149,7 +149,7 @@ function App() {
 
 
   return (
-    <Router>
+    <BrowserRouter basename="/sunstop/">
         <Routes>
           {/* PageTemplate wrapper with props for time and UV */}
           <Route element={<PageTemplate uvData={uvIndexData}/>}> 
@@ -169,7 +169,7 @@ function App() {
               </Route>
           </Route>
         </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
