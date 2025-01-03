@@ -15,6 +15,7 @@ let loopAPIcheck = false;
 
 // Hoo boy submit email time
 async function initVerifyEmail(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId) {
+    /* Cut for gh pages build
     const to = verifDetails.userContact;
     //const handleClick = async (e) => {
 
@@ -41,6 +42,8 @@ async function initVerifyEmail(verifDetails, navigate, currentUser, setCurrentUs
             console.log(err);
         }
     //};
+    */
+    return;
 }
 
 function finishVerify(verifDetails, navigate, currentUser, setCurrentUser, currentUserId, setCurrentUserId) {
@@ -78,6 +81,7 @@ function finishVerify(verifDetails, navigate, currentUser, setCurrentUser, curre
 
 // Check if user has clicked verif link
 async function waitForVerif() {
+    /* Cut for gh pages build
     try {
         await axios.get("/api/handle/verify");
         // Once call is successful, set loopAPIcheck to break while loop above
@@ -86,6 +90,8 @@ async function waitForVerif() {
     } catch(err) {
         console.log(err);
     }
+    */
+    return;
 };
 
 function initVerifyPhone() {

@@ -22,8 +22,6 @@ if ( existingSignUpList !== null ) {
 
 function finishSignUpIn( userContact, userContactMethod, navigate ) {
     console.log('begin')
-    console.log(existingSignUpList[existingUserIds])
-    console.log(existingSignUpListLen)
     // Assumed guilty
     let userExists = false;
     let userId = 0;

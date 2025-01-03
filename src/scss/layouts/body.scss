@@ -9,10 +9,6 @@ main {
     flex-direction: column;
 }
 
-#root {
-    height: 100%;
-}
-
 // Shift signup flow containers up when typing
 .center-container.up {
     animation: transformUp 0.15s ease-out forwards;

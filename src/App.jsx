@@ -36,7 +36,7 @@ if( existingSignUpList == null ) {
   // Default dev login
   const devSignUp = {
     devUser: {
-      contact: 'zeendercrew@gmail.com', 
+      contact: 'developer@sunstop.com', 
       name: 'Developer', 
       subscribed: false, 
       points: 140, 

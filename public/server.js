@@ -66,7 +66,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: 'sunstopverify@gmail.com',
+    user: process.env.EMAIL_ADDY,
     pass: process.env.EMAIL_PASS,
   },
 });
