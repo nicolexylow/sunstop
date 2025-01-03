@@ -18,7 +18,7 @@ let existingUserIds;
 if ( existingSignUpList !== null ) {
     existingUserIds = Object.keys(existingSignUpList);
     existingSignUpListLen = existingUserIds.length;
-}
+};
 
 function finishSignUpIn( userContact, userContactMethod, navigate ) {
     console.log('begin')
@@ -28,10 +28,13 @@ function finishSignUpIn( userContact, userContactMethod, navigate ) {
     // Check if existing user by cycling through object
     for (let i = 0; i < existingSignUpListLen; i++ ) {
         console.log(i);
-        console.log(existingSignUpList[existingUserIds[i]].contact)
+        console.log(userContact);
+        console.log(existingSignUpList[existingUserIds[i]].contact);
+        console.log()
         // If contact matches, they're an existing user, send to next page knowing their id
-        if (existingSignUpList[existingUserIds[i]].contact = userContact) {
+        if (existingSignUpList[existingUserIds[i]].contact === userContact) {
             userExists = true;
+            console.log(userExists);
             userId=existingUserIds[i];
             console.log(userId);
         };
